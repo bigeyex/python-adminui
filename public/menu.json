@@ -1,0 +1,27 @@
+[
+    {
+      "path": "/",
+      "name": "Home",
+      "icon": "dashboard",
+      "component": "./index",
+      "children": [
+        {
+          "path": "/welcome",
+          "name": "analysis",
+          "component": "./index"
+        },
+        {
+          "path": "/monitor",
+          "name": "monitor",
+          "component": "./index",
+          "exact": true
+        },
+        {
+          "path": "/workplace",
+          "name": "workplace",
+          "component": "./index",
+          "exact": true
+        }
+      ]
+    }
+  ]

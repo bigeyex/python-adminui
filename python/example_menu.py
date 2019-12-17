@@ -17,5 +17,15 @@ def form_page():
         ])
     ]
 
+app.add_menu(
+    [
+        MenuItem('Home', '/', children=[
+            MenuItem('New Item', '/new'),
+            MenuItem('Search for Item', '/search'),
+            MenuItem('Admin', '/admin')
+        ])
+    ]
+)
+
 if __name__ == '__main__':
     app.run()

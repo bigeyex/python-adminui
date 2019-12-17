@@ -1,9 +1,10 @@
 from .element import Element
+from .app import callbackRegistry
 
 class Form(Element):
     def __init__(self, content=None, on_submit=None):
-        self.on_submit = on_submit
-        super().__init__('Form', content=content, saved=True)
+        on_submit_uuid = callbackRegistry.uuid_for_callback(on_submit)
+        super().__init__('Form', content=content, on_submit=on_submit_uuid)
 
 class TextField(Element):
     def __init__(self, title, name=None, required=False):
@@ -27,11 +28,11 @@ class SubmitButton(Element):
 
 class Button(Element):
     def __init__(self, title="Go", style=None, on_click=None, link_to=None):
-        self.on_click = on_click
-        super().__init__('Button', title=title, style=style, link_to=link_to, saved=True)
+        on_click_uuid = callbackRegistry.uuid_for_callback(on_click)
+        super().__init__('Button', title=title, style=style, link_to=link_to, on_click=on_click_uuid)
 
 class Link(Element):
     def __init__(self, title="Action", on_click=None, link_to=None):
-        self.on_click = on_click
-        super().__init__('Link', title=title, link_to=link_to, saved=True)
+        on_click_uuid = callbackRegistry.uuid_for_callback(on_click)
+        super().__init__('Link', title=title, link_to=link_to, on_click=on_click_uuid)
 

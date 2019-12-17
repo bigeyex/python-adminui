@@ -9,9 +9,3 @@ class Page:
             'name': self.name,
             'content': [x.as_dict() for x in self.content]
         }
-    
-    def saved_items(self):
-        result = {}
-        for item in self.content:
-            result.update(item.saved_items())
-        return result

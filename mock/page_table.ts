@@ -26,86 +26,99 @@ export default {
                                 "title": "Updated At"
                             }
                         ],
-                        "data": [
-                            {
-                                "callNo": 208,
-                                "desc": "Description of Operation",
-                                "id": 1,
-                                "name": "Alpha",
-                                "status": 1,
-                                "updatedAt": "2019-12-16"
-                            },
-                            {
-                                "callNo": 360,
-                                "desc": "Description of Operation",
-                                "id": 2,
-                                "name": "Alpha",
-                                "status": 1,
-                                "updatedAt": "2019-12-26"
-                            },
-                            {
-                                "callNo": 232,
-                                "desc": "Description of Operation",
-                                "id": 3,
-                                "name": "Alpha",
-                                "status": 2,
-                                "updatedAt": "2019-12-3"
-                            },
-                            {
-                                "callNo": 978,
-                                "desc": "Description of Operation",
-                                "id": 4,
-                                "name": "Alpha",
-                                "status": 2,
-                                "updatedAt": "2019-12-1"
-                            },
-                            {
-                                "callNo": 794,
-                                "desc": "Description of Operation",
-                                "id": 5,
-                                "name": "Alpha",
-                                "status": 3,
-                                "updatedAt": "2019-12-26"
+                        "data": {
+                            "list": [
+                                {
+                                    "callNo": 301,
+                                    "desc": "Description of Operation",
+                                    "id": 1,
+                                    "name": "Alpha",
+                                    "status": 1,
+                                    "updatedAt": "2019-12-17"
+                                },
+                                {
+                                    "callNo": 206,
+                                    "desc": "Description of Operation",
+                                    "id": 2,
+                                    "name": "Alpha",
+                                    "status": 3,
+                                    "updatedAt": "2019-12-28"
+                                },
+                                {
+                                    "_actions": [
+                                        "view"
+                                    ],
+                                    "callNo": 282,
+                                    "desc": "Description of Operation",
+                                    "id": 3,
+                                    "name": "Alpha",
+                                    "status": 0,
+                                    "updatedAt": "2019-12-18"
+                                },
+                                {
+                                    "_actions": [
+                                        "view",
+                                        "edit"
+                                    ],
+                                    "callNo": 838,
+                                    "desc": "Description of Operation",
+                                    "id": 4,
+                                    "name": "Alpha",
+                                    "status": 0,
+                                    "updatedAt": "2019-12-16"
+                                },
+                                {
+                                    "_actions": [],
+                                    "callNo": 395,
+                                    "desc": "Description of Operation",
+                                    "id": 5,
+                                    "name": "Alpha",
+                                    "status": 0,
+                                    "updatedAt": "2019-12-5"
+                                }
+                            ],
+                            "pagination": {
+                                "current": 1,
+                                "pageSize": 5,
+                                "total": 15
                             }
-                        ],
+                        },
                         "row_actions": [
                             {
-                                "title": "Config",
-                                "type": "Link",
-                                "uuid": "e0265740-1e7f-11ea-a24d-f832e48a5c0e"
+                                "id": "view",
+                                "on_click": "693be031-1fdf-11ea-83f0-f832e48a5c0e",
+                                "title": "View",
+                                "type": "TableRowAction",
+                                "uuid": "693be032-1fdf-11ea-b60c-f832e48a5c0e"
                             },
                             {
-                                "title": "Subscribe",
-                                "type": "Link",
-                                "uuid": "e0265741-1e7f-11ea-b9ac-f832e48a5c0e"
+                                "id": "edit",
+                                "on_click": "693be033-1fdf-11ea-8eaf-f832e48a5c0e",
+                                "title": "Edit",
+                                "type": "TableRowAction",
+                                "uuid": "693be034-1fdf-11ea-8c64-f832e48a5c0e"
                             }
                         ],
                         "table_actions": [
                             {
+                                "link_to": "/new_item",
+                                "on_click": "693be035-1fdf-11ea-8f32-f832e48a5c0e",
                                 "style": "primary",
                                 "title": "New",
-                                "icon": "plus",
                                 "type": "Button",
-                                "uuid": "e0265742-1e7f-11ea-8e40-f832e48a5c0e"
-                            },
-                            {
-                                "style": "",
-                                "title": "New",
-                                "icon": "plus",
-                                "type": "Button",
-                                "uuid": "e0265742-1e7f-11ea-8e40-f832e48a5c0e"
+                                "uuid": "693be036-1fdf-11ea-8451-f832e48a5c0e"
                             }
                         ],
                         "title": "Example Table",
-                        "type": "TableList",
-                        "uuid": "e0265743-1e7f-11ea-804d-f832e48a5c0e"
+                        "type": "DataTable",
+                        "uuid": "693be037-1fdf-11ea-8c6d-f832e48a5c0e"
                     }
                 ],
                 "type": "Card",
-                "uuid": "e0265744-1e7f-11ea-bfa1-f832e48a5c0e"
+                "uuid": "693be038-1fdf-11ea-a657-f832e48a5c0e"
             }
         ],
-        "name": "table"
+        "name": "Table"
     },
 
     'POST /api/page_action': {

@@ -11,39 +11,44 @@ table_columns = [
     {'title': 'Updated At', 'dataIndex': 'updatedAt'}
 ]
 
-table_data = [
-    {'id':1, 'name':"Alpha", 'callNo':randrange(1000), 'status':randrange(4), 
-        'updatedAt': '2019-12-'+str(randrange(30)) ,'desc':'Description of Operation'},
-    {'id':2, 'name':"Alpha", 'callNo':randrange(1000), 'status':randrange(4), 
-        'updatedAt': '2019-12-'+str(randrange(30)) ,'desc':'Description of Operation'},
-    {'id':3, 'name':"Alpha", 'callNo':randrange(1000), 'status':randrange(4), 
-        'updatedAt': '2019-12-'+str(randrange(30)) ,'desc':'Description of Operation'},
-    {'id':4, 'name':"Alpha", 'callNo':randrange(1000), 'status':randrange(4), 
-        'updatedAt': '2019-12-'+str(randrange(30)) ,'desc':'Description of Operation'},
-    {'id':5, 'name':"Alpha", 'callNo':randrange(1000), 'status':randrange(4), 
-        'updatedAt': '2019-12-'+str(randrange(30)) ,'desc':'Description of Operation'},
-]
+def mock_table_data(num_records):
+    return [
+        {
+            'id':i, 
+            'name':"Alpha", 
+            'callNo':randrange(1000), 
+            'status':randrange(4), 
+            'updatedAt': '2019-12-'+str(randrange(30)) ,
+            'desc':'Description of Operation', 
+            '_actions': ['view', 'edit']
+        }
+    for i in range(num_records) ]
 
-def on_subscribe(item):
+def on_view(item):
     print(item)
 
-def on_config(item):
+def on_edit(item):
     print(item)
 
-app.add_page(Page('/', 'table', 
-    [
+def on_page(query):
+    print(query)
+    return TableResult(mock_table_data(10), 1000, query['current_page'])
+
+@app.page('/', 'Table')
+def table_page():
+    return [
         Card(content = [
-            TableList("Example Table", columns=table_columns, data=table_data, 
+            DataTable("Example Table", columns=table_columns, 
+                data=TableResult(mock_table_data(10), 1000), on_data=on_page,
                 row_actions=[
-                    Link('Config', on_click=on_config),
-                    Link('Subscribe', on_click=on_subscribe)
+                    TableRowAction('view', 'View', on_click=on_view),
+                    TableRowAction('edit', 'Edit', on_click=on_edit),
                 ],
                 table_actions=[
                     Button('New', style='primary', link_to='/new_item')  
                 ])
         ])
     ]
-))
  
 
 if __name__ == '__main__':

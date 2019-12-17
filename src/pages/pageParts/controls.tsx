@@ -11,7 +11,7 @@ export const ButtonPart = ({ spec, dispatch }:ElementProps) => (
                 type: 'page/submitAction',
                 payload: {
                     action: 'on_click',
-                    uuid: spec.uuid
+                    cb_uuid: spec.on_click
                 }
             }); }}>
         { spec.title }</Button>
@@ -22,7 +22,7 @@ export const LinkPart = ({ spec, dispatch }:ElementProps) => (
                 type: 'page/submitAction',
                 payload: {
                     action: 'on_click',
-                    uuid: spec.uuid
+                    cb_uuid: spec.on_click
                 }
             }); }}>
         { spec.title }</a>

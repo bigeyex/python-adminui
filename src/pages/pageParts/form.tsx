@@ -11,7 +11,7 @@ import React, { Component } from 'react';
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
 
-import { Element } from '@/models/page';
+import { PageElement } from '@/models/page';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -36,7 +36,7 @@ const submitFormLayout = {
 };
 
 interface FormPartProps extends FormComponentProps {
-    spec: Element;
+    spec: PageElement;
     dispatch: Dispatch<any>;
 }
 
@@ -49,9 +49,8 @@ class FormPart extends Component<FormPartProps> {
             dispatch({
                 type: 'page/submitAction',
                 payload: {
-                    action: 'form_submit',
-                    values: values,
-                    uuid: spec.uuid
+                    cb_uuid: spec.on_submit,
+                    args: [ values ]
                 }
             });
             }
@@ -64,7 +63,7 @@ class FormPart extends Component<FormPartProps> {
             form: { getFieldDecorator },
         } = this.props;
 
-        const wrapInput = (spec:Element, input:JSX.Element) => {
+        const wrapInput = (spec:PageElement, input:JSX.Element) => {
             return (
                 <FormItem key={spec.uuid} {...formItemLayout} label={spec.title}>
                     {getFieldDecorator(spec.name || "", {
@@ -79,10 +78,10 @@ class FormPart extends Component<FormPartProps> {
             )
         }
 
-        const TextFieldPart = (spec:Element) => 
+        const TextFieldPart = (spec:PageElement) => 
             wrapInput(spec, (<Input placeholder={spec.placeholder || ''} />));
 
-        const TextAreaPart = (spec:Element) => 
+        const TextAreaPart = (spec:PageElement) => 
             wrapInput(spec, (
                 <TextArea
                     style={{ minHeight: 32 }}
@@ -91,19 +90,19 @@ class FormPart extends Component<FormPartProps> {
                 />
               ));
         
-        const FormActionsPart = (spec:Element) => (
+        const FormActionsPart = (spec:PageElement) => (
             <FormItem key={spec.uuid} {...submitFormLayout} style={{ marginTop: 32 }}>
                 {renderFormItems(spec)}
             </FormItem>
         )
 
-        const SubmitButtonPart = (spec:Element) => (
+        const SubmitButtonPart = (spec:PageElement) => (
             <Button key={spec.uuid} type="primary" htmlType="submit">
                 {spec.title}
             </Button>
         )
         
-        const renderFormItems = (spec:Element) => {
+        const renderFormItems = (spec:PageElement) => {
             let formItems:[JSX.Element?] = [];
             if(spec.content) {
                 spec.content.forEach(element => {

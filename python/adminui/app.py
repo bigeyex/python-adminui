@@ -1,25 +1,48 @@
+import uuid
 from flask import Flask, jsonify, request
 from werkzeug.routing import BaseConverter
 from .page import Page
 
+class CallbackRegistryType:
+    uuid_callback_map = {}
+    callback_uuid_map = {}
+    def uuid_for_callback(self, callback):
+        if callback in self.callback_uuid_map:
+            return self.callback_uuid_map[callback]
+        else:
+            cb_uuid = str(uuid.uuid1())
+            self.uuid_callback_map[cb_uuid] = callback
+            self.callback_uuid_map[callback] = cb_uuid
+            return cb_uuid
+    def make_callback(self, uuid, args):
+        if uuid in self.uuid_callback_map:
+            return self.uuid_callback_map[uuid](*args)
+        else:
+            # TODO: Return an error to the frontend
+            return None
+
+callbackRegistry = CallbackRegistryType()
+
 class PurePathConverter(BaseConverter):
     regex = r'[a-zA-Z0-9\/]+'
+
+class MenuItem(Element):
+    def __init__(self, name, url='', children=[]):
+        super().__init__(name=name, url=url, children=children)
+        self.components_fields = ['children']
 
 class AdminApp:
     def __init__(self):
         self.app = Flask(__name__, static_url_path='/')
         self.app.url_map.converters['purePath'] = PurePathConverter 
         self.pages = {}
-        self.uuid_page_map = {}
-
-    def add_page(self, page):
-        self.pages[page.url] = page
-        self.uuid_page_map.update(page.saved_items())
 
     def page(self, url, name):
         def decorator(func):
-            self.pages[url] = Page(url, name, func())
+            self.pages[url] = Page(url, name, content=func())
         return decorator
+    
+    def add_menu()
     
     def serve_page(self, url=''):
         url = '/'+url
@@ -30,12 +53,11 @@ class AdminApp:
 
     def handle_page_action(self):
         msg = request.get_json()
-        if msg['uuid'] in self.uuid_page_map:
-            el = self.uuid_page_map[msg['uuid']]
-            if msg['action'] == 'form_submit':
-                if el.on_submit is not None:
-                    el.on_submit(msg['values'])
-        return 'ok'
+        response = callbackRegistry.make_callback(msg['cb_uuid'], msg['args'])
+        if response is not None:
+            return response.as_dict()
+        else:
+            return 'error'
 
     def serve_menu(self):
         return jsonify([])

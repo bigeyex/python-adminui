@@ -27,9 +27,9 @@ class SubmitButton(Element):
         super().__init__('SubmitButton', title=title)
 
 class Button(Element):
-    def __init__(self, title="Go", style=None, on_click=None, link_to=None):
+    def __init__(self, title="Go", style=None, icon=None, on_click=None):
         on_click_uuid = callbackRegistry.uuid_for_callback(on_click)
-        super().__init__('Button', title=title, style=style, link_to=link_to, on_click=on_click_uuid)
+        super().__init__('Button', title=title, style=style, icon=icon, on_click=on_click_uuid)
 
 class Link(Element):
     def __init__(self, title="Action", on_click=None, link_to=None):

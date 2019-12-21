@@ -1,6 +1,6 @@
 import { Effect } from 'dva';
 import { Reducer } from 'redux';
-
+import { notification } from 'antd';
 import { queryPageLayout, postPageAction } from '@/services/page';
 
 type PageElementDataType = object;
@@ -12,6 +12,8 @@ export interface PageElement {
     title?: string;
     content?: PageElement[];
     data?: PageElementDataType;
+    value?: string;
+    text?: string;
     requiredMessage?: string;
     placeholder?: string;
 
@@ -20,7 +22,9 @@ export interface PageElement {
     row_actions?: PageElement[];
     table_actions?: PageElement[];
     link_to?: string | null;
+    url?: string;
     icon?: string;
+    level?: number;
 
     on_submit?: string;
     on_click?: string;
@@ -65,7 +69,23 @@ const PageModel: PageModelType = {
         },
 
         *submitAction({ payload }, { call, put }) {
-            yield call(postPageAction, payload);
+            const parseResponse = (response:PageElement) => {
+                switch(response.type) {
+                    case 'CombinedAction':
+                        if(response.content){                            
+                            response.content.forEach(element => { parseResponse(element); });
+                        }
+                        break;
+                    case 'NavigateTo':
+                        window.location.href=response.url || '/';
+                        break;
+                    case 'Notification':
+                        notification.open({ message: response.title, description: response.text });
+                        break;
+                }
+            }
+            const response = yield call(postPageAction, payload);
+            parseResponse(response);
         },
 
         *requestDataUpdate({ payload }, { call, put }) {

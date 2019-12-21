@@ -128,8 +128,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     fetch('/api/main_menu')
       .then(response => response.json())
       .then(data => {
-        setMenuData([])
-        // setMenuData(data.menu || []);
+        setMenuData(data.menu || []);
       });
 
     // if (dispatch) {

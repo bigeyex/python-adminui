@@ -10,6 +10,7 @@ export default {
             {
                 "path": "/form",
                 "name": "Form",
+                "icon": null,
                 "component": "./index"
             },
             {

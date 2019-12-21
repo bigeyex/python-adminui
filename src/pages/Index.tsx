@@ -9,7 +9,6 @@ import FormPart from './pageParts/form';
 import renderElements from './pageParts/element'
 import {RouteComponentProps, withRouter} from "react-router";
 
-
 type PageProps = RouteComponentProps & {
   dispatch: Dispatch<AnyAction>,
   spec: PageModelState

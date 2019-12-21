@@ -2,6 +2,7 @@ import uuid
 from flask import Flask, jsonify, request
 from werkzeug.routing import BaseConverter
 from .page import Page
+from .element import Element
 
 class CallbackRegistryType:
     uuid_callback_map = {}
@@ -27,22 +28,25 @@ class PurePathConverter(BaseConverter):
     regex = r'[a-zA-Z0-9\/]+'
 
 class MenuItem(Element):
-    def __init__(self, name, url='', children=[]):
-        super().__init__(name=name, url=url, children=children)
+    def __init__(self, name, url='', icon=None, children=[]):
+        super().__init__('MenuItem', name=name, path=url, icon=icon, component='./index', children=children)
         self.components_fields = ['children']
+
 
 class AdminApp:
     def __init__(self):
         self.app = Flask(__name__, static_url_path='/')
         self.app.url_map.converters['purePath'] = PurePathConverter 
         self.pages = {}
+        self.menu = []
 
     def page(self, url, name):
         def decorator(func):
             self.pages[url] = Page(url, name, content=func())
         return decorator
     
-    def add_menu()
+    def set_menu(self, menu):
+        self.menu = menu
     
     def serve_page(self, url=''):
         url = '/'+url
@@ -53,6 +57,8 @@ class AdminApp:
 
     def handle_page_action(self):
         msg = request.get_json()
+        if 'args' not in msg:
+            msg['args'] = []
         response = callbackRegistry.make_callback(msg['cb_uuid'], msg['args'])
         if response is not None:
             return response.as_dict()
@@ -60,7 +66,9 @@ class AdminApp:
             return 'error'
 
     def serve_menu(self):
-        return jsonify([])
+        return jsonify({
+            'menu': [x.as_dict() for x in self.menu]
+        })
 
     def serve_root(self, path=''):
         return self.app.send_static_file('index.html')

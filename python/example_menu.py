@@ -17,13 +17,14 @@ def form_page():
         ])
     ]
 
-app.add_menu(
+app.set_menu(
     [
-        MenuItem('Home', '/', children=[
-            MenuItem('New Item', '/new'),
-            MenuItem('Search for Item', '/search'),
-            MenuItem('Admin', '/admin')
-        ])
+        MenuItem('Home', '/', icon="dashboard", children=[
+            MenuItem('New Item', '/new', icon="plus"),
+            MenuItem('Search for Item', '/search', icon="search"),
+            MenuItem('Admin', '/admin', icon="setting")
+        ]),
+        MenuItem('About', '/about', icon="info-circle")
     ]
 )
 

@@ -45,7 +45,8 @@ def table_page():
                     TableRowAction('edit', 'Edit', on_click=on_edit),
                 ],
                 table_actions=[
-                    Button('New', style='primary', link_to='/new_item')  
+                    Button('New', style='primary'),
+                    Button('Old'),
                 ])
         ])
     ]

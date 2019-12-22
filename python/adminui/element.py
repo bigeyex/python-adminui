@@ -23,7 +23,8 @@ class Element:
             if getattr(self, field) is not None:
                 result[field] = getattr(self, field)
         for field in self.components_fields:
-            result[field] = [x.as_dict() for x in getattr(self, field)]
+            if getattr(self, field) is not None:
+                result[field] = [x.as_dict() for x in getattr(self, field)]
         for field in self.element_fields:
             result[field] = getattr(self, field).as_dict()
         return result

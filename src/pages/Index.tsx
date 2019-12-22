@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Dispatch, AnyAction } from 'redux';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { FormattedMessage } from 'umi-plugin-react/locale';
-import { Card, Typography, Alert } from 'antd';
 import { connect } from 'dva';
 import { PageModelState } from '@/models/page';
-import FormPart from './pageParts/form';
 import renderElements from './pageParts/element'
 import {RouteComponentProps, withRouter} from "react-router";
 

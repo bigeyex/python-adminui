@@ -21,10 +21,13 @@ export interface PageElement {
     style?: string;
     row_actions?: PageElement[];
     table_actions?: PageElement[];
+    footer?: PageElement[];
     link_to?: string | null;
     url?: string;
     icon?: string;
     level?: number;
+    size?: number;
+    tooltip?: string;
 
     on_submit?: string;
     on_click?: string;

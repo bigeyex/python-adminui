@@ -5,7 +5,7 @@ import FormPart from './form';
 import { ButtonPart, LinkPart } from './controls'
 import React from 'react';
 import DataTablePart from './table';
-import { CardPart } from './layout';
+import { CardPart, RowPart } from './layout';
 import { DetailGroupPart, DividerPart, ParagraphPart, HeaderPart } from './detail';
 
 export interface ElementProps {
@@ -47,7 +47,9 @@ const renderElements = (elements:PageElement[], dispatch:Dispatch<AnyAction>) =>
             case 'Header':
               pageElements.push(<HeaderPart key={element.uuid} spec={element} dispatch={dispatch} />);
               break;
-
+            case 'Row':
+              pageElements.push(<RowPart key={element.uuid} spec={element} dispatch={dispatch} />);
+              break;
         }
     });
     return pageElements;

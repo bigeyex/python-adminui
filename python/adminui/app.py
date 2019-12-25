@@ -42,18 +42,22 @@ class AdminApp:
 
     def page(self, url, name):
         def decorator(func):
-            self.pages[url] = Page(url, name, content=func())
+            self.pages[url] = Page(url, name, builder=func)
         return decorator
     
     def set_menu(self, menu):
         self.menu = menu
     
     def serve_page(self, url=''):
-        url = '/'+url
-        if url in self.pages:
-            return jsonify(self.pages[url].as_list())
+        url_parts = url.split('/')
+        full_url = '/'+url
+        base_url = '/'+url_parts[0]
+        if full_url in self.pages:
+            return jsonify(self.pages[full_url].as_list())
+        elif base_url in self.pages and len(url_parts)>1:
+            return jsonify(self.pages[base_url].as_list(url_parts[1]))
         else:
-            return 'error'
+            return 'page not registered'
 
     def handle_page_action(self):
         msg = request.get_json()
@@ -79,8 +83,8 @@ class AdminApp:
         })
 
     def run(self):
-        self.app.route('/api/page_layout/<url>')(self.serve_page)
-        self.app.route('/api/page_layout/<url>/')(self.serve_page)
+        # self.app.route('/api/page_layout/<url>')(self.serve_page)
+        self.app.route('/api/page_layout/<purePath:url>/')(self.serve_page)
         self.app.route('/api/page_layout/')(self.serve_page)
         self.app.route('/api/currentUser')(self.mock_current_user)
         self.app.route('/api/main_menu')(self.serve_menu)

@@ -3,7 +3,7 @@ import { Reducer } from 'redux';
 import { notification } from 'antd';
 import { queryPageLayout, postPageAction } from '@/services/page';
 
-type PageElementDataType = object;
+type PageElementDataType = [];
 export interface PageElement {
     id?: string;
     type: string;
@@ -18,7 +18,7 @@ export interface PageElement {
     placeholder?: string;
 
     columns?: any[];
-    style?: string;
+    style?: any;
     row_actions?: PageElement[];
     table_actions?: PageElement[];
     footer?: PageElement[];
@@ -28,6 +28,8 @@ export interface PageElement {
     level?: number;
     size?: number;
     tooltip?: string;
+    inline?: boolean;
+    show_trend?: boolean;
 
     on_submit?: string;
     on_click?: string;

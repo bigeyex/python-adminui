@@ -1,7 +1,10 @@
-import { Card, Col, Row, Tooltip, Icon } from "antd";
+import { Card, Col, Row, Statistic, Tooltip, Icon } from "antd";
 import ChartCard from "./components/ChartCard"
-import React from "react";
+import React, { Fragment } from "react";
 import renderElements, { ElementProps } from './element';
+import Trend from './components/Trend'
+
+import styles from './layout.less';
 
 export const CardPart = ({ spec, dispatch }:ElementProps) => (
     <Card bordered={false}>
@@ -40,3 +43,22 @@ export const RowPart = ({ spec, dispatch }:ElementProps) => {
     }
     return <Row gutter={24} type="flex">{ columns }</Row>
 }
+
+export const StatisticPart = ({ spec, dispatch }:ElementProps) => {
+    if(spec.inline) {
+        const value = Number((spec.value as string).replace(/[^0-9.-]+/g,""));
+        if(spec.show_trend && value != 0) {
+            return <Trend flag={ value>0 ? 'up' : 'down' } style={{ marginRight: 16 }}>
+                {spec.title} <span className={styles.trendText}>{spec.value}</span>
+            </Trend>
+        }
+        else {
+            return <Fragment>
+                {spec.title} <span className={styles.trendText}>{spec.value}</span>
+            </Fragment>
+        }
+    }
+    else {
+        return <Statistic title={spec.title} value={spec.value}/>
+    }
+};

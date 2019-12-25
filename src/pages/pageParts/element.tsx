@@ -5,8 +5,9 @@ import FormPart from './form';
 import { ButtonPart, LinkPart } from './controls'
 import React from 'react';
 import DataTablePart from './table';
-import { CardPart, RowPart } from './layout';
+import { CardPart, RowPart, ChartCardPart, StatisticPart } from './layout';
 import { DetailGroupPart, DividerPart, ParagraphPart, HeaderPart } from './detail';
+import { BarChartPart, LineChartPart } from './chart';
 
 export interface ElementProps {
     spec: PageElement;
@@ -49,6 +50,18 @@ const renderElements = (elements:PageElement[], dispatch:Dispatch<AnyAction>) =>
               break;
             case 'Row':
               pageElements.push(<RowPart key={element.uuid} spec={element} dispatch={dispatch} />);
+              break;
+            case 'ChartCard':
+              pageElements.push(<ChartCardPart key={element.uuid} spec={element} dispatch={dispatch} />);
+              break;
+            case 'Statistic':
+              pageElements.push(<StatisticPart key={element.uuid} spec={element} dispatch={dispatch} />);
+              break;
+            case 'BarChart':
+              pageElements.push(<BarChartPart key={element.uuid} spec={element} dispatch={dispatch} />);
+              break;
+            case 'LineChart':
+              pageElements.push(<LineChartPart key={element.uuid} spec={element} dispatch={dispatch} />);
               break;
         }
     });

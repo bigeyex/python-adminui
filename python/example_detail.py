@@ -5,10 +5,11 @@ app = AdminApp()
 def on_submit(form_data):
     print(form_data)
 
-@app.page('/', 'Detail Page')
-def detail_page():
+@app.page('/detail', 'Detail Page')
+def detail_page(arg):
     return [
         Card(content=[
+            Header('Header '+arg, 1),
             DetailGroup('Refund Request', content=[
                 DetailItem('Ordre No.', 1100000),
                 DetailItem('Status', "Fetched"),

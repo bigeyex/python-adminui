@@ -6,12 +6,12 @@ def on_submit(form_data):
     print(form_data)
 
 @app.page('/detail', 'Detail Page')
-def detail_page(arg):
+def detail_page():
     return [
         Card(content=[
-            Header('Header '+arg, 1),
+            Header('Header 1', 1),
             DetailGroup('Refund Request', content=[
-                DetailItem('Ordre No.', 1100000),
+                DetailItem('Order No.', 1100000),
                 DetailItem('Status', "Fetched"),
                 DetailItem('Shipping No.', 1234567),
                 DetailItem('Sub Order', 1135456)

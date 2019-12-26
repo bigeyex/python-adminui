@@ -3,7 +3,7 @@ import { Reducer } from 'redux';
 import { notification } from 'antd';
 import { queryPageLayout, postPageAction } from '@/services/page';
 
-type PageElementDataType = [];
+type PageElementDataType = any;
 export interface PageElement {
     id?: string;
     type: string;

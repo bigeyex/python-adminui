@@ -20,7 +20,7 @@ def mock_table_data(num_records):
             'status':randrange(4), 
             'updatedAt': '2019-12-'+str(randrange(30)) ,
             'desc':'Description of Operation', 
-            '_actions': ['view', 'edit']
+            '_actions': ['edit']
         }
     for i in range(num_records) ]
 
@@ -32,21 +32,19 @@ def on_edit(item):
 
 def on_page(query):
     print(query)
-    return TableResult(mock_table_data(10), 1000, query['current_page'])
+    return TableResult(mock_table_data(5), 1000, query['current_page'])
 
 @app.page('/', 'Table')
 def table_page():
     return [
         Card(content = [
             DataTable("Example Table", columns=table_columns, 
-                data=TableResult(mock_table_data(10), 1000), on_data=on_page,
+                data=TableResult(mock_table_data(5), 1000), on_data=on_page,
                 row_actions=[
-                    TableRowAction('view', 'View', on_click=on_view),
                     TableRowAction('edit', 'Edit', on_click=on_edit),
                 ],
                 table_actions=[
                     Button('New', style='primary'),
-                    Button('Old'),
                 ])
         ])
     ]

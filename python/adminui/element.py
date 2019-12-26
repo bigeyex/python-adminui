@@ -1,6 +1,7 @@
 import uuid
 
 class Element:
+    """The base class of all page elements"""
     def __init__(self, type_, content=None, **kwargs):
         self.fields = ['uuid', 'type']
         for key, value in kwargs.items():

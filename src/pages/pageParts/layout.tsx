@@ -16,6 +16,7 @@ export const ChartCardPart = ({ spec, dispatch }:ElementProps) => (
     <ChartCard bordered={false} title={spec.title} action={
         spec.tooltip ? (<Tooltip title={spec.tooltip}><Icon type="info-circle-o" /></Tooltip>) : null }
         total={spec.value}
+        contentHeight={46}
         footer={renderElements(spec.footer || [], dispatch)}>
         {renderElements(spec.content || [], dispatch)}
     </ChartCard>

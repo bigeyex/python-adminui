@@ -181,21 +181,21 @@ def form_page():
     return [
         Row([
             Column([
-                ChartCard('Total Sales', '$126,560', 'The total sales number of xxx',
-                    content=[BarChart(visit_data, show_axis=False, height=25)],
+                ChartCard('Total Sales', '$126,560', 'The total sales number of xxx', height=50,
+                    content=[BarChart(visit_data, show_axis=False, height=50)],
                     footer=[Statistic('Daily Sales', '$12423', inline=True)])
             ]),
             Column([
-                ChartCard('Total Sales', '$126,560', 'The total sales number of xxx',
-                    content=[LineChart(show_area=True, show_line=False)],
+                ChartCard('Total Sales', '$126,560', 'The total sales number of xxx', height=50,
+                    content=[LineChart(visit_data, show_axis=False, show_area=True, show_line=False, height=50)],
                     footer=[Statistic('Daily Sales', '$12423', inline=True)])
             ]),
             Column([
-                ChartCard('Total Sales', '$126,560', 'The total sales number of xxx',
+                ChartCard('Total Sales', '$126,560', 'The total sales number of xxx', height=50,
                     footer=[Statistic('Daily Sales', '$12423', inline=True)])
             ]),
             Column([
-                ChartCard('Total Sales', '$126,560', 'The total sales number of xxx',
+                ChartCard('Total Sales', '$126,560', 'The total sales number of xxx', height=50,
                     footer=[Statistic('Daily Sales', '$12423', inline=True)])
             ]),
         ]),

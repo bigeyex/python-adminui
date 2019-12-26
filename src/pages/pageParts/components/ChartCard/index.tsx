@@ -40,6 +40,7 @@ class ChartCard extends React.Component<ChartCardProps> {
     if (loading) {
       return false;
     }
+    console.log(children);
     return (
       <div className={styles.chartCard}>
         <div

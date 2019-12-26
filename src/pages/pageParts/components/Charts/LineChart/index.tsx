@@ -75,7 +75,7 @@ const MiniArea: React.FC<MiniAreaProps> = props => {
     }),
   ];
 
-  const chartHeight = chartStyle.height + 54;
+  const chartHeight = chartStyle.height;
 
   if (!chartStyle.columns || chartStyle.columns.length < 2) {
     chartStyle.columns = ['x', 'y'];

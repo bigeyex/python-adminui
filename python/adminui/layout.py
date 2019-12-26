@@ -5,9 +5,9 @@ class Card(Element):
         super().__init__('Card', title=None, content=content)
 
 class ChartCard(Element):
-    def __init__(self, title=None, value=None, tooltip=None, footer=None, content=None):
-        super().__init__('ChartCard', title=title, value=value, tooltip=tooltip, footer=footer, content=content)
-        self.components_fields = ['footer']
+    def __init__(self, title=None, value=None, tooltip=None, footer=None, content=None, height=46):
+        super().__init__('ChartCard', title=title, value=value, tooltip=tooltip, footer=footer, content=content, height=height)
+        self.components_fields = ['footer', 'content']
 
 class DetailGroup(Element):
     def __init__(self, title='', content=None):

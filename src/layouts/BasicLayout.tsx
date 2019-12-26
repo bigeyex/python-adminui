@@ -67,7 +67,7 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright="2019 蚂蚁金服体验技术部出品"
+    copyright="2019 python-adminui based on Ant Design"
     links={[
       {
         key: 'Ant Design Pro',
@@ -78,7 +78,7 @@ const defaultFooterDom = (
       {
         key: 'github',
         title: <Icon type="github" />,
-        href: 'https://github.com/ant-design/ant-design-pro',
+        href: 'https://github.com/bigeyex/python-adminui',
         blankTarget: true,
       },
       {

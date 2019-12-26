@@ -66,6 +66,12 @@ python example_form.py
 
 Then visit http://127.0.0.1:5000/ to see the result.
 
+
+# Documentation
+
+Hosted on [Read the Docs](https://python-adminui.readthedocs.io/en/latest/index.html)
+
+
 # Contributing and Development
 
 This is a personal project. So please create issues to tell me what you need from this project.

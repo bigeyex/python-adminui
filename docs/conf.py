@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath('../python'))
 project = 'Python AdminUI'
 copyright = '2019, Yu Wang'
 author = 'Yu Wang'
-
+master_doc = 'index'
 
 # -- General configuration ---------------------------------------------------
 

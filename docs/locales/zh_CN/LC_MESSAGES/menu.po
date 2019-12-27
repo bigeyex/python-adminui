@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Yu Wang
+# This file is distributed under the same license as the Python AdminUI
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Python AdminUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-27 10:01+0800\n"
+"PO-Revision-Date: 2019-12-27 12:13+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: ../../menu.rst:2
+msgid "Creating a Menu"
+msgstr "创建菜单"
+
+#: ../../menu.rst:4
+msgid ""
+"To create a menu for your project, use the ``set_menu`` function of the "
+"``AdminApp`` object::"
+msgstr "要为项目创建菜单，使用 ``AdminApp`` 对象的 ``set_menu`` 函数::"
+
+#: ../../menu.rst:9
+msgid "the ``set_menu`` method takes an array of ``MenuItem`` objects:"
+msgstr " ``set_menu``方法接受内容为``MenuItem``的数组："
+
+#: adminui.MenuItem:1 of
+msgid "Represents a menu item"
+msgstr "表示菜单项"
+
+#: adminui.MenuItem of
+msgid "Parameters"
+msgstr "参数"
+
+#: adminui.MenuItem:3 of
+msgid "the title of the menu"
+msgstr "菜单的标题"
+
+#: adminui.MenuItem:5 of
+msgid "the url the menu will navigate to. Defaults to ''."
+msgstr "菜单将导航到的 URL。默认值为\"\"。"
+
+#: adminui.MenuItem:7 of
+msgid ""
+"the icon of the menu. See https://ant.design/components/icon/. Defaults to None."
+msgstr "菜单的图标。请参阅https://ant.design/components/icon/。默认值为\"无\"。"
+
+#: adminui.MenuItem:9 of
+msgid "set this if the menu has a sub-menu. Defaults to []."
+msgstr "如果菜单具有子菜单，则设置此选项。默认值为 []"
+
+#: ../../menu.rst:14
+msgid "You may nest ``MenuItem`` to create sub-menus. Here's a complete example::"
+msgstr "您可以嵌套\"菜单\"以创建子菜单。下面是一个完整的示例::"
+
+#: ../../menu.rst:27
+msgid "It looks like this:"
+msgstr "它看起来像这样："

@@ -1,0 +1,245 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Yu Wang
+# This file is distributed under the same license as the Python AdminUI
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Python AdminUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-27 10:01+0800\n"
+"PO-Revision-Date: 2019-12-27 12:07+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: ../../table.rst:2
+msgid "Use Data Tables"
+msgstr "使用数据表格"
+
+#: ../../table.rst:4
+msgid "A table page looks like this::"
+msgstr "表格页面看起来这样::"
+
+#: ../../table.rst:16
+msgid "We use DataTable class to construct a table with data:"
+msgstr "使用 DataTable 类来构造一个用来展示数据的表："
+
+#: adminui.DataTable:1 of
+msgid "Insert a data table to the page"
+msgstr "将数据表插入页面"
+
+#: adminui.DataTable adminui.TableResult adminui.TableRowAction of
+msgid "Parameters"
+msgstr "参数"
+
+#: adminui.DataTable:3 of
+#, fuzzy
+msgid "the title of the table"
+msgstr "表的标题"
+
+#: adminui.DataTable:4 of
+msgid ""
+"a list-of-dictionaries as column definition. e.g.: [ {'title': 'Rule Name', "
+"'dataIndex': 'name'}, ...other columns] for each column, title is the column "
+"title; dataIndex is its key for the TableResult data dictionary"
+msgstr ""
+"字典列表，作为列定义。示例：[ {'title': 'Rule Name', 'dataIndex': "
+"'name'}, ...更多的列]。对于每一列来说，title是列标题；dataIndex是TableResult"
+"种data字典的键"
+
+#: adminui.DataTable:8 of
+msgid "a TableResult object for the initial data of the table"
+msgstr "TableResult对象，作为表的初始数据"
+
+#: adminui.DataTable:9 of
+msgid ""
+"a list of TableRowAction objects, which means actions shown on each row. "
+"Leave it blank if you don't need any action"
+msgstr ""
+"TableRowAction对象的列表，在表的每一行中展示链接等用户操作。如果您不需要任何"
+"操作，将其留空"
+
+#: adminui.DataTable:11 of
+msgid ""
+"a list of page elements shown on top of the table. Controls such as \"New "
+"Item\" buttons could be listed here."
+msgstr "显示在表顶部的页面元素的列表。如\"新建\"按钮等。"
+
+#: adminui.DataTable:13 of
+msgid ""
+"a callback function that returns a TableResult object if the user turns a "
+"page. an argument will be passed as {'current_page':..., 'page_size':...} "
+"Leave it None if you're sure there is only one page of data."
+msgstr ""
+"回调函数，当用户翻页时返回 TableResult 对象。此函数将接受一个类似 "
+"{'current_page':..., 'page_size':...} 的字典作为参数。如果不需要分页，留空"
+"(None)"
+
+#: ../../table.rst:22
+#, fuzzy
+msgid "Prepare data for a Table"
+msgstr "为表准备数据"
+
+#: ../../table.rst:24
+msgid ""
+"DataTable needs a column definition and a data parameter. the data required "
+"in the columns field looks like this::"
+msgstr ""
+"DataTable 需要提供columns（列的定义）和data（表格数据）。columns字段中所需的"
+"数据如下所示："
+
+#: ../../table.rst:35
+msgid ""
+"each column is a dictionary, with ``title`` and ``dataIndex``. ``dataIndex`` "
+"will be used as the key of the provided table rows data::"
+msgstr ""
+"每列为字典，带有 ``title`` 和 ``dataIndex`` 。 ``dataIndex`` 将用作提供的表行"
+"数据的键："
+
+#: ../../table.rst:49
+msgid "``table_data`` need to be passed with a ``TableResult`` object::"
+msgstr "``table_data`` 接受一个 ``TableResult`` 对象::"
+
+#: ../../table.rst:54
+msgid "``TableResult`` will also be used in case of pagination."
+msgstr "``TableResult`` 在分页时也有用"
+
+#: ../../table.rst:57
+msgid "Pagination"
+msgstr "分页"
+
+#: ../../table.rst:59
+msgid ""
+"In case you have multiple pages of data for the table and you can only "
+"display some in a page (for example, records read from a database), you'll "
+"need pagination."
+msgstr ""
+"如果表有多页数据，并且只能在每页中显示一部分数据（例如，展示从数据库读取的记"
+"录），则需要分页。"
+
+#: ../../table.rst:63
+msgid "You need to do two things:"
+msgstr "需要做两件事："
+
+#: ../../table.rst:65
+msgid ""
+"First, fill ``TableResult`` with information such as total number of "
+"records, current page and page size. So the table knows how many page "
+"buttons it should display to the user::"
+msgstr ""
+"首先，在``TableResult``中提供记录总数、当前页面编号和每页数据条目数。这样系统"
+"知道如何展示分页按钮::"
+
+#: adminui.TableResult:1 of
+msgid ""
+"Table data used in the \"data\" column of DataTable, or returned when table "
+"pages are requested"
+msgstr "数据表的\"data\"属性使用的数据，或在分页请求时返回"
+
+#: adminui.TableResult:3 of
+msgid ""
+"a list of dictionary serves as table data. e.g.: [ {id: 1, name: 'Alice', "
+"'_actions': ['view', 'edit'], ... more fields} ...more rows of data] id is "
+"required as a data record. '_actions' fields dictates which action is "
+"available for this row. If omitted, all actions will be available; an empty "
+"list means no actions."
+msgstr ""
+"用作表数据的列表，每个元素是一个字典。例如： [ {id: 1, name: 'Alice', "
+"'_actions': ['view', 'edit'], ... 更多列} ...更多信息行] 。这里id是必要"
+"的，\"_actions\"字段展示了用户可以在这行做什么操作。如果没有_actions，则将展"
+"示所有定义的操作；如果_actions为空列表，则用户无法对此行做操作。"
+
+#: adminui.TableResult:8 of
+msgid ""
+"the total number of records available, may be more than len(data), at which "
+"time a pagination bar will be shown."
+msgstr "所有记录的总数。如果大于 len(data)，则显示分页条。"
+
+#: adminui.TableResult:10 of
+#, fuzzy
+msgid ""
+"the current page of the record, so the frontend will know which page to "
+"highlight"
+msgstr "记录的当前页面，因此前端将知道要突出显示的页面"
+
+#: adminui.TableResult:11 of
+#, fuzzy
+msgid "how many records are there in a page."
+msgstr "一页中有多少条记录。"
+
+#: ../../table.rst:75
+msgid ""
+"Second, provide a ``on_data`` callback function to ``DataTable``, so AdminUI "
+"knows what data to load when the user turns a page::"
+msgstr ""
+"其次，为 ``DataTable`` 提供 ``on_data`` 回调函数，以便在用户翻页时加载数据::"
+
+#: ../../table.rst:85
+msgid "Now you have a table serving multi-paged data."
+msgstr "这样，就完成了一个提供多页数据的表。"
+
+#: ../../table.rst:88
+#, fuzzy
+msgid "Action Links for each Row"
+msgstr "每行的操作链接"
+
+#: ../../table.rst:90
+msgid ""
+"You may also add an action link to each row. This is useful when the user "
+"can do something to the records. For example, for a table of articles, the "
+"user may wish to edit a single one."
+msgstr ""
+"您还可以向每行添加操作链接，这样用户可以在每行做一些操作。例如，对于显示“文"
+"章”的表，用户可以“编辑”每一篇文章。"
+
+#: ../../table.rst:94
+msgid ""
+"In this case, fill the ``row_actions`` argument with a list of "
+"``TableRowAction``::"
+msgstr "此时，将 ``row_actions`` 参数设为拥有 ``TableRowAction`` 的列表::"
+
+#: adminui.TableRowAction:1 of
+#, fuzzy
+msgid "Represent an action link shown in each row of the table"
+msgstr "表示表每行中显示的操作链接"
+
+#: adminui.TableRowAction:3 of
+#, fuzzy
+msgid "the id of the action, used in the '_actions' field of TableResult data."
+msgstr "操作的 ID，用于表结果数据的\"_actions\"字段。"
+
+#: adminui.TableRowAction:4 of
+#, fuzzy
+msgid "the title of the action link"
+msgstr "操作链接的标题"
+
+#: adminui.TableRowAction:5 of
+msgid ""
+"the callback function called when the user clicked the link. the data row "
+"will be passed as the argument of the function"
+msgstr "当用户单击链接时调用的回调函数。数据行（字典）将作为函数的参数传递"
+
+#: ../../table.rst:105
+msgid ""
+"In this case, an \"Edit\" link will be shown on the right side of each row "
+"of the table. If the user clicks one of them, the passed function "
+"``on_edit`` will be called::"
+msgstr ""
+"在这种情况下，表每行的右侧将显示一个\"Edit\"链接。如果用户单击其中一个函数，"
+"则传递的函数\"on_edit\"将调用："
+
+#: ../../table.rst:112
+#, fuzzy
+msgid ""
+"A complete example of table is listed here https://github.com/bigeyex/python-"
+"adminui/blob/master/python/example_table.py"
+msgstr ""
+"此处列出了表的完整示例https://github.com/bigeyex/python-adminui/blob/master/"
+"python/example_table.py"

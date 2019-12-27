@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Yu Wang
+# This file is distributed under the same license as the Python AdminUI
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Python AdminUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-27 10:01+0800\n"
+"PO-Revision-Date: 2019-12-27 12:14+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: ../../parameter.rst:2
+msgid "Page with a Parameter"
+msgstr "带参数的页面"
+
+#: ../../parameter.rst:4
+msgid ""
+"Sometimes, you need to make the page respond to url parameters. For "
+"example, you wish::"
+msgstr "有时，您需要根据 url 参数返回不同的页面。例如::"
+
+#: ../../parameter.rst:8
+msgid ""
+"shows the third article in the database. In this case, you register the "
+"page as such::"
+msgstr "显示了数据库中的第三篇文章。在这种情况下，这样注册页面::"
+
+#: ../../parameter.rst:14
+msgid ""
+"Then, when users come with url like ``/article/<param>``, the ``param`` "
+"part will be passed as the first parameter of the handling function."
+msgstr ""
+"然后，当用户带着 ``/article/<param>`` 这样的 url 时， ``param`` 部分将作"
+"为处理函数的第一个参数传递。"

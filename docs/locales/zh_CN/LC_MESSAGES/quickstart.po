@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Yu Wang
+# This file is distributed under the same license as the Python AdminUI
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Python AdminUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-27 10:01+0800\n"
+"PO-Revision-Date: 2019-12-27 12:15+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: ../../quickstart.rst:2
+msgid "Installation and Quick Start"
+msgstr "安装和快速入门"
+
+#: ../../quickstart.rst:4
+msgid "Install the package with pip::"
+msgstr "使用pip安装包::"
+
+#: ../../quickstart.rst:8
+msgid "Now create a python file for your project, say example.py:"
+msgstr "为您的项目创建一个 python 文件，例如example.py："
+
+#: ../../quickstart.rst:34
+msgid "Run the python file from terminal::"
+msgstr "运行 python 文件::"
+
+#: ../../quickstart.rst:38
+msgid ""
+"Now visit http://127.0.0.1:5000/ to see the index page. It should look "
+"like this:"
+msgstr "现在访问http://127.0.0.1:5000/以查看索引页。它看起来这样："
+
+#: ../../quickstart.rst:44
+msgid "Basic Concepts and Example Breakdown"
+msgstr "基本概念和示例解析"
+
+#: ../../quickstart.rst:46
+msgid "First of all, you need to create a AdminApp object::"
+msgstr "首先，您需要创建一个 AdminApp 对象::"
+
+#: ../../quickstart.rst:50
+msgid ""
+"Then you add pages to your app. Use the ``@app.page`` decorator, "
+"followed by a custom function (its name doesn't matter) that returns an "
+"array of the page elements shown when the user visit a certain url::"
+msgstr ""
+"然后，您将页面添加到你的应用中。使用 ``@app.page`` 修饰器，后跟一个自定义"
+"函数（可以任意命名），该函数返回一个页面元素数组，将在用户访问特定 url 时"
+"显示::"
+
+#: ../../quickstart.rst:58
+msgid ""
+"The ``@app.page`` decorator receives two argument. One for the url ('/' "
+"in this case), and the other for the title of the page(\"Form\")."
+msgstr ""
+"``@app.page`` 修饰器接收两个参数。一个用于 url（本例中为'/'），另一个用于"
+"页面标题（本例中的\"Form\"）。"
+
+#: ../../quickstart.rst:61
+msgid ""
+"By decorating a function, you'll be able to return different page "
+"elements or data each time the user visit the page."
+msgstr ""
+"通过修饰函数，每次用户访问该页面时，您可以返回不同的页面元素或数据。"
+
+#: ../../quickstart.rst:64
+msgid ""
+"All page elements are Python objects. You may refer to other chapters of "
+"this documentation to know how to use them. We can see that the example "
+"above created a form, a text field, a text area and a submit button."
+msgstr ""
+"所有页面元素都是 Python 对象。您可以参考本文档的其他章节来了解如何使用它"
+"们。我们可以看到，上面的示例创建了一个表单、一个文本字段、一个文本区域和"
+"一个提交按钮。"
+
+#: ../../quickstart.rst:68
+msgid "Finally, run the app using::"
+msgstr "最后，运行应用::"

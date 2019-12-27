@@ -1,0 +1,209 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Yu Wang
+# This file is distributed under the same license as the Python AdminUI
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Python AdminUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-27 10:01+0800\n"
+"PO-Revision-Date: 2019-12-27 12:11+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: ../../detail.rst:2
+msgid "Layout and Creating a Detail Page"
+msgstr "布局和创建详情页"
+
+#: ../../detail.rst:4
+msgid ""
+"When you want to show complex information on the page, you may use "
+"``Card``, ``Header``, ``DetailGroup``, ``DetailItem`` and ``Divider`` to "
+"help you format the page::"
+msgstr ""
+"当您想在页面上显示复杂信息时，您可以使用 ``Card``, ``Header``, "
+"``DetailGroup``, ``DetailItem`` 和 ``Divider`` 来布局页面::"
+
+#: ../../detail.rst:29
+msgid "It looks like this:"
+msgstr "它看起来像这样："
+
+#: ../../detail.rst:33
+msgid ""
+"If you are working with a dashboard, ``Row``, ``Column``, ``Statistic`` "
+"may come in handy. ``ChartCard`` can make a neat little block to hold "
+"your numbers and charts. See example::"
+msgstr ""
+"如果您正在做仪表盘，可以使用 ``Row``, ``Column``, ``Statistic``。"
+"``ChartCard`` 会显示一个用于展示数字和图表的区域，如::"
+
+#: ../../detail.rst:59
+msgid "It creates a page like this:"
+msgstr "它会产生这样的页面::"
+
+#: ../../detail.rst:63
+msgid "If you just want to display some text, use ``Paragraph``."
+msgstr "如果只想显示一些文本，请使用``Paragraph``。"
+
+#: ../../detail.rst:65
+msgid "Here's the list of layout-related classes:"
+msgstr "下面是与布局相关的类："
+
+#: adminui.Card:1 of
+msgid "A white-boxed container to hold content in sections"
+msgstr "显示一个白色的框，作为容器"
+
+#: adminui.Card adminui.ChartCard adminui.Column adminui.DetailGroup
+#: adminui.DetailItem adminui.Header adminui.Row adminui.Statistic of
+msgid "Parameters"
+msgstr "参数"
+
+#: adminui.Card:3 of
+msgid "the title of the card container"
+msgstr "容器的标题"
+
+#: adminui.Card:4 of
+msgid "list of page elements inside the container"
+msgstr "将在容器内显示的页面元素的列表"
+
+#: adminui.Header:1 of
+msgid "Display a header text on the screen"
+msgstr "在屏幕上显示标题文本"
+
+#: adminui.Header:3 of
+msgid "text body of the header"
+msgstr "标题的文本正文"
+
+#: adminui.Header:4 of
+msgid "the header level. level=1 means a first level header(h1)"
+msgstr "标头级别。级别 =1 表示第一级标头 （h1）"
+
+#: adminui.Paragraph:1 of
+msgid "Display a paragraph of text"
+msgstr "显示文本段落"
+
+#: adminui.DetailGroup:1 of
+msgid ""
+"The container for DetailItem, used to display a record with multiple "
+"fields"
+msgstr "DetailItem的容器，用于显示具有多个字段的记录"
+
+#: adminui.DetailGroup:3 of
+msgid "the title of the detail group"
+msgstr "DetailGroup的标题"
+
+#: adminui.DetailGroup:4 of
+msgid "a list of DetailItem"
+msgstr "一个包含DetailItem的列表"
+
+#: adminui.DetailItem:1 of
+msgid ""
+"A little piece of text with a title and a value, used to display a field "
+"in a record"
+msgstr "带有标题和值的简单文本，用于在记录中显示字段"
+
+#: adminui.DetailItem:3 of
+msgid "the title of the field"
+msgstr "字段的标题"
+
+#: adminui.DetailItem:4 of
+msgid "the value of the field"
+msgstr "字段的值"
+
+#: adminui.Row:1 of
+msgid "Display a row with multiple Columns for layout purpose"
+msgstr "用于布局的行元素，可以有多个Columns（列）"
+
+#: adminui.Row:3 of
+msgid ""
+"the width of the row will be automatically calculated by len(content). e."
+"g. a row with four columns will make a 4-column layout. It is also "
+"adaptive in small screens and mobile devices."
+msgstr ""
+"行的宽度将自动由 len(content) 计算。例如，包含四列的行将构成 4 列布局。自"
+"动适配小屏幕和移动设备。"
+
+#: adminui.Row:7 of
+msgid "a list of Column objects"
+msgstr "列对象列表"
+
+#: adminui.Column:1 of
+msgid "Column in the Row for multi-column layout"
+msgstr "多列布局行中的列"
+
+#: adminui.Column:3 of
+msgid "a list of page elements"
+msgstr "一个页面元素的列表"
+
+#: adminui.Column:4 of
+msgid ""
+"the \"weight\" of the column width. for example, 2 columns with both "
+"size=1 will have the same width; but a column with size=2 and one with "
+"size=1 will make a 2:1 layout."
+msgstr ""
+"列宽度的\"权重\"。例如，两个size=1 的列具有相同的宽度;但 size=2 的列和 "
+"size=1 的列将构成2比1的宽度布局。"
+
+#: adminui.ChartCard:1 of
+msgid ""
+"A card container with values, tooltips and a footer. Mostly used in "
+"dashboards"
+msgstr "带有值、工具提示和页脚的卡片容器。主要用于仪表盘"
+
+#: adminui.ChartCard:3 of
+msgid "the container title"
+msgstr "容器标题"
+
+#: adminui.ChartCard:4 of
+msgid "(str), the big text shown on the card"
+msgstr "（str），卡片上显示的大字"
+
+#: adminui.ChartCard:5 of
+msgid "the text shown when the user hover on the tooltip icon"
+msgstr "当用户在工具提示图标上悬停时显示的文本"
+
+#: adminui.ChartCard:6 of
+msgid "list of page elements shown on the footer of the card"
+msgstr "页面元素列表，将在卡片页脚上显示"
+
+#: adminui.ChartCard:7 of
+msgid "list of page elements shown as the content of the card"
+msgstr "页面元素列表，将作为卡片内容显示"
+
+#: adminui.ChartCard:8 of
+msgid "the height of the card, to make it looks consistant across columns"
+msgstr "高度，使格列的卡片看起来同高"
+
+#: adminui.Statistic:1 of
+msgid ""
+"A piece of text for showing a statistic number, may include a little "
+"trend arrow (up or down)"
+msgstr "用于显示统计数字的文本片段，可能包括一个小趋势箭头（向上或向下）"
+
+#: adminui.Statistic:3 of
+msgid "the title of the statistic number"
+msgstr "统计数字的标题"
+
+#: adminui.Statistic:4 of
+msgid "the number itself"
+msgstr "数字本身"
+
+#: adminui.Statistic:5 of
+msgid ""
+"if set True, a upper arrow will appear for positive numbers, and a down "
+"for negative numbers"
+msgstr "如果设置为 True，则数字为正数时出现上箭头，为负数时出现下箭头"
+
+#: adminui.Statistic:6 of
+msgid ""
+"if set True, the title and the value will be in the same line and the "
+"font size will be smaller"
+msgstr "如果设置为 True，则标题和值将位于同一行中，而且使用小字体"

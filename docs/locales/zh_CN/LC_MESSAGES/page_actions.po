@@ -1,0 +1,100 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Yu Wang
+# This file is distributed under the same license as the Python AdminUI
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Python AdminUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-27 10:01+0800\n"
+"PO-Revision-Date: 2019-12-27 12:13+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: ../../page_actions.rst:2
+msgid "Page Actions"
+msgstr "页面操作"
+
+#: ../../page_actions.rst:4
+msgid ""
+"If you want to redirect the user to another page after form submission, you "
+"may return page actions in the ``on_submit`` callback of the form::"
+msgstr ""
+"如果要在表单提交后将用户重定向到另一个页面，则可以在窗体的 ``on_submit`` 回调中"
+"返回页面操作："
+
+#: ../../page_actions.rst:10
+msgid "Now AdminUI supports ``NavigateTo`` and ``Notification`` as page actions:"
+msgstr "AdminUI 支持 ``NavigateTo`` 和 ``Notification`` 作为页面操作："
+
+#: adminui.NavigateTo:1 of
+msgid "Page Action: navigate the user to another page"
+msgstr "页面操作：将用户导航到其他页面"
+
+#: adminui.Button adminui.NavigateTo adminui.Notification of
+msgid "Parameters"
+msgstr "参数"
+
+#: adminui.NavigateTo:3 of
+msgid "the url of the new page"
+msgstr "新页面的 URL"
+
+#: adminui.Notification:1 of
+msgid "Send right-top corner notification to the user"
+msgstr "向用户发送右上角通知"
+
+#: adminui.Notification:3 of
+msgid "the title of the notification"
+msgstr "通知的标题"
+
+#: adminui.Notification:4 of
+msgid "the text body of the notification"
+msgstr "通知的文本正文"
+
+#: ../../page_actions.rst:18
+msgid ""
+"If you want to combine two actions together, use ``CombineAction``. Say you "
+"want to notify the user twice::"
+msgstr ""
+"如果要将两个操作合并在一起，请使用 ``CombineAction`` 。假设您要通知用户两次::"
+
+#: ../../page_actions.rst:26
+msgid ""
+"Aside from form submission, you can also use page action on other elements "
+"like a button."
+msgstr "除了表单提交之外，您还可以在其他元素（如按钮被点击时）上使用页面操作。"
+
+#: adminui.Button:1 of
+msgid "Create a general button on the page"
+msgstr "在页面上创建常规按钮"
+
+#: adminui.Button:3 of
+msgid "the title shown on the button"
+msgstr "按钮上显示的标题"
+
+#: adminui.Button:4 of
+msgid "use 'primary' for the \"primary button\" (a big blue button)"
+msgstr "设置为\"主\"按钮（蓝色大按钮）"
+
+#: adminui.Button:5 of
+msgid ""
+"the icon in front of the button title. For string values see https://ant."
+"design/components/icon/"
+msgstr ""
+"按钮标题前面的图标。有关字符串值，请参阅https://ant.design/components/icon/"
+
+#: adminui.Button:6 of
+msgid "a custom function will be called when the button is clicked"
+msgstr "单击按钮时将调用自定义函数"
+
+#: ../../page_actions.rst:31
+msgid "You may use page actions inside the on_click callback of the button."
+msgstr "您可以在按钮的on_click回调中使用页面操作。"

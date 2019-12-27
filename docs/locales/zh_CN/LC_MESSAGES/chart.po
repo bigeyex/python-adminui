@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Yu Wang
+# This file is distributed under the same license as the Python AdminUI
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Python AdminUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-27 10:01+0800\n"
+"PO-Revision-Date: 2019-12-27 12:09+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: ../../chart.rst:2
+msgid "Use Charts"
+msgstr "使用图表"
+
+#: ../../chart.rst:4
+msgid ""
+"An example with chart is listed here: https://github.com/bigeyex/python-"
+"adminui/blob/master/python/example_dash.py"
+msgstr ""
+"在这里找到图表示例：https://github.com/bigeyex/python-adminui/blob/"
+"master/python/example_dash.py"
+
+#: adminui.BarChart:1 of
+msgid "Create a bar chart"
+msgstr "创建条形图"
+
+#: adminui.BarChart adminui.LineChart of
+msgid "Parameters"
+msgstr "参数"
+
+#: adminui.BarChart:3 adminui.LineChart:3 of
+msgid ""
+"an array of dictionary as the chart's data. format: [{'x': <x_value>, "
+"'y': <y_value>}, ...other data points]"
+msgstr ""
+"一个包含字典的数组，作为图标的数据源。格式：[{'x': <x_value>, 'y': "
+"<y_value>}, ...其他数据点]"
+
+#: adminui.BarChart:5 adminui.LineChart:5 of
+msgid "True for displaying the x and y axis, labels and markers"
+msgstr "为True时显示坐标轴和坐标轴标注"
+
+#: adminui.BarChart:6 adminui.LineChart:9 of
+msgid "the height of the chart"
+msgstr "图表高度"
+
+#: adminui.LineChart:1 of
+msgid "Create a line chart"
+msgstr "创建折线图"
+
+#: adminui.LineChart:6 of
+msgid "False for hiding the line, if you wish to make a pure-area chart"
+msgstr "如果想要隐藏折现、只显示填充区域，则设为False"
+
+#: adminui.LineChart:7 of
+msgid "True then the area below the line will be filled"
+msgstr "为True时显示填充区域"
+
+#: adminui.LineChart:8 of
+msgid "True then the line will be smoothed out"
+msgstr "为True时改折线为曲线"

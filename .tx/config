@@ -1,0 +1,165 @@
+[main]
+host = https://www.transifex.com
+
+[python-admin-ui.docs__build_gettext\chart]
+file_filter = locale/<lang>/LC_MESSAGES/chart.po
+source_file = docs/_build/gettext/chart.pot
+source_lang = en
+type = PO
+
+[python-admin-ui.docs__build_gettext\detail]
+file_filter = locale/<lang>/LC_MESSAGES/detail.po
+source_file = docs/_build/gettext/detail.pot
+source_lang = en
+type = PO
+
+[python-admin-ui.docs__build_gettext\form]
+file_filter = locale/<lang>/LC_MESSAGES/form.po
+source_file = docs/_build/gettext/form.pot
+source_lang = en
+type = PO
+
+[python-admin-ui.docs__build_gettext\index]
+file_filter = locale/<lang>/LC_MESSAGES/index.po
+source_file = docs/_build/gettext/index.pot
+source_lang = en
+type = PO
+
+[python-admin-ui.docs__build_gettext\menu]
+file_filter = locale/<lang>/LC_MESSAGES/menu.po
+source_file = docs/_build/gettext/menu.pot
+source_lang = en
+type = PO
+
+[python-admin-ui.docs__build_gettext\page_actions]
+file_filter = locale/<lang>/LC_MESSAGES/page_actions.po
+source_file = docs/_build/gettext/page_actions.pot
+source_lang = en
+type = PO
+
+[python-admin-ui.docs__build_gettext\parameter]
+file_filter = locale/<lang>/LC_MESSAGES/parameter.po
+source_file = docs/_build/gettext/parameter.pot
+source_lang = en
+type = PO
+
+[python-admin-ui.docs__build_gettext\quickstart]
+file_filter = locale/<lang>/LC_MESSAGES/quickstart.po
+source_file = docs/_build/gettext/quickstart.pot
+source_lang = en
+type = PO
+
+[python-admin-ui.docs__build_gettext\table]
+file_filter = locale/<lang>/LC_MESSAGES/table.po
+source_file = docs/_build/gettext/table.pot
+source_lang = en
+type = PO
+
+[python-adminui-project.docs__build_gettext\chart]
+file_filter = locale/<lang>/LC_MESSAGES/chart.po
+source_file = docs/_build/gettext/chart.pot
+source_lang = en
+type = PO
+
+[python-adminui-project.docs__build_gettext\detail]
+file_filter = locale/<lang>/LC_MESSAGES/detail.po
+source_file = docs/_build/gettext/detail.pot
+source_lang = en
+type = PO
+
+[python-adminui-project.docs__build_gettext\form]
+file_filter = locale/<lang>/LC_MESSAGES/form.po
+source_file = docs/_build/gettext/form.pot
+source_lang = en
+type = PO
+
+[python-adminui-project.docs__build_gettext\index]
+file_filter = locale/<lang>/LC_MESSAGES/index.po
+source_file = docs/_build/gettext/index.pot
+source_lang = en
+type = PO
+
+[python-adminui-project.docs__build_gettext\menu]
+file_filter = locale/<lang>/LC_MESSAGES/menu.po
+source_file = docs/_build/gettext/menu.pot
+source_lang = en
+type = PO
+
+[python-adminui-project.docs__build_gettext\page_actions]
+file_filter = locale/<lang>/LC_MESSAGES/page_actions.po
+source_file = docs/_build/gettext/page_actions.pot
+source_lang = en
+type = PO
+
+[python-adminui-project.docs__build_gettext\parameter]
+file_filter = locale/<lang>/LC_MESSAGES/parameter.po
+source_file = docs/_build/gettext/parameter.pot
+source_lang = en
+type = PO
+
+[python-adminui-project.docs__build_gettext\quickstart]
+file_filter = locale/<lang>/LC_MESSAGES/quickstart.po
+source_file = docs/_build/gettext/quickstart.pot
+source_lang = en
+type = PO
+
+[python-adminui-project.docs__build_gettext\table]
+file_filter = locale/<lang>/LC_MESSAGES/table.po
+source_file = docs/_build/gettext/table.pot
+source_lang = en
+type = PO
+
+[python-adminui-project/python-admin-ui.docs__build_gettext\chart]
+file_filter = locale/<lang>/LC_MESSAGES/chart.po
+source_file = docs/_build/gettext/chart.pot
+source_lang = en
+type = PO
+
+[python-adminui-project/python-admin-ui.docs__build_gettext\detail]
+file_filter = locale/<lang>/LC_MESSAGES/detail.po
+source_file = docs/_build/gettext/detail.pot
+source_lang = en
+type = PO
+
+[python-adminui-project/python-admin-ui.docs__build_gettext\form]
+file_filter = locale/<lang>/LC_MESSAGES/form.po
+source_file = docs/_build/gettext/form.pot
+source_lang = en
+type = PO
+
+[python-adminui-project/python-admin-ui.docs__build_gettext\index]
+file_filter = locale/<lang>/LC_MESSAGES/index.po
+source_file = docs/_build/gettext/index.pot
+source_lang = en
+type = PO
+
+[python-adminui-project/python-admin-ui.docs__build_gettext\menu]
+file_filter = locale/<lang>/LC_MESSAGES/menu.po
+source_file = docs/_build/gettext/menu.pot
+source_lang = en
+type = PO
+
+[python-adminui-project/python-admin-ui.docs__build_gettext\page_actions]
+file_filter = locale/<lang>/LC_MESSAGES/page_actions.po
+source_file = docs/_build/gettext/page_actions.pot
+source_lang = en
+type = PO
+
+[python-adminui-project/python-admin-ui.docs__build_gettext\parameter]
+file_filter = locale/<lang>/LC_MESSAGES/parameter.po
+source_file = docs/_build/gettext/parameter.pot
+source_lang = en
+type = PO
+
+[python-adminui-project/python-admin-ui.docs__build_gettext\quickstart]
+file_filter = locale/<lang>/LC_MESSAGES/quickstart.po
+source_file = docs/_build/gettext/quickstart.pot
+source_lang = en
+type = PO
+
+[python-adminui-project/python-admin-ui.docs__build_gettext\table]
+file_filter = locale/<lang>/LC_MESSAGES/table.po
+source_file = docs/_build/gettext/table.pot
+source_lang = en
+type = PO
+

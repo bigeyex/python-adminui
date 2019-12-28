@@ -1,5 +1,8 @@
 # Python AdminUI
 
+[Documentation](https://python-adminui.readthedocs.io/en/latest/index.html)
+[中文文档](https://python-adminui.readthedocs.io/zh_CN/latest/index.html)
+
 Write professional web interface with Python.
 
 If you need a simple web interface and you don't want to mess around with

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Python AdminUI\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-27 10:01+0800\n"
-"PO-Revision-Date: 2019-12-27 12:07+0800\n"
+"PO-Revision-Date: 2019-12-28 15:31+0800\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,7 +40,6 @@ msgid "Parameters"
 msgstr "参数"
 
 #: adminui.DataTable:3 of
-#, fuzzy
 msgid "the title of the table"
 msgstr "表的标题"
 
@@ -83,7 +82,6 @@ msgstr ""
 "(None)"
 
 #: ../../table.rst:22
-#, fuzzy
 msgid "Prepare data for a Table"
 msgstr "为表准备数据"
 
@@ -163,14 +161,12 @@ msgid ""
 msgstr "所有记录的总数。如果大于 len(data)，则显示分页条。"
 
 #: adminui.TableResult:10 of
-#, fuzzy
 msgid ""
 "the current page of the record, so the frontend will know which page to "
 "highlight"
 msgstr "记录的当前页面，因此前端将知道要突出显示的页面"
 
 #: adminui.TableResult:11 of
-#, fuzzy
 msgid "how many records are there in a page."
 msgstr "一页中有多少条记录。"
 
@@ -186,7 +182,6 @@ msgid "Now you have a table serving multi-paged data."
 msgstr "这样，就完成了一个提供多页数据的表。"
 
 #: ../../table.rst:88
-#, fuzzy
 msgid "Action Links for each Row"
 msgstr "每行的操作链接"
 
@@ -206,17 +201,14 @@ msgid ""
 msgstr "此时，将 ``row_actions`` 参数设为拥有 ``TableRowAction`` 的列表::"
 
 #: adminui.TableRowAction:1 of
-#, fuzzy
 msgid "Represent an action link shown in each row of the table"
 msgstr "表示表每行中显示的操作链接"
 
 #: adminui.TableRowAction:3 of
-#, fuzzy
 msgid "the id of the action, used in the '_actions' field of TableResult data."
 msgstr "操作的 ID，用于表结果数据的\"_actions\"字段。"
 
 #: adminui.TableRowAction:4 of
-#, fuzzy
 msgid "the title of the action link"
 msgstr "操作链接的标题"
 
@@ -236,7 +228,6 @@ msgstr ""
 "则传递的函数\"on_edit\"将调用："
 
 #: ../../table.rst:112
-#, fuzzy
 msgid ""
 "A complete example of table is listed here https://github.com/bigeyex/python-"
 "adminui/blob/master/python/example_table.py"

@@ -6,23 +6,23 @@ import Trend from './components/Trend'
 
 import styles from './layout.less';
 
-export const CardPart = ({ spec, dispatch }:ElementProps) => (
+export const CardPart = ({ spec, dispatch, passDown }:ElementProps) => (
     <Card bordered={false}>
-        {renderElements(spec.content || [], dispatch)}
+        {renderElements(spec.content || [], dispatch, passDown)}
     </Card>
 );
 
-export const ChartCardPart = ({ spec, dispatch }:ElementProps) => (
+export const ChartCardPart = ({ spec, dispatch, passDown }:ElementProps) => (
     <ChartCard bordered={false} title={spec.title} action={
         spec.tooltip ? (<Tooltip title={spec.tooltip}><Icon type="info-circle-o" /></Tooltip>) : null }
         total={spec.value}
         contentHeight={46}
-        footer={renderElements(spec.footer || [], dispatch)}>
-        {renderElements(spec.content || [], dispatch)}
+        footer={renderElements(spec.footer || [], dispatch, passDown)}>
+        {renderElements(spec.content || [], dispatch, passDown)}
     </ChartCard>
 );
 
-export const RowPart = ({ spec, dispatch }:ElementProps) => {
+export const RowPart = ({ spec, dispatch, passDown }:ElementProps) => {
     const content = spec.content || [];
     let columns = null;
     if(content.length > 0) {
@@ -39,13 +39,13 @@ export const RowPart = ({ spec, dispatch }:ElementProps) => {
                 xl: Math.floor(24*(col.size || 1)/maxSize),
                 style: { marginBottom: 24 },
             }
-            return <Col {...responsiveProps} key={col.uuid}>{ renderElements(col.content || [], dispatch) }</Col>
+            return <Col {...responsiveProps} key={col.uuid}>{ renderElements(col.content || [], dispatch, passDown) }</Col>
         });
     }
     return <Row gutter={24} type="flex">{ columns }</Row>
 }
 
-export const StatisticPart = ({ spec, dispatch }:ElementProps) => {
+export const StatisticPart = ({ spec }:ElementProps) => {
     if(spec.inline) {
         const value = Number((spec.value as string).replace(/[^0-9.-]+/g,""));
         if(spec.show_trend && value != 0) {

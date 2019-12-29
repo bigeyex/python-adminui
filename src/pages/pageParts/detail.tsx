@@ -2,14 +2,14 @@ import { Descriptions, Divider } from "antd";
 import React from "react";
 import renderElements, { ElementProps } from './element';
 
-export const DetailGroupPart = ({ spec, dispatch }:ElementProps) => (
+export const DetailGroupPart = ({ spec, dispatch, passDown }:ElementProps) => (
     <Descriptions
             title={spec.title}
             style={{
               marginBottom: 32,
             }}
           >
-        {renderElements(spec.content || [], dispatch)}
+        {renderElements(spec.content || [], dispatch, passDown)}
     </Descriptions>
 );
 

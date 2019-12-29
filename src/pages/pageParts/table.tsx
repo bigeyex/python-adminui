@@ -120,14 +120,14 @@ class DataTablePart extends Component<ElementProps> {
 
     render() {
         const {
-            spec, dispatch
+            spec, dispatch, passDown
         } = this.props;
 
         const renderTableActions = () => {
             if(spec.table_actions) {
                 return (
                     <div className={styles.tableListOperator}>
-                        { renderElements(spec.table_actions, dispatch) }
+                        { renderElements(spec.table_actions, dispatch, passDown) }
                     </div>
                 )
             }

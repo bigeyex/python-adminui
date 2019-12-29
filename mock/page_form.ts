@@ -10,7 +10,8 @@ export default {
                         type: 'TextField',
                         uuid: 'textfield-2',
                         title: 'Title',
-                        name: 'title'
+                        name: 'title', 
+                        required_message: 'You need a title!'
                     },
                     {
                         type: 'TextArea',

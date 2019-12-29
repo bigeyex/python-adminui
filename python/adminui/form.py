@@ -18,12 +18,15 @@ class TextField(Element):
     Args:
         title: the title of the field
         name: the key of the dictionary data passed to the callback when the form is submitted
-        required: set to True if this field is required
+        required_message: if other than None, the field will be required and an message will be shown
+            when the field is not filled at form submission.
+        placeholder: the text message shown when the field is not filled.
     """
-    def __init__(self, title, name=None, required=False):
+    def __init__(self, title, name=None, required_message=None, value=None, placeholder=None):
         if name is None:
             name = title.lower()
-        super().__init__('TextField', title=title, name=name, required=required)
+        super().__init__('TextField', title=title, name=name, required_message=required_message,
+                            value=value, placeholder=placeholder)
 
 class TextArea(Element):
     """Create a text area object
@@ -31,12 +34,15 @@ class TextArea(Element):
     Args:
         title: the title of the field
         name: the key of the dictionary data passed to the callback when the form is submitted
-        required: set to True if this field is required
+        required_message: if other than None, the field will be required and an message will be shown
+            when the field is not filled at form submission.
+        placeholder: the text message shown when the field is not filled.
     """
-    def __init__(self, title, name=None, required=False):
+    def __init__(self, title, name=None, required_message=None, value=None, placeholder=None):
         if name is None:
             name = title.lower()
-        super().__init__('TextArea', title=title, name=name, required=required)
+        super().__init__('TextArea', title=title, name=name, required_message=required_message, 
+                            value=value, placeholder=placeholder)
 
 class FormActions(Element):
     """Create a line of action buttons in the form

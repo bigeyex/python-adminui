@@ -14,7 +14,7 @@ export interface PageElement {
     data?: PageElementDataType;
     value?: string;
     text?: string;
-    requiredMessage?: string;
+    required_message?: string;
     placeholder?: string;
 
     columns?: any[];

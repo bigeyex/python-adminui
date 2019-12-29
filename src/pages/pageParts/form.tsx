@@ -12,6 +12,7 @@ import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
 
 import { PageElement } from '@/models/page';
+import renderElements, { ElementProps } from './element';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -38,6 +39,7 @@ const submitFormLayout = {
 interface FormPartProps extends FormComponentProps {
     spec: PageElement;
     dispatch: Dispatch<any>;
+    passDown: any;
 }
 
 class FormPart extends Component<FormPartProps> {
@@ -60,6 +62,8 @@ class FormPart extends Component<FormPartProps> {
     render() {
         const {
             spec,
+            dispatch,
+            passDown,
             form: { getFieldDecorator },
         } = this.props;
 
@@ -69,8 +73,8 @@ class FormPart extends Component<FormPartProps> {
                     {getFieldDecorator(spec.name || "", {
                         rules: [
                           {
-                            required: spec.requiredMessage ? true:false,
-                            message: spec.requiredMessage || '',
+                            required: spec.required_message ? true:false,
+                            message: spec.required_message || '',
                           },
                         ],
                       })(input)}
@@ -78,58 +82,11 @@ class FormPart extends Component<FormPartProps> {
             )
         }
 
-        const TextFieldPart = (spec:PageElement) => 
-            wrapInput(spec, (<Input placeholder={spec.placeholder || ''} />));
-
-        const TextAreaPart = (spec:PageElement) => 
-            wrapInput(spec, (
-                <TextArea
-                    style={{ minHeight: 32 }}
-                    placeholder={spec.placeholder || ''}
-                    rows={4}
-                />
-              ));
-        
-        const FormActionsPart = (spec:PageElement) => (
-            <FormItem key={spec.uuid} {...submitFormLayout} style={{ marginTop: 32 }}>
-                {renderFormItems(spec)}
-            </FormItem>
-        )
-
-        const SubmitButtonPart = (spec:PageElement) => (
-            <Button key={spec.uuid} type="primary" htmlType="submit">
-                {spec.title}
-            </Button>
-        )
-        
-        const renderFormItems = (spec:PageElement) => {
-            let formItems:[JSX.Element?] = [];
-            if(spec.content) {
-                spec.content.forEach(element => {
-                    switch(element.type) {
-                        case 'TextField':
-                            formItems.push(TextFieldPart(element));
-                            break;
-                        case 'TextArea':
-                            formItems.push(TextAreaPart(element));
-                            break;
-                        case 'FormActions':
-                            formItems.push(FormActionsPart(element));
-                            break;
-                        case 'SubmitButton':
-                            formItems.push(SubmitButtonPart(element));
-                            break;
-                    }
-                });
-            }
-            return formItems;
-        }
-        
 
         return (
             <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
                 <Card bordered={false}>
-                {renderFormItems(spec)}
+                { renderElements(spec.content || [], dispatch, {...passDown, wrapInput}) }
                 </Card>
             </Form>
         )
@@ -138,3 +95,29 @@ class FormPart extends Component<FormPartProps> {
 
 export default Form.create<FormPartProps>()(FormPart);
 
+export const TextFieldPart = ({ spec, passDown }:ElementProps) => {
+    const el = <Input placeholder={spec.placeholder || ''} />;
+    return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
+}
+
+export const TextAreaPart = ({ spec, passDown }:ElementProps) => {
+    const el = <TextArea
+        style={{ minHeight: 32 }}
+        placeholder={spec.placeholder || ''}
+        rows={4}
+    />;
+    return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
+}
+
+export const FormActionsPart = ({ spec, dispatch, passDown }:ElementProps) => 
+(
+    <FormItem key={spec.uuid} {...submitFormLayout} style={{ marginTop: 32 }}>
+        { renderElements(spec.content || [], dispatch, passDown) }
+    </FormItem>
+)
+
+export const SubmitButtonPart = ({ spec }:ElementProps) => (
+    <Button key={spec.uuid} type="primary" htmlType="submit">
+        {spec.title}
+    </Button>
+)

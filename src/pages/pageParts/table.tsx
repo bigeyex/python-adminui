@@ -65,9 +65,13 @@ class DataTablePart extends Component<ElementProps> {
                         let action_el = [];
                         for(let i=0; i<available_actions.length; i++) {
                             let action = available_actions[i];
+                            if(!action) {   // if a certain row has a row action, and its id is not defined, fail gracefully
+                                continue;
+                            }
                             if(i != 0) {
                                 action_el.push(<Divider key={'divider'+i} type="vertical"/>);
                             }
+                            console.log(record);
                             action_el.push(<a key={i} onClick={() => handleRowAction(record, action)}>{action.title}</a>);
                         }
                         return (

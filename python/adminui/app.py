@@ -1,4 +1,5 @@
 import uuid
+import jwt
 from flask import Flask, jsonify, request
 from werkzeug.routing import BaseConverter
 from .page import Page
@@ -40,32 +41,40 @@ class MenuItem(Element):
         super().__init__('MenuItem', name=name, path=url, icon=icon, component='./index', children=children)
         self.components_fields = ['children']
 
-
 class AdminApp:
     """Create an AdminUI App"""
+    SECRET = "admin ui super &*#*$ secret"
+
     def __init__(self):
         self.app = Flask(__name__, static_url_path='/')
         self.app.url_map.converters['purePath'] = PurePathConverter 
         self.pages = {}
         self.menu = []
+        self.on_login = {}
 
-    def page(self, url, name):
+    def page(self, url, name, auth_group=None):
         """Register a AdminUI Page
         
         Args:
             url (str): the url of the page. e.g. '/', '/detail', '/user/new'.
                 You may have at most 2 levels. 
             name (str): the title of the page
+            auth_group: an array of required auth permissions. e.g. ['user']
         
         Example: 
-            @app.page('/detail', 'Detail Page')
+            @app.page('/detail', 'Detail Page', ['user'])
             def detail_page(arg): 
                 # additional url parameters will be passed here
                 # if you declare '/details' and user visits '/details/2', 2 will be passed here
                 return [ ...Elements of the page... ]
         """
         def decorator(func):
-            self.pages[url] = Page(url, name, builder=func)
+            self.pages[url] = Page(url, name, builder=func, auth_group=auth_group)
+        return decorator
+
+    def login(self, method='password'):
+        def decorator(func):
+            self.on_login[method] = func
         return decorator
     
     def set_menu(self, menu):
@@ -82,13 +91,28 @@ class AdminApp:
         Args:
             url (str, optional): The url pattern of the page.
         """
+        def has_permission(page):
+            if not request.headers.get('Authorization'):
+                return False
+            token_content = jwt.decode(request.headers.get('Authorization'), AdminApp.SECRET, algorithms=['HS256'])
+            for auth in token_content['auth']:
+                if auth in page.auth_group:
+                    return True
+            return False
+
         url_parts = url.split('/')
         full_url = '/'+url
         base_url = '/'+url_parts[0]
         if full_url in self.pages:
-            return jsonify(self.pages[full_url].as_list())
+            if has_permission(self.pages[full_url]):
+                return jsonify(self.pages[full_url].as_list())
+            else: 
+                return 'no permission'
         elif base_url in self.pages and len(url_parts)>1:
-            return jsonify(self.pages[base_url].as_list(url_parts[1]))
+            if has_permission(self.pages[base_url]):
+                return jsonify(self.pages[base_url].as_list(url_parts[1]))
+            else:
+                return 'no permission'
         else:
             return 'page not registered'
 
@@ -100,6 +124,13 @@ class AdminApp:
         response = callbackRegistry.make_callback(msg['cb_uuid'], msg['args'])
         if response is not None:
             return response.as_dict()
+        else:
+            return 'error'
+
+    def handle_login_action(self):
+        msg = request.get_json()
+        if 'password' in self.on_login:
+            return self.on_login(msg['username'], msg['password']).as_dict()
         else:
             return 'error'
 
@@ -122,7 +153,7 @@ class AdminApp:
     def run(self):
         """run the AdminUI App"""
         # self.app.route('/api/page_layout/<url>')(self.serve_page)
-        self.app.route('/api/page_layout/<purePath:url>/')(self.serve_page)
+        self.app.route('/api/page_layout/<path:url>/')(self.serve_page)
         self.app.route('/api/page_layout/')(self.serve_page)
         self.app.route('/api/currentUser')(self.mock_current_user)
         self.app.route('/api/main_menu')(self.serve_menu)

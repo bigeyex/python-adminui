@@ -1,5 +1,7 @@
 import { reloadAuthorized } from './Authorized';
 
+export let currentToken = null;
+
 // use localStorage to store the authority info, which might be sent from server in actual project.
 export function getAuthority(str?: string): string | string[] {
   const authorityString =

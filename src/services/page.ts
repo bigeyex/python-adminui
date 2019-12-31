@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import SERVER from './debug';
 
 export interface PageActionParamsType {
     uuid?: string;
@@ -6,11 +7,11 @@ export interface PageActionParamsType {
 }
 
 export async function queryPageLayout(path:string): Promise<any> {
-    return request('/api/page_layout' + path);
+    return request(SERVER + '/api/page_layout' + path);
 }
 
 export async function postPageAction(param:PageActionParamsType): Promise<any> {
-    return request('/api/page_action', {
+    return request(SERVER + '/api/page_action', {
         method: 'POST',
         data: param,
     });

@@ -169,14 +169,14 @@ export default {
   },
   manifest: {
     basePath: '/',
-  }, // chainWebpack: webpackPlugin,
-  // proxy: {
-  //   '/server/api/': {
-  //     target: 'https://preview.pro.ant.design/',
-  //     changeOrigin: true,
-  //     pathRewrite: { '^/server': '' },
-  //   },
-  // },
+  }, 
+  proxy: {
+    '/server/api/': {
+      target: 'http://127.0.0.1:5000/',
+      changeOrigin: true,
+      pathRewrite: { '^/server': '' },
+    },
+  },
   outputPath: './python/adminui/static',
 } as IConfig;
 

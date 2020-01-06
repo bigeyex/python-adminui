@@ -2,9 +2,10 @@ import { Reducer } from 'redux';
 import { Effect } from 'dva';
 import { stringify } from 'querystring';
 import router from 'umi/router';
+import { notification } from 'antd';
 
-import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
-import { setAuthority } from '@/utils/authority';
+import { getFakeCaptcha, performLogin } from '@/services/login';
+import { currentUser } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 
 export interface StateType {
@@ -35,13 +36,18 @@ const Model: LoginModelType = {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
-      yield put({
+      const response = yield call(performLogin, payload);
+      yield put({     // display error message if there is error
         type: 'changeLoginStatus',
         payload: response,
       });
+      if (response.status === 'error') {
+        notification.error({ message: response.title, description: response.error });
+      }
       // Login successfully
       if (response.status === 'ok') {
+        currentUser.displayName = response.display_name;
+        currentUser.token = response.token;
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };
@@ -81,11 +87,10 @@ const Model: LoginModelType = {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
       return {
         ...state,
         status: payload.status,
-        type: payload.type,
+        // type: payload.type,
       };
     },
   },

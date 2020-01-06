@@ -67,10 +67,18 @@ const PageModel: PageModelType = {
     effects: {
         *fetch({ payload }, { call, put }) {
             const response = yield call(queryPageLayout, payload);
-            yield put({
-                type: 'savePageLayout', 
-                payload: response,
-            });
+            if (response.error_type) {
+                if (response.error_type == '403') {
+                    window.location.href = '/user/login?errorTitle='+response.title+'&errorMsg='+response.message;
+                }
+            }
+            else {
+                yield put({
+                    type: 'savePageLayout', 
+                    payload: response,
+                });
+            }
+            
         },
 
         *submitAction({ payload }, { call, put }) {

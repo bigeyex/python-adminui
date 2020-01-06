@@ -29,12 +29,3 @@ class Notification(Element):
     """
     def __init__(self, title='', text=None):
         super().__init__('Notification', title=title, text=text)
-
-class LoginAndNavigateTo(Element):
-    def __init__(self, url='/', display_name='', auth=['user'], user_info=None):
-        token = jwt.encode({
-            "display_name": display_name,
-            "auth": auth,
-            "user_info": user_info
-        }, AdminApp.SECRET, algorithm='HS256')
-        super().__init__('LoginAndNavigateTo', url=url, display_name=display_name, token=token)

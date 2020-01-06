@@ -4,6 +4,6 @@ from .layout import *
 from .table import *
 from .actions import *
 from .chart import *
-from .app import AdminApp, MenuItem
+from .app import AdminApp, MenuItem, LoggedInUser, LoginFailed
 from flask import Flask, jsonify
 

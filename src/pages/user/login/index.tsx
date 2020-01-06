@@ -1,4 +1,4 @@
-import { Alert, Checkbox, Icon } from 'antd';
+import { Alert, Checkbox, Icon, notification } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
 
@@ -12,6 +12,7 @@ import LoginComponents from './components/Login';
 import styles from './style.less';
 import { LoginParamsType } from '@/services/login';
 import { ConnectState } from '@/models/connect';
+import { getPageQuery } from '@/utils/utils';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginComponents;
 
@@ -92,6 +93,14 @@ class Login extends Component<LoginProps, LoginState> {
     <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />
   );
 
+  componentDidMount() {
+    const params = getPageQuery();
+    
+    if (params.errorTitle) {
+      notification.error({ message: params.errorTitle, description: params.errorMsg });
+    }
+  }
+
   render() {
     const { userLogin, submitting } = this.props;
     const { status, type: loginType } = userLogin;
@@ -114,7 +123,7 @@ class Login extends Component<LoginProps, LoginState> {
                 formatMessage({ id: 'user-login.login.message-invalid-credentials' }),
               )}
             <UserName
-              name="userName"
+              name="username"
               placeholder={`${formatMessage({ id: 'user-login.login.userName' })}: admin or user`}
               rules={[
                 {

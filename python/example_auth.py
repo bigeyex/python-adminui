@@ -4,12 +4,12 @@ app = AdminApp()
 
 @app.login()
 def on_login(username, password):
-    if username=='admin' and password=='123456':
-        return LoginAndNavigateTo('/', "admin")
+    if username=='alice' and password=='123456':
+        return LoggedInUser("Alice")
     else:
-        return Notification("Username or password is incorrect")
+        return LoginFailed()
 
-@app.page('/auth_login', 'Logged In', ['user'])
+@app.page('/', 'Logged In', ['user'])
 def form_page():
     return [
         Card('Logged In', [

@@ -1,6 +1,18 @@
 import { reloadAuthorized } from './Authorized';
 
-export let currentToken = null;
+
+export interface CurrentUserType {
+  displayName?: string;
+  token?: string;
+}
+
+export let currentUser:CurrentUserType = {
+  displayName: '',
+  token: undefined
+};
+
+
+// CODE BELOW WILL BE DELETED 
 
 // use localStorage to store the authority info, which might be sent from server in actual project.
 export function getAuthority(str?: string): string | string[] {

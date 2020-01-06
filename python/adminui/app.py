@@ -41,6 +41,23 @@ class MenuItem(Element):
         super().__init__('MenuItem', name=name, path=url, icon=icon, component='./index', children=children)
         self.components_fields = ['children']
 
+class LoggedInUser(Element):
+    def __init__(self, display_name='', auth=['user'], user_info=None):
+        token = jwt.encode({
+            "display_name": display_name,
+            "auth": auth,
+            "user_info": user_info
+        }, AdminApp.SECRET, algorithm='HS256')
+        super().__init__('LoginAndNavigateTo', status='ok', display_name=display_name, token=token.encode())
+
+class LoginFailed(Element):
+    def __init__(self, title="Login Failed", message="Username or password is incorrect"):
+        super().__init__('LoginFailed', status='error', error=message, title=title)
+
+class ErrorResponse(Element):
+    def __init__(self, title="Something Got Wrong", message="You encountered an Error", error_type="error"):
+        super().__init__('LoginFailed', status='error', message=message, title=title, error_type=error_type)
+
 class AdminApp:
     """Create an AdminUI App"""
     SECRET = "admin ui super &*#*$ secret"
@@ -53,7 +70,7 @@ class AdminApp:
         self.on_login = {}
 
     def page(self, url, name, auth_group=None):
-        """Register a AdminUI Page
+        """Decorator: register a AdminUI Page
         
         Args:
             url (str): the url of the page. e.g. '/', '/detail', '/user/new'.
@@ -73,6 +90,8 @@ class AdminApp:
         return decorator
 
     def login(self, method='password'):
+        """Decorator: register a login handler
+        """
         def decorator(func):
             self.on_login[method] = func
         return decorator
@@ -94,7 +113,8 @@ class AdminApp:
         def has_permission(page):
             if not request.headers.get('Authorization'):
                 return False
-            token_content = jwt.decode(request.headers.get('Authorization'), AdminApp.SECRET, algorithms=['HS256'])
+            print(request.headers.get('Authorization'))
+            token_content = jwt.decode(bytes(request.headers.get('Authorization'), 'utf-8'), AdminApp.SECRET, algorithms=['HS256'])
             for auth in token_content['auth']:
                 if auth in page.auth_group:
                     return True
@@ -107,17 +127,19 @@ class AdminApp:
             if has_permission(self.pages[full_url]):
                 return jsonify(self.pages[full_url].as_list())
             else: 
-                return 'no permission'
+                return ErrorResponse("No Permission", "Please login first or contact your administrator", "403").as_dict()
         elif base_url in self.pages and len(url_parts)>1:
             if has_permission(self.pages[base_url]):
                 return jsonify(self.pages[base_url].as_list(url_parts[1]))
             else:
-                return 'no permission'
+                return ErrorResponse("No Permission", "Please login first or contact your administrator", "403").as_dict()
         else:
-            return 'page not registered'
+            return ErrorResponse("Page not Found", error_type="404").as_dict()
 
     def handle_page_action(self):
-        """!!! Private method, don't call. Manage user actions like button clicks"""
+        """!!! Private method, don't call. Manage user actions like button clicks
+            handles /api/page_action
+        """
         msg = request.get_json()
         if 'args' not in msg:
             msg['args'] = []
@@ -125,14 +147,17 @@ class AdminApp:
         if response is not None:
             return response.as_dict()
         else:
-            return 'error'
+            return ErrorResponse("Page not Found", error_type="404").as_dict()
 
     def handle_login_action(self):
+        """!!! Private method, don't call. Manage user actions like button clicks
+            handles /api/login
+        """
         msg = request.get_json()
         if 'password' in self.on_login:
-            return self.on_login(msg['username'], msg['password']).as_dict()
+            return self.on_login['password'](msg['username'], msg['password']).as_dict()
         else:
-            return 'error'
+            return ErrorResponse("Login type not supported", error_type="501").as_dict()
 
     def serve_menu(self):
         """!!! Private method, don't call. Serve the menu to the frontend"""
@@ -157,6 +182,7 @@ class AdminApp:
         self.app.route('/api/page_layout/')(self.serve_page)
         self.app.route('/api/currentUser')(self.mock_current_user)
         self.app.route('/api/main_menu')(self.serve_menu)
+        self.app.route('/api/login', methods=['POST'])(self.handle_login_action)
         self.app.route('/api/page_action', methods=['POST'])(self.handle_page_action)
         self.app.route('/')(self.serve_root)
         self.app.route('/<purePath:path>/')(self.serve_root)

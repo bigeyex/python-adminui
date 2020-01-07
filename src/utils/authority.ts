@@ -1,46 +1,40 @@
-import { reloadAuthorized } from './Authorized';
 
 
 export interface CurrentUserType {
   displayName?: string;
+  avatar?: string;
   token?: string;
 }
 
-export let currentUser:CurrentUserType = {
-  displayName: '',
-  token: undefined
-};
+let currentUser:(CurrentUserType | undefined) = undefined;
 
-
-// CODE BELOW WILL BE DELETED 
-
-// use localStorage to store the authority info, which might be sent from server in actual project.
-export function getAuthority(str?: string): string | string[] {
-  const authorityString =
-    typeof str === 'undefined' && localStorage ? localStorage.getItem('antd-pro-authority') : str;
-  // authorityString could be admin, "admin", ["admin"]
-  let authority;
-  try {
-    if (authorityString) {
-      authority = JSON.parse(authorityString);
-    }
-  } catch (e) {
-    authority = authorityString;
+export function getCurrentUser(): CurrentUserType {
+  if (currentUser) {
+    return currentUser;
   }
-  if (typeof authority === 'string') {
-    return [authority];
+  if (localStorage) {
+    const savedUserString = localStorage.getItem('python-adminui-currentUser');
+    try {
+      if (savedUserString) {
+        currentUser = JSON.parse(savedUserString) as CurrentUserType;
+        return currentUser;
+      }
+    } catch (e) {}  // if not exist in local storage, fall to default return
   }
-  // preview.pro.ant.design only do not use in your production.
-  // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
-  if (!authority && ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site') {
-    return ['admin'];
-  }
-  return authority;
+  return {
+    displayName: '',
+    token: undefined
+  };
 }
 
-export function setAuthority(authority: string | string[]): void {
-  const proAuthority = typeof authority === 'string' ? [authority] : authority;
-  localStorage.setItem('antd-pro-authority', JSON.stringify(proAuthority));
-  // auto reload
-  reloadAuthorized();
+export function setCurrentUser(user:CurrentUserType, remember=false): void {
+  currentUser = user;
+  if (remember) {
+    localStorage.setItem('python-adminui-currentUser', JSON.stringify(user));
+  }
+}
+
+export function clearCurrentUser(): void {
+  localStorage.removeItem('python-adminui-currentUser');
+  currentUser = undefined
 }

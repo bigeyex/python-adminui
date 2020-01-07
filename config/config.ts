@@ -81,38 +81,22 @@ export default {
     },
     {
       path: '/',
-      component: '../layouts/SecurityLayout',
+      component: '../layouts/BasicLayout',
       routes: [
         {
           path: '/',
-          component: '../layouts/BasicLayout',
-          routes: [
-            {
-              path: '/',
-              name: 'home',
-              component: './index',
-            },
-            {
-              path: '/:page',
-              name: 'home',
-              component: './index',
-            },
-            {
-              path: '/:page/:id',
-              name: 'home',
-              component: './index',
-            },
-            {
-              path: '/admin',
-              name: 'admin',
-              icon: 'crown',
-              component: './Admin',
-              authority: ['admin'],
-            },
-            {
-              component: './404',
-            },
-          ],
+          name: 'home',
+          component: './index',
+        },
+        {
+          path: '/:page',
+          name: 'home',
+          component: './index',
+        },
+        {
+          path: '/:page/:id',
+          name: 'home',
+          component: './index',
         },
         {
           component: './404',
@@ -171,10 +155,9 @@ export default {
     basePath: '/',
   }, 
   proxy: {
-    '/server/api/': {
+    '/api/': {
       target: 'http://127.0.0.1:5000/',
       changeOrigin: true,
-      pathRewrite: { '^/server': '' },
     },
   },
   outputPath: './python/adminui/static',

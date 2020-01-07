@@ -35,22 +35,54 @@ class MenuItem(Element):
             name (str): the title of the menu
             url (str, optional): the url the menu will navigate to. Defaults to ''.
             icon (str, optional): the icon of the menu. See https://ant.design/components/icon/. Defaults to None.
+            auth_needed (str, optional): the permission needed for user to access this page. e.g. 'user' or 'admin'
             children (list, optional): set this if the menu has a sub-menu. Defaults to [].
     """
-    def __init__(self, name, url='', icon=None, children=[]):
-        super().__init__('MenuItem', name=name, path=url, icon=icon, component='./index', children=children)
-        self.components_fields = ['children']
+    def __init__(self, name, url='', icon=None, auth_needed=None, children=[]):
+        self.name = name
+        self.url = url
+        self.icon = icon
+        self.auth_needed = auth_needed
+        self.children = children
+    def has_auth(self, auth=[]):
+        if self.auth_needed is None or self.auth_needed in auth:
+            return True
+        else:
+            return False
+    def as_dict(self, auth=[]):
+        return {
+            'name': self.name,
+            'path': self.url,
+            'icon': self.icon,
+            'component': './index',
+            'children': [x.as_dict(auth) for x in self.children if x.has_auth(auth)]
+        }
 
+DEFAULT_AVATAR = 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'
 class LoggedInUser(Element):
-    def __init__(self, display_name='', auth=['user'], user_info=None):
+    """Returned by login handler, represent a successfully logged in user.
+    
+    Args:
+        display_name: the display name of the user
+        auth: a list of permission string the user have. Will be checked against in pages or menus
+        avatar: the avatar of the user
+        user_info: info for future use, accessible by app.current_user()['user_info']
+    """
+    def __init__(self, display_name='', auth=['user'], avatar=DEFAULT_AVATAR, user_info=None):
         token = jwt.encode({
             "display_name": display_name,
             "auth": auth,
             "user_info": user_info
         }, AdminApp.SECRET, algorithm='HS256')
-        super().__init__('LoginAndNavigateTo', status='ok', display_name=display_name, token=token.encode())
+        super().__init__('LoginAndNavigateTo', status='ok', display_name=display_name, avatar=avatar, token=token.decode('utf-8'))
 
 class LoginFailed(Element):
+    """Returned by login handler, represent a failed login attempt
+    
+    Args:
+        title: the title shown in the error message. default: 'Login Failed'
+        message: the error message content. default: 'Username or password is incorrect'
+    """
     def __init__(self, title="Login Failed", message="Username or password is incorrect"):
         super().__init__('LoginFailed', status='error', error=message, title=title)
 
@@ -69,14 +101,14 @@ class AdminApp:
         self.menu = []
         self.on_login = {}
 
-    def page(self, url, name, auth_group=None):
+    def page(self, url, name, auth_needed=None):
         """Decorator: register a AdminUI Page
         
         Args:
             url (str): the url of the page. e.g. '/', '/detail', '/user/new'.
                 You may have at most 2 levels. 
             name (str): the title of the page
-            auth_group: an array of required auth permissions. e.g. ['user']
+            auth_needed: an array of required auth permissions. e.g. ['user']
         
         Example: 
             @app.page('/detail', 'Detail Page', ['user'])
@@ -86,7 +118,7 @@ class AdminApp:
                 return [ ...Elements of the page... ]
         """
         def decorator(func):
-            self.pages[url] = Page(url, name, builder=func, auth_group=auth_group)
+            self.pages[url] = Page(url, name, builder=func, auth_needed=auth_needed)
         return decorator
 
     def login(self, method='password'):
@@ -103,6 +135,18 @@ class AdminApp:
             menu (MenuItem[]): A list of MenuItem objects.
         """
         self.menu = menu
+
+    def current_user(self):
+        """Get the current logged in user. 
+        
+        Returns:
+            {'display_name', 'auth', 'user_info'}: information about current logged in user
+        """
+        auth_header = request.headers.get('Authorization')
+        if auth_header is not None:
+            return jwt.decode(bytes(auth_header, 'utf-8'), AdminApp.SECRET, algorithms=['HS256'])
+        else:
+            return {'display_name': None, 'auth': [], 'user_info': None}
     
     def serve_page(self, url=''):
         """!!! Private method, don't call. Serve the page specifications
@@ -111,14 +155,7 @@ class AdminApp:
             url (str, optional): The url pattern of the page.
         """
         def has_permission(page):
-            if not request.headers.get('Authorization'):
-                return False
-            print(request.headers.get('Authorization'))
-            token_content = jwt.decode(bytes(request.headers.get('Authorization'), 'utf-8'), AdminApp.SECRET, algorithms=['HS256'])
-            for auth in token_content['auth']:
-                if auth in page.auth_group:
-                    return True
-            return False
+            return page.auth_needed in self.current_user()['auth']
 
         url_parts = url.split('/')
         full_url = '/'+url
@@ -161,26 +198,20 @@ class AdminApp:
 
     def serve_menu(self):
         """!!! Private method, don't call. Serve the menu to the frontend"""
+        token = self.current_user()
         return jsonify({
-            'menu': [x.as_dict() for x in self.menu]
+            'menu': [x.as_dict() for x in self.menu if x.has_auth(token['auth'])]
         })
 
     def serve_root(self, path=''):
         """!!! Private method, don't call. Serve the index.html"""
         return self.app.send_static_file('index.html')
-    
-    def mock_current_user(self):
-        """!!! Private method, don't call. Will be removed after implementing the login system"""
-        return jsonify({
-            'name': 'Serati Ma'
-        })
 
     def run(self):
         """run the AdminUI App"""
         # self.app.route('/api/page_layout/<url>')(self.serve_page)
         self.app.route('/api/page_layout/<path:url>/')(self.serve_page)
         self.app.route('/api/page_layout/')(self.serve_page)
-        self.app.route('/api/currentUser')(self.mock_current_user)
         self.app.route('/api/main_menu')(self.serve_menu)
         self.app.route('/api/login', methods=['POST'])(self.handle_login_action)
         self.app.route('/api/page_action', methods=['POST'])(self.handle_page_action)

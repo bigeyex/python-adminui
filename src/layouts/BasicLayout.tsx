@@ -17,10 +17,11 @@ import { connect } from 'dva';
 import { Icon, Result, Button } from 'antd';
 import { formatMessage } from 'umi-plugin-react/locale';
 
-import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
-import { isAntDesignPro, getAuthorityFromRouter } from '@/utils/utils';
+import { UserModelState } from '@/models/user';
+import { isAntDesignPro } from '@/utils/utils';
+import { getCurrentUser } from '@/utils/authority'
 import logo from '../assets/logo.svg';
 
 const noMatch = (
@@ -45,6 +46,7 @@ export interface BasicLayoutProps extends ProLayoutProps {
   };
   settings: Settings;
   dispatch: Dispatch;
+  user: UserModelState;
 }
 export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
   breadcrumbNameMap: {
@@ -62,7 +64,7 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
       ...item,
       children: item.children ? menuDataRender(item.children) : [],
     };
-    return Authorized.check(item.authority, localItem, null) as MenuDataItem;
+    return localItem;
   });
 
 const defaultFooterDom = (
@@ -117,7 +119,7 @@ const footerRender: BasicLayoutProps['footerRender'] = () => {
 };
 
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
-  const { dispatch, children, settings, location = { pathname: '/' } } = props;
+  const { dispatch, children, user, settings, location = { pathname: '/' } } = props;
   /**
    * constructor
    */
@@ -125,17 +127,20 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
 
   useEffect(() => {
-    fetch('/api/main_menu')
+    const currentUser = getCurrentUser();
+    const fetchOptions = currentUser.token ? 
+      { headers: { 'Authorization': currentUser.token } } : {}
+    fetch('/api/main_menu', fetchOptions)
       .then(response => response.json())
       .then(data => {
         setMenuData(data.menu || []);
       });
 
-    // if (dispatch) {
-    //   dispatch({
-    //     type: 'user/fetchCurrent',
-    //   });
-    // }
+    if (dispatch) {
+      dispatch({
+        type: 'user/fetchCurrent',
+      });
+    }
 
   }, []);
   /**
@@ -149,10 +154,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       });
     }
   };
-  // get children authority
-  const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
-    authority: undefined,
-  };
 
   return (
     <ProLayout
@@ -163,7 +164,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           {titleDom}
         </Link>
       )}
-      headerRender={false}
+      headerRender={user.currentUser && user.currentUser.name ? undefined : false }
       onCollapse={handleMenuCollapse}
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps.isUrl || menuItemProps.children) {
@@ -197,14 +198,13 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       {...props}
       {...settings}
     >
-      <Authorized authority={authorized!.authority} noMatch={noMatch}>
         {children}
-      </Authorized>
     </ProLayout>
   );
 };
 
-export default connect(({ global, settings }: ConnectState) => ({
+export default connect(({ global, settings, user }: ConnectState) => ({
   collapsed: global.collapsed,
   settings,
+  user,
 }))(BasicLayout);

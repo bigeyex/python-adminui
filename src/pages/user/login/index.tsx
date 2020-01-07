@@ -53,6 +53,7 @@ class Login extends Component<LoginProps, LoginState> {
         payload: {
           ...values,
           type,
+          autoLogin: this.state.autoLogin,
         },
       });
     }

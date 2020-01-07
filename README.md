@@ -18,13 +18,14 @@ This project is based on Flask and Ant Design Pro.
 ![Screen Shot](./screenshot.png)
 
 ## Features
+- No HTML, CSS, JS needed
+- Database agnostic: feed content at your own, no matter it's MySql, Sqlite, Excel tables, Firebase or some IoT hardware
+- JWT based authentication/login system with a neat login page
 - Forms and detail pages 
 - Line and Bar Chart
 - Create decent looking menus
 - Data tables with pagination
 - Adaptive to small screens and mobile devices
-- No HTML, CSS, JS needed
-
 
 # Installation and quick start
 
@@ -83,7 +84,24 @@ You may also give stars to let me know if this project is worthy to invest more 
 
 To work with the source code:
 
-This project has a Typescript front-end and a Python backend. The front-end is in the `/src` folder. Run `npm install` & `npm start` at the root folder will start developing with mock data inside `/mock`. When finished with the frontend, run `npm run build` will build the project. The front-end is based on the amazing [Ant Design Pro](https://pro.ant.design/docs/getting-started) library, you may consult their documentation during the development.
+This project has a Typescript front-end and a Python backend.  
+The front-end is in the `/src` folder.  
+The back-end is in the `/python` folder.  
+To start developing:
+
+- cd into `/python` folder and run `pip install -r requirements.txt` to install requirements
+- run one of the example_xxx.py file in the `/python` folder
+- Open another terminal, run `npm install` & `npm start` at the root folder to start the frontend; 
+
+Under this development mode, requests from front-end will forward to the backend.
+
+When you are done with developing: 
+- run `npm run build` will build the project. 
+
+The front-end is based on the amazing [Ant Design Pro](https://pro.ant.design/docs/getting-started) library, you may consult their documentation during the development.
 
 The Python backend is located in `/python/adminui`. It is Flask based. There are some examples in the `/python` folder.
 
+# Release log for early preview
+
+0.2.0: added authentication system

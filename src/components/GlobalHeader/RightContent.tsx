@@ -22,10 +22,9 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
   if (theme === 'dark' && layout === 'topmenu') {
     className = `${styles.right}  ${styles.dark}`;
   }
-  return (<div className={className}></div>);
   return (
     <div className={className}>
-      <HeaderSearch
+      {/* <HeaderSearch
         className={`${styles.action} ${styles.search}`}
         placeholder={formatMessage({
           id: 'component.globalHeader.search',
@@ -48,8 +47,8 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
         onPressEnter={value => {
           console.log('enter', value);
         }}
-      />
-      <Tooltip
+      /> */}
+      {/* <Tooltip
         title={formatMessage({
           id: 'component.globalHeader.help',
         })}
@@ -62,9 +61,9 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
         >
           <Icon type="question-circle-o" />
         </a>
-      </Tooltip>
+      </Tooltip> */}
       <Avatar />
-      <SelectLang className={styles.action} />
+      {/* <SelectLang className={styles.action} /> */}
     </div>
   );
 };

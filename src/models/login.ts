@@ -5,7 +5,7 @@ import router from 'umi/router';
 import { notification } from 'antd';
 
 import { getFakeCaptcha, performLogin } from '@/services/login';
-import { currentUser } from '@/utils/authority';
+import { setCurrentUser, clearCurrentUser } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 
 export interface StateType {
@@ -35,7 +35,7 @@ const Model: LoginModelType = {
   },
 
   effects: {
-    *login({ payload }, { call, put }) {
+    *login({ payload }, { call, put }) { console.log(payload);
       const response = yield call(performLogin, payload);
       yield put({     // display error message if there is error
         type: 'changeLoginStatus',
@@ -46,8 +46,11 @@ const Model: LoginModelType = {
       }
       // Login successfully
       if (response.status === 'ok') {
-        currentUser.displayName = response.display_name;
-        currentUser.token = response.token;
+        setCurrentUser({
+          displayName: response.display_name,
+          token: response.token,
+          avatar: response.avatar
+        }, payload.autoLogin);
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };
@@ -72,6 +75,7 @@ const Model: LoginModelType = {
     },
 
     logout() {
+      clearCurrentUser();
       const { redirect } = getPageQuery();
       // Note: There may be security issues, please note
       if (window.location.pathname !== '/user/login' && !redirect) {

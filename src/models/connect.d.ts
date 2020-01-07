@@ -4,7 +4,8 @@ import { RouterTypes } from 'umi';
 import { GlobalModelState } from './global';
 import { DefaultSettings as SettingModelState } from '../../config/defaultSettings';
 import { UserModelState } from './user';
-import { LoginModelType } from './login';
+import { StateType } from './login';
+import { PageModelState } from './page';
 
 export { GlobalModelState, SettingModelState, UserModelState };
 
@@ -26,6 +27,7 @@ export interface ConnectState {
   settings: SettingModelState;
   user: UserModelState;
   login: LoginModelType;
+  page: PageModelState;
 }
 
 export interface Route extends MenuDataItem {
@@ -36,5 +38,5 @@ export interface Route extends MenuDataItem {
  * @type T: Params matched in dynamic routing
  */
 export interface ConnectProps<T = {}> extends Partial<RouterTypes<Route, T>> {
-  dispatch?<K = any>(action: AnyAction): K;
+  dispatch?: Dispatch<AnyAction>
 }

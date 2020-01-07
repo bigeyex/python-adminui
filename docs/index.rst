@@ -39,6 +39,7 @@ Features:
    parameter
    table
    chart
+   user
 
 Indices and tables
 ==================

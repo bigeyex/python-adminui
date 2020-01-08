@@ -18,13 +18,8 @@ the form values as a dictionary::
     def my_function(values):
         ... do things with values ...
 
-In the content section of the form, you may add ``TextField`` or ``TextArea``:
-
-.. autoclass:: adminui.TextField
-   :members:
-
-.. autoclass:: adminui.TextArea
-   :members:
+In the content section of the form, you may add ``TextField`` and other form controls. See 
+the next section for details
 
 Finally, don't forget to add a submit button. Insert a ``FormActions`` object with ``Submit``
 at the end of the form::
@@ -34,3 +29,59 @@ at the end of the form::
     ])
 
 Now your form is created.
+
+List of Form Controls
+**************************************
+
+Here are a list of controls you may use in your form:
+
+.. image:: images/form/textfield.jpg
+
+.. code-block:: python
+
+    TextField('Title', required_message='Title is required!')
+
+.. autoclass:: adminui.TextField
+   :members:
+
+.. image:: images/form/textarea.jpg
+
+.. code-block:: python
+
+    TextArea('Description')
+
+.. autoclass:: adminui.TextArea
+   :members:
+
+.. image:: images/form/select.jpg
+
+.. code-block:: python
+
+    SelectBox('Type', data=['One', 'Two', 'Three'], placeholder="Select One")
+
+.. autoclass:: adminui.SelectBox
+   :members:
+
+.. image:: images/form/checkboxes.jpg
+
+.. code-block:: python
+
+    CheckboxGroup('Checks', data=['One', 'Two'])
+
+.. autoclass:: adminui.CheckboxGroup
+   :members:
+
+.. image:: images/form/datepicker.jpg
+
+.. code-block:: python
+
+    DatePicker('Date')
+
+.. image:: images/form/datepickerrange.jpg
+
+.. code-block:: python
+
+    DatePicker('Range', pick='range')
+
+.. autoclass:: adminui.DatePicker
+   :members:

@@ -1,7 +1,8 @@
 import { PageElement } from '@/models/page';
 import { Descriptions } from "antd";
 import { Dispatch, AnyAction } from 'redux';
-import FormPart, { TextFieldPart, TextAreaPart, FormActionsPart, SubmitButtonPart } from './form';
+import FormPart, { TextFieldPart, TextAreaPart, SelectBoxPart, CheckboxGroupPart, 
+  DatePickerPart ,FormActionsPart, SubmitButtonPart } from './form';
 import { ButtonPart, LinkPart } from './controls'
 import React from 'react';
 import DataTablePart from './table';
@@ -29,6 +30,15 @@ const renderElements = (elements:PageElement[], dispatch:Dispatch<AnyAction>, pa
               break;
             case 'TextArea':
               pageElements.push(<TextAreaPart key={element.uuid} spec={element} dispatch={dispatch} passDown={passDown} />);
+              break;
+            case 'SelectBox':
+              pageElements.push(<SelectBoxPart key={element.uuid} spec={element} dispatch={dispatch} passDown={passDown} />);
+              break;
+            case 'DatePicker':
+              pageElements.push(<DatePickerPart key={element.uuid} spec={element} dispatch={dispatch} passDown={passDown} />);
+              break;
+            case 'CheckboxGroup':
+              pageElements.push(<CheckboxGroupPart key={element.uuid} spec={element} dispatch={dispatch} passDown={passDown} />);
               break;
             case 'FormActions':
               pageElements.push(<FormActionsPart key={element.uuid} spec={element} dispatch={dispatch} passDown={passDown} />);

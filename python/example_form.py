@@ -11,6 +11,10 @@ def form_page():
         Form(on_submit = on_submit, content = [
             TextField('Title', required_message='Title is required!'),
             TextArea('Description'),
+            SelectBox('Type', data=['One', 'Two', 'Three'], placeholder="Select One"),
+            CheckboxGroup('Checks', data=['One', 'Two']),
+            DatePicker('Date'),
+            DatePicker('Range', pick='range'),
             FormActions(content = [
                 SubmitButton('Submit')
             ])

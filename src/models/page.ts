@@ -7,6 +7,7 @@ type PageElementDataType = any;
 export interface PageElement {
     id?: string;
     type: string;
+    subtype?: string;
     name?: string;
     uuid?: string;
     title?: string;

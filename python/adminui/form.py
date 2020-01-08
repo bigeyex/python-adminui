@@ -8,9 +8,9 @@ class Form(Element):
         content (Element[], optional): an array of Element objects as content of the form. Defaults to None.
         on_submit (func, optional): a callback function called when the user submits the form. Defaults to None.
     """
-    def __init__(self, content=None, on_submit=None):
+    def __init__(self, content=None, on_submit=None, title_inline=True):
         on_submit_uuid = callbackRegistry.uuid_for_callback(on_submit)
-        super().__init__('Form', content=content, on_submit=on_submit_uuid)
+        super().__init__('Form', content=content, style={'titleInline': title_inline}, on_submit=on_submit_uuid)
 
 class TextField(Element):
     """Create a text field in the form. 
@@ -43,6 +43,59 @@ class TextArea(Element):
             name = title.lower()
         super().__init__('TextArea', title=title, name=name, required_message=required_message, 
                             value=value, placeholder=placeholder)
+
+class SelectBox(Element):
+    """Create a dropdown box for selecting in a list
+    
+    Args:
+        title: the title of the field
+        name: the key of the dictionary data passed to the callback when the form is submitted
+        required_message: if other than None, the field will be required and an message will be shown
+            when the field is not filled at form submission.
+        data: the options in the select box. in format of a list of str or a list of [title, value] list
+            e.g. ['one', 'two', 'three'] or [['one', 1], ['two', 2]], both accepted
+        placeholder: the text message shown when the field is not filled.
+    """
+    def __init__(self, title, name=None, value=None, data=[], placeholder=None, required_message=None):
+        if name is None:
+            name = title.lower()
+        uniform_data = [x if type(x) is list else [x, x] for x in data]
+        super().__init__('SelectBox', title=title, name=name, required_message=required_message, 
+                            data=uniform_data, value=value, placeholder=placeholder)
+
+class CheckboxGroup(Element):
+    """Create a group of checkbox for multi-selecting
+    
+    Args:
+        title: the title of the field
+        name: the key of the dictionary data passed to the callback when the form is submitted
+        data: the title and value of individual checkboxes. in format of a list of str or a list of [title, value]
+            e.g. ['one', 'two', 'three'] or [['one', 1], ['two', 2]], both accepted
+    """
+    def __init__(self, title, name=None, data=[], value=None):
+        if name is None:
+            name = title.lower()
+        uniform_data = [x if type(x) is list else [x, x] for x in data]
+        super().__init__('CheckboxGroup', title=title, name=name, data=uniform_data, value=value)
+
+class Checkbox(Element):
+    def __init__(self, title, name=None, value=None):
+        if name is None:
+            name = title.lower()
+        super().__init__('Checkbox', title=title, name=name, value=value)
+
+class DatePicker(Element):
+    """Create a date picker to pick a date or date range
+    
+    Args:
+        title: the title of the field
+        name: the key of the dictionary data passed to the callback when the form is submitted
+        pick: 'date' | 'month' | 'week' | 'range'. 
+    """
+    def __init__(self, title, name=None, value=None, pick='date'):
+        if name is None:
+            name = title.lower()
+        super().__init__('DatePicker', title=title, name=name, value=value, subtype=pick)
 
 class FormActions(Element):
     """Create a line of action buttons in the form

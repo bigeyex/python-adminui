@@ -104,4 +104,5 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+0.2.1: added SelectBox, CheckboxGroup and DatePicker as form controls; fixed bug in authentication
 0.2.0: added authentication system

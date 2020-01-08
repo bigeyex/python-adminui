@@ -88,7 +88,7 @@ class LoginFailed(Element):
 
 class ErrorResponse(Element):
     def __init__(self, title="Something Got Wrong", message="You encountered an Error", error_type="error"):
-        super().__init__('LoginFailed', status='error', message=message, title=title, error_type=error_type)
+        super().__init__('Error', status='error', message=message, title=title, error_type=error_type)
 
 class AdminApp:
     """Create an AdminUI App"""
@@ -155,7 +155,7 @@ class AdminApp:
             url (str, optional): The url pattern of the page.
         """
         def has_permission(page):
-            return page.auth_needed in self.current_user()['auth']
+            return page.auth_needed is None or page.auth_needed in self.current_user()['auth']
 
         url_parts = url.split('/')
         full_url = '/'+url
@@ -184,7 +184,7 @@ class AdminApp:
         if response is not None:
             return response.as_dict()
         else:
-            return ErrorResponse("Page not Found", error_type="404").as_dict()
+            return ErrorResponse("No Action", error_type="204").as_dict()
 
     def handle_login_action(self):
         """!!! Private method, don't call. Manage user actions like button clicks

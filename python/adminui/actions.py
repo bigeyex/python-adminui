@@ -29,3 +29,11 @@ class Notification(Element):
     """
     def __init__(self, title='', text=None):
         super().__init__('Notification', title=title, text=text)
+
+class UpdateElement(Element):
+    def __init__(self, id='', **kwargs):
+        super().__init__('UpdateElement', id=id, **kwargs)
+
+class ReplaceElement(Element):
+    def __init__(self, id='', element=None):
+        super().__init__('ReplaceElement', id=id, element=element)

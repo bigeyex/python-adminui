@@ -15,5 +15,5 @@ class Page:
                 return self.builder()
         return {
             'name': self.name,
-            'content': [x.as_dict() for x in call_builder()]
+            'content': call_builder()
         }

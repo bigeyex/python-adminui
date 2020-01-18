@@ -35,6 +35,7 @@ export interface PageElement {
     on_submit?: string;
     on_click?: string;
     on_data?: string;
+    element?: PageElement;
 }
 
 export interface PageModelState {
@@ -83,7 +84,7 @@ const PageModel: PageModelType = {
         },
 
         *submitAction({ payload }, { call, put }) {
-            const parseResponse = (response:PageElement) => {
+            const parseResponse = function*(response:PageElement) {
                 switch(response.type) {
                     case 'CombinedAction':
                         if(response.content){                            
@@ -96,10 +97,29 @@ const PageModel: PageModelType = {
                     case 'Notification':
                         notification.open({ message: response.title, description: response.text });
                         break;
+                    case 'UpdateElement':
+                        yield put({
+                            type: 'updateElement',
+                            payload: {
+                                id: response.id,
+                                element: response
+                            }
+                        });
+                        break;
+                    case 'ReplaceElement':
+                        yield put({
+                            type: 'updateElement',
+                            payload: {
+                                id: response.id,
+                                element: response.element,
+                                replace: true
+                            }
+                        });
+                        break;
                 }
             }
             const response = yield call(postPageAction, payload);
-            parseResponse(response);
+            yield *parseResponse(response);
         },
 
         *requestDataUpdate({ payload }, { call, put }) {
@@ -155,28 +175,40 @@ const PageModel: PageModelType = {
         // this is not used... yet.
         updateElement(state, action) {
             const switchElement = (els:PageElement[], id:string, 
-                updater:(el:PageElement)=>PageElement): PageElement[] => {
+                newElement:PageElement): PageElement[] => {
                 return els.map(el=>{
                     if(el.id == id) {
-                        return updater(el);
-                    }
-                    else if(el.content) {
-                        return {
-                            ...el, 
-                            content:switchElement(el.content, id, updater)
-                        };
+                        if(action.payload.replace) {
+                            return newElement;
+                        }
+                        else {
+                            return {...el, ...newElement, 'type': el.type}
+                        }
                     }
                     else {
-                        return el;
+                        let newAttributes = {}
+                        // some attribute have nested elements, need to recursively find id and replace content
+                        const elementAttributes = ['content', 'row_actions', 'table_actions', 'footer']
+                        elementAttributes.forEach(attr => {
+                            if(attr in el) {
+                                newAttributes[attr] = switchElement(el[attr], id, newElement);
+                            }
+                            
+                        });
+                        if(Object.keys(elementAttributes).length > 0) {
+                            return {...el, ...newAttributes}
+                        }
+                        else {
+                            return el;
+                        }
                     }
                 })
             }
-
             return {
                 ...state, 
                 pageLayout: {
                     content: switchElement(state?.pageLayout.content || [], 
-                        action.payload.id, action.payload.updater)
+                        action.payload.id, action.payload.element)
                 } 
             };
         }

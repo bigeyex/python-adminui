@@ -9,8 +9,8 @@ class BarChart(Element):
         show_axis: True for displaying the x and y axis, labels and markers
         height: the height of the chart
     """
-    def __init__(self, data=[], show_axis=True, height=300, color=None, columns=['x', 'y']):
-        super().__init__('BarChart', data=data, style={'show_axis': show_axis, 'height': height, 'color': color, 'columns':columns})
+    def __init__(self, data=[], show_axis=True, height=300, color=None, columns=['x', 'y'], id=None):
+        super().__init__('BarChart', data=data, style={'show_axis': show_axis, 'height': height, 'color': color, 'columns':columns}, id=id)
 
 class LineChart(Element):
     """Create a line chart
@@ -25,7 +25,7 @@ class LineChart(Element):
         height: the height of the chart
     """
     def __init__(self, data=[], show_axis=True, show_line=True, show_area=False, smooth=True, height=300, 
-                        line_color=None, area_color=None, columns=['x', 'y']):
+                        line_color=None, area_color=None, columns=['x', 'y'], id=None):
         super().__init__('LineChart', data=data, style={'show_axis': show_axis, 'show_line': show_line,
                             'show_area': show_area, 'smooth': smooth, 'height': height, 
-                            'line_color': line_color, 'area_color': area_color, 'columns':columns})
+                            'line_color': line_color, 'area_color': area_color, 'columns':columns}, id=id)

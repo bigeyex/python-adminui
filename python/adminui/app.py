@@ -1,6 +1,7 @@
 import uuid
 import jwt
 from flask import Flask, jsonify, request
+from flask.json import JSONEncoder
 from werkzeug.routing import BaseConverter
 from .page import Page
 from .element import Element
@@ -27,6 +28,13 @@ callbackRegistry = CallbackRegistryType()
 
 class PurePathConverter(BaseConverter):
     regex = r'[a-zA-Z0-9\/]+'
+
+# element serializer
+class ElementJSONEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Element):
+            return obj.as_dict()
+        return super(MyJSONEncoder, self).default(obj)
 
 class MenuItem(Element):
     """Represents a menu item
@@ -96,6 +104,7 @@ class AdminApp:
 
     def __init__(self):
         self.app = Flask(__name__, static_url_path='/')
+        self.app.json_encoder = ElementJSONEncoder
         self.app.url_map.converters['purePath'] = PurePathConverter 
         self.pages = {}
         self.menu = []

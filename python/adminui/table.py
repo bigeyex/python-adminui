@@ -59,10 +59,8 @@ class DataTable(Element):
             Leave it None if you're sure there is only one page of data.
     """
     def __init__(self, title="", columns=[], data=[], row_actions=[],
-            table_actions=[], on_data=None):
+            table_actions=[], on_data=None, id=None):
         on_data_uuid = callbackRegistry.uuid_for_callback(on_data)
         super().__init__('DataTable', title=title, columns=columns, data=data,
-            row_actions=row_actions, table_actions=table_actions, on_data=on_data_uuid)
-        self.components_fields = ['row_actions', 'table_actions']
-        self.element_fields = ['data']
+            row_actions=row_actions, table_actions=table_actions, on_data=on_data_uuid, id=id)
 

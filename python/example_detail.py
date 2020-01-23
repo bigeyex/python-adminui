@@ -5,7 +5,7 @@ app = AdminApp()
 def on_submit(form_data):
     print(form_data)
 
-@app.page('/detail', 'Detail Page')
+@app.page('/', 'Detail Page')
 def detail_page():
     return [
         Card(content=[
@@ -29,7 +29,8 @@ def detail_page():
             Header('Header 2', 2),
             Header('Header 3', 3),
             Header('Header 4', 4),
-            Paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+            Paragraph("a red paragraph", color='red'),
+            Paragraph("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore\n magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
         ])
     ]
 

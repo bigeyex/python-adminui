@@ -1,6 +1,7 @@
 import { Descriptions, Divider } from "antd";
 import React from "react";
 import renderElements, { ElementProps } from './element';
+import nl2br from 'react-nl2br';
 
 export const DetailGroupPart = ({ spec, dispatch, passDown }:ElementProps) => (
     <Descriptions
@@ -37,6 +38,7 @@ export const HeaderPart = ({ spec }:ElementProps) => {
     }
 };
 
-export const ParagraphPart = ({ spec }:ElementProps) => (
-    <p>{spec.text}</p>
-)
+export const ParagraphPart = ({ spec }:ElementProps) => {
+    const style = spec.color ? { color: spec.color } : undefined;
+    return <p style={style}>{nl2br(spec.text || '')}</p>
+}

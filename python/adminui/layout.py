@@ -61,8 +61,8 @@ class Header(Element):
 
 class Paragraph(Element):
     """Display a paragraph of text"""
-    def __init__(self, text='', id=None):
-        super().__init__('Paragraph', text=text, id=id)
+    def __init__(self, text='', id=None, color=None):
+        super().__init__('Paragraph', text=text, id=id, color=color)
 
 class Row(Element):
     """Display a row with multiple Columns for layout purpose

@@ -19,7 +19,10 @@ def on_change_content():
         ])
 
 def on_change_self():
-    return ReplaceElement('paragraph', Paragraph('This element has been changed'))
+    return [
+        ReplaceElement('paragraph', Paragraph('This element has been changed')),
+        ReplaceElement('paragraph2', Paragraph('This element has also been changed'))
+    ]
 
 def on_notify_twice():
     return CombinedAction([
@@ -39,7 +42,8 @@ def control_page():
         ]),
         Card(id='detail_card'),
         Card('Paragraph Card', [
-            Paragraph('This is the original content', id='paragraph')
+            Paragraph('This is the original content', id='paragraph'),
+            Paragraph('This is also a paragraph', id='paragraph2')
         ])
     ]
 

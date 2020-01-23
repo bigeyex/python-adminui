@@ -15,13 +15,13 @@ Now AdminUI supports ``NavigateTo`` and ``Notification`` as page actions:
 .. autoclass:: adminui.Notification
    :members:
 
-If you want to combine two actions together, use ``CombineAction``. Say 
+If you want to combine two actions together, return a list. Say 
 you want to notify the user twice::
 
-    return CombinedAction([
+    return [
         Notification('A Notification', 'the content of the notification'),
         Notification('A Notification', 'the content of the notification'),
-    ])
+    ]
 
 Aside from form submission, you can also use page action on other elements like a button.
 

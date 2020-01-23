@@ -28,6 +28,7 @@ export interface PageElement {
     icon?: string;
     level?: number;
     size?: number;
+    color?: string;
     tooltip?: string;
     inline?: boolean;
     show_trend?: boolean;
@@ -84,11 +85,18 @@ const PageModel: PageModelType = {
         },
 
         *submitAction({ payload }, { call, put }) {
-            const parseResponse = function*(response:PageElement) {
+            const parseResponse:any = function*(response:PageElement) {
+                if(Array.isArray(response)) {
+                    for(let i=0; i<response.length; i++) {
+                        yield *parseResponse(response[i]);
+                    }                     
+                }
                 switch(response.type) {
                     case 'CombinedAction':
-                        if(response.content){                            
-                            response.content.forEach(element => { parseResponse(element); });
+                        if(response.content){       
+                            for(let i=0; i<response.content.length; i++) {
+                                yield *parseResponse(response.content[i]);
+                            }                     
                         }
                         break;
                     case 'NavigateTo':

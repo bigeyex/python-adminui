@@ -191,7 +191,7 @@ class AdminApp:
             msg['args'] = []
         response = callbackRegistry.make_callback(msg['cb_uuid'], msg['args'])
         if response is not None:
-            return response.as_dict()
+            return jsonify(response)
         else:
             return ErrorResponse("No Action", error_type="204").as_dict()
 

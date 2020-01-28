@@ -42,3 +42,7 @@ export const ParagraphPart = ({ spec }:ElementProps) => {
     const style = spec.color ? { color: spec.color } : undefined;
     return <p style={style}>{nl2br(spec.text || '')}</p>
 }
+
+export const RawHTMLPart = ({ spec }:ElementProps) => {
+    return <div dangerouslySetInnerHTML={{__html:spec.text || ''}}></div>
+}

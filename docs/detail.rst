@@ -60,7 +60,16 @@ It creates a page like this:
 
 .. image:: images/dash_screenshot.png
 
-If you just want to display some text, use ``Paragraph``.
+If you just want to display some text, use ``Paragraph``. You may set the color of the Paragraph::
+
+    Paragraph("The text of Paragraph", color="red")
+
+If you wish to format rich text or other complex content, you may use RawHTML Element.
+Beware this is dangerous because if you pass unfiltered user text (e.g. from a piece of user 
+inputted text stored in the database), this user text may contain dangerous code that may run 
+on the client's computer::
+
+    RawHTML('a raw <font color="red">HTML</font>')
 
 Here's the list of layout-related classes:
 

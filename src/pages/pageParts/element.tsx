@@ -7,7 +7,7 @@ import { ButtonPart, LinkPart } from './controls'
 import React from 'react';
 import DataTablePart from './table';
 import { CardPart, RowPart, ChartCardPart, StatisticPart } from './layout';
-import { DetailGroupPart, DividerPart, ParagraphPart, HeaderPart } from './detail';
+import { DetailGroupPart, DividerPart, ParagraphPart, HeaderPart, RawHTMLPart } from './detail';
 import { BarChartPart, LineChartPart } from './chart';
 
 export interface ElementProps {
@@ -69,6 +69,9 @@ const renderElements = (elements:PageElement[], dispatch:Dispatch<AnyAction>, pa
               break;
             case 'Paragraph':
               pageElements.push(<ParagraphPart key={element.uuid} spec={element} dispatch={dispatch} passDown={passDown} />);
+              break;
+            case 'RawHTML':
+              pageElements.push(<RawHTMLPart key={element.uuid} spec={element} dispatch={dispatch} passDown={passDown} />);
               break;
             case 'Header':
               pageElements.push(<HeaderPart key={element.uuid} spec={element} dispatch={dispatch} passDown={passDown} />);

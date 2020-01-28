@@ -64,6 +64,11 @@ class Paragraph(Element):
     def __init__(self, text='', id=None, color=None):
         super().__init__('Paragraph', text=text, id=id, color=color)
 
+class RawHTML(Element):
+    """Display a (dangerous) HTML to the page"""
+    def __init__(self, text='', id=None):
+        super().__init__('RawHTML', text=text, id=id)
+
 class Row(Element):
     """Display a row with multiple Columns for layout purpose
 

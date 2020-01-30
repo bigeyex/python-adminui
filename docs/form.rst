@@ -85,3 +85,22 @@ Here are a list of controls you may use in your form:
 
 .. autoclass:: adminui.DatePicker
    :members:
+
+Callback when form item changes
+**************************************
+
+If you want to do something, say update a part of the page when user select an item in the SelectBox
+or input text on the TextFields, you may add on_change handlers in your Python code::
+
+    TextField('Title', required_message='Title is required!', on_change=on_change),
+
+    # for the handler:
+    def on_change(value, values):
+        print(value)
+        print(values)
+
+See chapter :ref:`Page Actions`. for details on what can handlers do.
+
+The handler could be a function taking one or two parameters: the first will be the new value of the form item;
+the second one will be a dictionary of all the values in the form where the form item lives. This will be useful
+for example when your data shown in the page is filtered by a list of criterions.

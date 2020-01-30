@@ -7,7 +7,7 @@ import {
     Input,
     Select,
   } from 'antd';
-import React, { Component } from 'react';
+import React, { Component, SyntheticEvent } from 'react';
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
@@ -46,6 +46,7 @@ class FormPart extends Component<FormPartProps> {
             spec,
             dispatch,
             passDown,
+            form,
             form: { getFieldDecorator },
         } = this.props;
 
@@ -76,11 +77,14 @@ class FormPart extends Component<FormPartProps> {
             )
         }
 
+        const getFieldValues = () => {
+            return form.getFieldsValue();
+        }
 
         return (
             <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
                 <Card bordered={false}>
-                { renderElements(spec.content || [], dispatch, {...passDown, wrapInput, titleInline:spec.style.titleInline}) }
+                { renderElements(spec.content || [], dispatch, {...passDown, wrapInput, getFieldValues, titleInline:spec.style.titleInline}) }
                 </Card>
             </Form>
         )
@@ -89,52 +93,85 @@ class FormPart extends Component<FormPartProps> {
 
 export default Form.create<FormPartProps>()(FormPart);
 
-export const TextFieldPart = ({ spec, passDown }:ElementProps) => {
-    const el = <Input placeholder={spec.placeholder || ''} />;
+const handleFormItemChange = (spec:PageElement, dispatch:Dispatch<any>, passDown:any) => {
+    return (value:any) => {
+        let values = null;
+        if ('getFieldValues' in passDown) {
+            values = passDown.getFieldValues();
+            if(spec.name) {
+                values[spec.name] = value;
+            }
+        }
+        
+        dispatch({
+            type: 'page/submitAction',
+            payload: {
+                cb_uuid: spec.on_change,
+                args: [ value, values ]
+            }
+        });
+    }
+}
+
+const inputChangeTimers = {};
+const handleFormInputChange = (spec:PageElement, dispatch:Dispatch<any>, passDown:any) => {
+    return (event:SyntheticEvent) => {
+        if(inputChangeTimers[spec.uuid]) {
+            clearTimeout(inputChangeTimers[spec.uuid]);
+        }
+        let targetValue:any = (event.currentTarget as any).value;
+        inputChangeTimers[spec.uuid] = setTimeout(() => handleFormItemChange(spec, dispatch, passDown)(targetValue), 1000);
+    }
+}
+
+
+export const TextFieldPart = ({ spec, dispatch, passDown }:ElementProps) => {
+    const el = <Input placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormInputChange(spec, dispatch, passDown) : undefined}/>;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
 
-export const TextAreaPart = ({ spec, passDown }:ElementProps) => {
+export const TextAreaPart = ({ spec, dispatch, passDown }:ElementProps) => {
     const el = <TextArea
         style={{ minHeight: 32 }}
         placeholder={spec.placeholder || ''}
         rows={4}
+        onChange={spec.on_change ? handleFormInputChange(spec, dispatch, passDown) : undefined}
     />;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
 
-export const SelectBoxPart = ({ spec, passDown }:ElementProps) => {
-    const el = <Select placeholder={spec.placeholder || ''}>
+export const SelectBoxPart = ({ spec, passDown, dispatch }:ElementProps) => {
+    const el = <Select placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}>
         { spec.data.map((o:[string, string]) => <Select.Option key={o[1]} value={o[1]}>{o[0]}</Select.Option>) }
     </Select>;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
 
-export const CheckboxPart = ({ spec, passDown }:ElementProps) => {
-    return <Checkbox name={spec.name}>{spec.title}</Checkbox>
+export const CheckboxPart = ({ spec, passDown, dispatch }:ElementProps) => {
+    return <Checkbox name={spec.name} onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}>{spec.title}</Checkbox>
 }
 
-export const CheckboxGroupPart = ({ spec, passDown }:ElementProps) => {
-    const el = <Checkbox.Group 
+export const CheckboxGroupPart = ({ spec, passDown, dispatch }:ElementProps) => {
+    const el = <Checkbox.Group  onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}
         options={spec.data.map((d:[string, string]) => ({'label': d[0], 'value': d[1]}))} />;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
 
-export const DatePickerPart = ({ spec, passDown }:ElementProps) => {
+export const DatePickerPart = ({ spec, passDown, dispatch }:ElementProps) => {
     const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
     let el:JSX.Element;
-    console.log(spec);
+    const onChange = spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined
     if( spec.subtype == 'month' ) {
-        el = <MonthPicker placeholder={spec.placeholder} />
+        el = <MonthPicker placeholder={spec.placeholder} onChange={onChange}/>
     }
     else if(spec.subtype == 'range') {
-        el = <RangePicker />
+        el = <RangePicker onChange={onChange}/>
     }
     else if(spec.subtype == 'week') {
-        el = <WeekPicker placeholder={spec.placeholder} />
+        el = <WeekPicker placeholder={spec.placeholder} onChange={onChange} />
     }
     else {
-        el = <DatePicker placeholder={spec.placeholder} />
+        el = <DatePicker placeholder={spec.placeholder} onChange={onChange} />
     }
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }

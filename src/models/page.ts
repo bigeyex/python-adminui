@@ -9,7 +9,7 @@ export interface PageElement {
     type: string;
     subtype?: string;
     name?: string;
-    uuid?: string;
+    uuid: string;
     title?: string;
     content?: PageElement[];
     data?: PageElementDataType;
@@ -35,6 +35,7 @@ export interface PageElement {
 
     on_submit?: string;
     on_click?: string;
+    on_change?: string;
     on_data?: string;
     element?: PageElement;
 }

@@ -22,11 +22,12 @@ class TextField(Element):
             when the field is not filled at form submission.
         placeholder: the text message shown when the field is not filled.
     """
-    def __init__(self, title, name=None, required_message=None, value=None, placeholder=None, id=None):
+    def __init__(self, title, name=None, required_message=None, value=None, placeholder=None, on_change=None, id=None):
+        on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
         if name is None:
             name = title.lower()
         super().__init__('TextField', title=title, name=name, required_message=required_message,
-                            value=value, placeholder=placeholder, id=id)
+                            value=value, placeholder=placeholder, on_change=on_change_uuid, id=id)
 
 class TextArea(Element):
     """Create a text area object
@@ -38,11 +39,12 @@ class TextArea(Element):
             when the field is not filled at form submission.
         placeholder: the text message shown when the field is not filled.
     """
-    def __init__(self, title, name=None, required_message=None, value=None, placeholder=None, id=None):
+    def __init__(self, title, name=None, required_message=None, value=None, placeholder=None, on_change=None, id=None):
         if name is None:
             name = title.lower()
+        on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
         super().__init__('TextArea', title=title, name=name, required_message=required_message, 
-                            value=value, placeholder=placeholder, id=id)
+                            value=value, placeholder=placeholder, on_change=on_change_uuid, id=id)
 
 class SelectBox(Element):
     """Create a dropdown box for selecting in a list
@@ -56,12 +58,13 @@ class SelectBox(Element):
             e.g. ['one', 'two', 'three'] or [['one', 1], ['two', 2]], both accepted
         placeholder: the text message shown when the field is not filled.
     """
-    def __init__(self, title, name=None, value=None, data=[], placeholder=None, required_message=None, id=None):
+    def __init__(self, title, name=None, value=None, data=[], placeholder=None, on_change=None, required_message=None, id=None):
         if name is None:
             name = title.lower()
         uniform_data = [x if type(x) is list else [x, x] for x in data]
+        on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
         super().__init__('SelectBox', title=title, name=name, required_message=required_message, 
-                            data=uniform_data, value=value, placeholder=placeholder, id=id)
+                            data=uniform_data, value=value, placeholder=placeholder, on_change=on_change_uuid, id=id)
 
 class CheckboxGroup(Element):
     """Create a group of checkbox for multi-selecting
@@ -72,17 +75,20 @@ class CheckboxGroup(Element):
         data: the title and value of individual checkboxes. in format of a list of str or a list of [title, value]
             e.g. ['one', 'two', 'three'] or [['one', 1], ['two', 2]], both accepted
     """
-    def __init__(self, title, name=None, data=[], value=None, id=None):
+    def __init__(self, title, name=None, data=[], value=None, id=None, on_change=None):
         if name is None:
             name = title.lower()
         uniform_data = [x if type(x) is list else [x, x] for x in data]
-        super().__init__('CheckboxGroup', title=title, name=name, data=uniform_data, value=value, id=id)
+        on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
+        super().__init__('CheckboxGroup', title=title, name=name, data=uniform_data, value=value, 
+                                on_change=on_change_uuid, id=id)
 
 class Checkbox(Element):
-    def __init__(self, title, name=None, value=None, id=None):
+    def __init__(self, title, name=None, value=None, on_change=None, id=None):
         if name is None:
             name = title.lower()
-        super().__init__('Checkbox', title=title, name=name, value=value, id=id)
+        on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
+        super().__init__('Checkbox', title=title, name=name, value=value, on_change=on_change_uuid, id=id)
 
 class DatePicker(Element):
     """Create a date picker to pick a date or date range
@@ -92,10 +98,11 @@ class DatePicker(Element):
         name: the key of the dictionary data passed to the callback when the form is submitted
         pick: 'date' | 'month' | 'week' | 'range'. 
     """
-    def __init__(self, title, name=None, value=None, pick='date', id=None):
+    def __init__(self, title, name=None, value=None, pick='date', on_change=None, id=None):
         if name is None:
             name = title.lower()
-        super().__init__('DatePicker', title=title, name=name, value=value, subtype=pick, id=id)
+        on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
+        super().__init__('DatePicker', title=title, name=name, value=value, subtype=pick, on_change=on_change_uuid, id=id)
 
 class FormActions(Element):
     """Create a line of action buttons in the form

@@ -104,6 +104,7 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 0.3.3: added on_change handler for form controls
 - 0.3.2: added (dangerous) RawHTML control
 - 0.3.1: newlines now work in Paragraph; adding color="" attribute in Paragraph; fixed a bug in CombinedAction and now you can use an array instead of CombinedAction
 - 0.3.0: added ReplaceElement and UpdateElement as Page Actions

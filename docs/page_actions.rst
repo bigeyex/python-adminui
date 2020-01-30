@@ -1,3 +1,5 @@
+.. _Page Actions:
+
 Page Actions
 ============
 

@@ -3,6 +3,7 @@ import jwt
 from flask import Flask, jsonify, request
 from flask.json import JSONEncoder
 from werkzeug.routing import BaseConverter
+from inspect import signature
 from .page import Page
 from .element import Element
 
@@ -10,6 +11,8 @@ class CallbackRegistryType:
     uuid_callback_map = {}
     callback_uuid_map = {}
     def uuid_for_callback(self, callback):
+        if callback is None:
+            return None
         if callback in self.callback_uuid_map:
             return self.callback_uuid_map[callback]
         else:
@@ -19,7 +22,9 @@ class CallbackRegistryType:
             return cb_uuid
     def make_callback(self, uuid, args):
         if uuid in self.uuid_callback_map:
-            return self.uuid_callback_map[uuid](*args)
+            method = self.uuid_callback_map[uuid]
+            param_length = len(signature(method).parameters)
+            return method(*args[:param_length])
         else:
             # TODO: Return an error to the frontend
             return None

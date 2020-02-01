@@ -14,6 +14,10 @@ The function will receive the username and password users inputted; you need to 
 or LoginFailed depending on the result. Instead of a simple if statement, typically you need to 
 check the credential against a database or something.
 
+If you want to redirect logged in user to a different page, set the redirect_to argument in LoggedInUser, like::
+
+    return LoggedInUser("Alice", redirect_to='/detail')
+
 The returned LoggedInUser and LoginFailed may contain more information:
 
 .. autoclass:: adminui.LoggedInUser

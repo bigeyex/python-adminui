@@ -51,6 +51,9 @@ const Model: LoginModelType = {
           token: response.token,
           avatar: response.avatar
         }, payload.autoLogin);
+        if (response.redirect_to) {
+          window.location.href = response.redirect_to;
+        }
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };

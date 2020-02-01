@@ -81,13 +81,13 @@ class LoggedInUser(Element):
         avatar: the avatar of the user
         user_info: info for future use, accessible by app.current_user()['user_info']
     """
-    def __init__(self, display_name='', auth=['user'], avatar=DEFAULT_AVATAR, user_info=None):
+    def __init__(self, display_name='', auth=['user'], avatar=DEFAULT_AVATAR, user_info=None, redirect_to=None):
         token = jwt.encode({
             "display_name": display_name,
             "auth": auth,
             "user_info": user_info
         }, AdminApp.SECRET, algorithm='HS256')
-        super().__init__('LoginAndNavigateTo', status='ok', display_name=display_name, avatar=avatar, token=token.decode('utf-8'))
+        super().__init__('LoginAndNavigateTo', status='ok', display_name=display_name, avatar=avatar, redirect_to=redirect_to, token=token.decode('utf-8'))
 
 class LoginFailed(Element):
     """Returned by login handler, represent a failed login attempt

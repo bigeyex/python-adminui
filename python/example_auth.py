@@ -5,7 +5,7 @@ app = AdminApp()
 @app.login()
 def on_login(username, password):
     if username=='alice' and password=='123456':
-        return LoggedInUser("Alice")
+        return LoggedInUser("Alice", redirect_to='/detail')
     else:
         return LoginFailed()
 

@@ -58,12 +58,12 @@ class SelectBox(Element):
             e.g. ['one', 'two', 'three'] or [['one', 1], ['two', 2]], both accepted
         placeholder: the text message shown when the field is not filled.
     """
-    def __init__(self, title, name=None, value=None, data=[], placeholder=None, on_change=None, required_message=None, id=None):
+    def __init__(self, title, name=None, value=None, data=[], placeholder=None, on_change=None, required_message=None, multiple=False, tags=False, id=None):
         if name is None:
             name = title.lower()
         uniform_data = [x if type(x) is list else [x, x] for x in data]
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
-        super().__init__('SelectBox', title=title, name=name, required_message=required_message, 
+        super().__init__('SelectBox', title=title, name=name, required_message=required_message, multiple=multiple, tags=tags,
                             data=uniform_data, value=value, placeholder=placeholder, on_change=on_change_uuid, id=id)
 
 class CheckboxGroup(Element):
@@ -89,6 +89,16 @@ class Checkbox(Element):
             name = title.lower()
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
         super().__init__('Checkbox', title=title, name=name, value=value, on_change=on_change_uuid, id=id)
+
+class Switch(Element):
+    def __init__(self, value=None, on_change=None, id=None):
+        on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
+        super().__init__('Switch', value=value, on_change=on_change_uuid, id=id)
+
+class Slider(Element):
+    def __init__(self, min=0, max=100, value=None, range=False, on_change=None, id=None):
+        on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
+        super().__init__('Slider', min=min, max=max, value=value, range=range, on_change=on_change_uuid, id=id)
 
 class DatePicker(Element):
     """Create a date picker to pick a date or date range

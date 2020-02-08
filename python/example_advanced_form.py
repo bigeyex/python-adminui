@@ -12,16 +12,22 @@ def form_page():
             Row([
                 Column([TextField('Title', required_message='Title is required!')]),
                 Column([
-                    SelectBox('Type', data=['One', 'Two', 'Three'], placeholder="Select One")
+                    SelectBox('Type', data=['One', 'Two', 'Three'], placeholder="Select One", multiple=True)
                 ]),
                 Column([
                     CheckboxGroup('Checks', data=['One', 'Two'])
+                ]),
+                Column([
+                    Switch()
                 ]),
             ]),
             Row([
                 Column([DatePicker('Date')]),
                 Column([DatePicker('Month', pick='month')]),
                 Column([DatePicker('Range', pick='range')]),
+                Column([
+                    Slider(0, 50, range=True, value=[20,30])
+                ]),
             ]),
             FormActions(content = [
                 SubmitButton('Submit')

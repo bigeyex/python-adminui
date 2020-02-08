@@ -223,7 +223,10 @@ class AdminApp:
 
     def run(self):
         """run the AdminUI App"""
-        # self.app.route('/api/page_layout/<url>')(self.serve_page)
+        self.prepare().run()
+
+    def prepare(self):
+        """do the prepare work and return the flask app"""
         self.app.route('/api/page_layout/<path:url>/')(self.serve_page)
         self.app.route('/api/page_layout/')(self.serve_page)
         self.app.route('/api/main_menu')(self.serve_menu)
@@ -231,4 +234,4 @@ class AdminApp:
         self.app.route('/api/page_action', methods=['POST'])(self.handle_page_action)
         self.app.route('/')(self.serve_root)
         self.app.route('/<purePath:path>/')(self.serve_root)
-        self.app.run()
+        return self.app

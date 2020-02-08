@@ -141,14 +141,11 @@ export const TextAreaPart = ({ spec, dispatch, passDown }:ElementProps) => {
 }
 
 export const SelectBoxPart = ({ spec, passDown, dispatch }:ElementProps) => {
-    const el = <Select placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}>
+    const el = <Select placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}
+                    mode={spec.tags ? "tags" : spec.multiple ? "multiple" : undefined}>
         { spec.data.map((o:[string, string]) => <Select.Option key={o[1]} value={o[1]}>{o[0]}</Select.Option>) }
     </Select>;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
-}
-
-export const CheckboxPart = ({ spec, passDown, dispatch }:ElementProps) => {
-    return <Checkbox name={spec.name} onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}>{spec.title}</Checkbox>
 }
 
 export const CheckboxGroupPart = ({ spec, passDown, dispatch }:ElementProps) => {

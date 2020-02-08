@@ -104,6 +104,7 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 0.3.5: added prepare function for using with tornado; added slider, switch and multiple select function
 - 0.3.4: allow redirect to a different page after logged in
 - 0.3.3: added on_change handler for form controls
 - 0.3.2: added (dangerous) RawHTML control

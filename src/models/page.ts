@@ -13,7 +13,7 @@ export interface PageElement {
     title?: string;
     content?: PageElement[];
     data?: PageElementDataType;
-    value?: string;
+    value?: any;
     text?: string;
     required_message?: string;
     placeholder?: string;
@@ -24,6 +24,9 @@ export interface PageElement {
     table_actions?: PageElement[];
     footer?: PageElement[];
     link_to?: string | null;
+    max?: number; min?: number;
+    tags?: boolean; multiple?: boolean;
+    range?: boolean;
     url?: string;
     icon?: string;
     level?: number;

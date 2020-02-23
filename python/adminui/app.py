@@ -39,7 +39,6 @@ class ElementJSONEncoder(JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Element):
             return obj.as_dict()
-        return super(MyJSONEncoder, self).default(obj)
 
 class MenuItem(Element):
     """Represents a menu item

@@ -105,6 +105,8 @@ class ErrorResponse(Element):
 class AdminApp:
     """Create an AdminUI App"""
     SECRET = "admin ui super &*#*$ secret"
+    app_title = 'Admin UI App'
+    app_logo = None
 
     def __init__(self):
         self.app = Flask(__name__, static_url_path='/')
@@ -216,6 +218,10 @@ class AdminApp:
             'menu': [x.as_dict() for x in self.menu if x.has_auth(token['auth'])]
         })
 
+    def serve_settings(self):
+        """Serve settings like logo and title"""
+        return jsonify({'title':self.app_title, 'logo':self.app_logo})
+
     def serve_root(self, path=''):
         """!!! Private method, don't call. Serve the index.html"""
         return self.app.send_static_file('index.html')
@@ -229,6 +235,7 @@ class AdminApp:
         self.app.route('/api/page_layout/<path:url>/')(self.serve_page)
         self.app.route('/api/page_layout/')(self.serve_page)
         self.app.route('/api/main_menu')(self.serve_menu)
+        self.app.route('/api/app_settings')(self.serve_settings)
         self.app.route('/api/login', methods=['POST'])(self.handle_login_action)
         self.app.route('/api/page_action', methods=['POST'])(self.handle_page_action)
         self.app.route('/')(self.serve_root)

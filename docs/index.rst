@@ -40,6 +40,7 @@ Features:
    table
    chart
    user
+   customization
 
 Indices and tables
 ==================

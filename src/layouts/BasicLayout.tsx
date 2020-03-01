@@ -140,6 +140,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       dispatch({
         type: 'user/fetchCurrent',
       });
+
+      dispatch({
+        type: 'settings/fetchSettings'
+      });
     }
 
   }, []);

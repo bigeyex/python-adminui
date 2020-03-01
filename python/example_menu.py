@@ -9,7 +9,7 @@ def on_submit(form_data):
 def form_page():
     return [
         Form(on_submit = on_submit, content = [
-            TextField('Title', required=True),
+            TextField('Title'),
             TextArea('Description'),
             FormActions(content = [
                 SubmitButton('Submit')

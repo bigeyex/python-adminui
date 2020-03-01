@@ -31,3 +31,8 @@ export async function postPageAction(param:PageActionParamsType): Promise<any> {
         ...options
     });
 }
+
+export async function querySettings(): Promise<any> {
+    return request('/api/app_settings');
+  }
+  

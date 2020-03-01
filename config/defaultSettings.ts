@@ -1,4 +1,5 @@
 import { MenuTheme } from 'antd/es/menu/MenuContext';
+import logo from '../src/assets/logo.svg';
 
 export type ContentWidth = 'Fluid' | 'Fixed';
 
@@ -55,7 +56,8 @@ export default {
   menu: {
     locale: true,
   },
-  title: 'Ant Design Pro',
+  title: 'Ant Design Pro2',
+  logo: logo,
   pwa: false,
   iconfontUrl: '',
 } as DefaultSettings;

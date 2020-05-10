@@ -20,7 +20,7 @@ Now create a python file for your project, say example.py:
     def form_page():
         return [
             Form(on_submit = on_submit, content = [
-                TextField('Title', required=True),
+                TextField('Title', required_message="The title is required!"),
                 TextArea('Description'),
                 FormActions(content = [
                     SubmitButton('Submit')

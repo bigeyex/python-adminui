@@ -4,6 +4,7 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import { formatMessage, getLocale, setLocale } from 'umi-plugin-react/locale';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -29,17 +30,18 @@ const codeMessage = {
 const errorHandler = (error: { response: Response }): Response => {
   const { response } = error;
   if (response && response.status) {
-    const errorText = codeMessage[response.status] || response.statusText;
+    const translated_message = formatMessage({'id':'app.request.'+response.status});
+    const errorText = (translated_message.indexOf('app.request') !== -1) ? translated_message : response.statusText;
     const { status, url } = response;
 
     notification.error({
-      message: `请求错误 ${status}: ${url}`,
+      message: `${formatMessage({id:'app.request.request-failed'})} ${status}: ${url}`,
       description: errorText,
     });
   } else if (!response) {
     notification.error({
-      description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常',
+      description: formatMessage({id:'app.request.network-error-desc'}),
+      message: formatMessage({id:'app.request.network-error-title'}),
     });
   }
   return response;

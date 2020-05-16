@@ -1,6 +1,6 @@
 import { MenuTheme } from 'antd/es/menu/MenuContext';
-import logo from '../src/assets/logo.svg';
-
+// import logo from '../src/assets/logo.svg';
+let logo = '';
 export type ContentWidth = 'Fluid' | 'Fixed';
 
 export interface DefaultSettings {

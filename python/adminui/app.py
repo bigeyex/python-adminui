@@ -1,8 +1,11 @@
 import uuid
 import jwt
+import inspect
+import os
 from flask import Flask, jsonify, request
 from flask.json import JSONEncoder
 from werkzeug.routing import BaseConverter
+from werkzeug import secure_filename
 from inspect import signature
 from .page import Page
 from .element import Element
@@ -108,10 +111,18 @@ class AdminApp:
     app_title = 'Admin UI App'
     app_logo = None
 
-    def __init__(self):
+    def __init__(self, upload_folder=None):
         self.app = Flask(__name__, static_url_path='/')
         self.app.json_encoder = ElementJSONEncoder
         self.app.url_map.converters['purePath'] = PurePathConverter 
+        if upload_folder is None:
+            # the upload folder is not defined. using the main_module_path/upload as the folder
+            frame = inspect.stack()[1]
+            module = inspect.getmodule(frame[0])
+            upload_folder = os.path.join(os.path.dirname(os.path.abspath(module.__file__)), 'upload')
+        if not os.path.exists(upload_folder):
+            os.makedirs(upload_folder)
+        self.app.config['UPLOAD_FOLDER'] = upload_folder
         self.pages = {}
         self.menu = []
         self.on_login = {}
@@ -225,6 +236,13 @@ class AdminApp:
     def serve_root(self, path=''):
         """!!! Private method, don't call. Serve the index.html"""
         return self.app.send_static_file('index.html')
+    
+    def serve_upload(self):
+        """!!! Private method, don't call. Serve the upload endpoint"""
+        f = request.files['file']
+        f.save(os.path.join(self.app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+        return "uploaded successfully"
+
 
     def run(self):
         """run the AdminUI App"""
@@ -237,6 +255,7 @@ class AdminApp:
         self.app.route('/api/main_menu')(self.serve_menu)
         self.app.route('/api/app_settings')(self.serve_settings)
         self.app.route('/api/login', methods=['POST'])(self.handle_login_action)
+        self.app.route('/api/upload', methods=['POST'])(self.serve_upload)
         self.app.route('/api/page_action', methods=['POST'])(self.handle_page_action)
         self.app.route('/')(self.serve_root)
         self.app.route('/<purePath:path>/')(self.serve_root)

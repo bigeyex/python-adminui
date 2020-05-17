@@ -1,5 +1,6 @@
 # ==== project-wise ignores
 /python/adminui/static
+/python/upload
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 

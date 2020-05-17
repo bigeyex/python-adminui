@@ -1,4 +1,5 @@
 import {
+    Icon,
     Button,
     Card,
     DatePicker,
@@ -6,7 +7,10 @@ import {
     Form,
     Input,
     Select,
+    Upload,
+    notification,
   } from 'antd';
+
 import React, { Component, SyntheticEvent } from 'react';
 
 import { Dispatch } from 'redux';
@@ -191,3 +195,38 @@ export const SubmitButtonPart = ({ spec }:ElementProps) => (
         {spec.title}
     </Button>
 )
+
+export const UploadPart = ({ spec, dispatch, passDown }:ElementProps) => 
+{
+    const props = {
+        name: 'file',
+        action: '/api/upload',
+        onChange(info:any) {
+          if (info.file.status === 'done') {
+            notification.success({
+                message: 'Uploaded successfully',
+                description: `Uploaded ${info.file.name} successfully.`
+            })
+            console.log(spec);
+            dispatch({
+                type: 'page/submitAction',
+                payload: {
+                    cb_uuid: spec.on_data,
+                    args: [ info.file, info.fileList ]
+                }
+            })
+          } else if (info.file.status === 'error') {
+            notification.error({
+                message: 'Upload failed',
+                description: `Failed to upload ${info.file.name}`
+            })
+          }
+        },
+      };
+    const el = <Upload key={spec.uuid} {...props}>
+        <Button>
+            <Icon type="upload"/> Click to Upload
+        </Button>
+    </Upload>
+    return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
+}

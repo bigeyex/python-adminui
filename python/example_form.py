@@ -12,6 +12,10 @@ def on_change(value, values):
 @app.page('/', 'form')
 def form_page():
     return [
+        Card('Upload Form', [
+            Upload(on_data=on_submit)
+        ]),
+
         Form(on_submit = on_submit, content = [
             TextField('Title', required_message='Title is required!', on_change=on_change),
             TextArea('Description', on_change=on_change),

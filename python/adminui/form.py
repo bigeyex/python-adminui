@@ -155,3 +155,12 @@ class Link(Element):
         on_click_uuid = callbackRegistry.uuid_for_callback(on_click)
         super().__init__('Link', title=title, link_to=link_to, on_click=on_click_uuid, id=id)
 
+class Upload(Element):
+    """Create a upload field/upload box for user to upload a box
+
+    Args:
+        title: 
+    """
+    def __init__(self, title="Upload", name='file', on_data=None, type='file', multiple=False, id=None):
+        on_data_uuid = callbackRegistry.uuid_for_callback(on_data)
+        super().__init__('Upload', title=title, name=name, on_data=on_data_uuid, type=type, multiple=multiple, id=id)

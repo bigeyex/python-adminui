@@ -2,7 +2,7 @@ import { PageElement } from '@/models/page';
 import { Descriptions } from "antd";
 import { Dispatch, AnyAction } from 'redux';
 import FormPart, { TextFieldPart, TextAreaPart, SelectBoxPart, CheckboxGroupPart, 
-  DatePickerPart ,FormActionsPart, SubmitButtonPart } from './form';
+  DatePickerPart ,FormActionsPart, SubmitButtonPart, UploadPart } from './form';
 import { ButtonPart, LinkPart, SwitchPart, CheckboxPart, SliderPart } from './controls'
 import React from 'react';
 import DataTablePart from './table';
@@ -63,6 +63,9 @@ const renderElements = (elements:PageElement[], dispatch:Dispatch<AnyAction>, pa
               break;
             case 'Slider':
               pageElements.push(<SliderPart key={element.uuid} spec={element} dispatch={dispatch} passDown={passDown} />);
+              break;
+            case 'Upload':
+              pageElements.push(<UploadPart key={element.uuid} spec={element} dispatch={dispatch} passDown={passDown} />);
               break;
             case 'Card':
               pageElements.push(<CardPart key={element.uuid} spec={element} dispatch={dispatch} passDown={passDown}/>);

@@ -2,6 +2,8 @@ import uuid
 import jwt
 import inspect
 import os
+import time
+from pathlib import Path
 from flask import Flask, jsonify, request
 from flask.json import JSONEncoder
 from werkzeug.routing import BaseConverter
@@ -107,11 +109,10 @@ class ErrorResponse(Element):
 
 class AdminApp:
     """Create an AdminUI App"""
-    SECRET = "admin ui super &*#*$ secret"
-    app_title = 'Admin UI App'
-    app_logo = None
-
     def __init__(self, upload_folder=None):
+        self.app_title = 'Admin UI App'
+        self.app_logo = None
+        self.SECRET = "admin ui super &*#*$ secret"
         self.app = Flask(__name__, static_url_path='/')
         self.app.json_encoder = ElementJSONEncoder
         self.app.url_map.converters['purePath'] = PurePathConverter 
@@ -239,10 +240,14 @@ class AdminApp:
     
     def serve_upload(self):
         """!!! Private method, don't call. Serve the upload endpoint"""
-        f = request.files['file']
-        f.save(os.path.join(self.app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
-        return "uploaded successfully"
+        f = next(request.files.values())
+        Path(self.app.config['UPLOAD_FOLDER']).mkdir(parents=True, exist_ok=True) # create dir if not exist
+        filename = str(int(time.time() * 1000)) + '_' + secure_filename(f.filename) # create unique filename with timestamp prefix
+        f.save(os.path.join(self.app.config['UPLOAD_FOLDER'], filename))
+        return filename
 
+    def uploaded_file_location(self, uploaded_file):
+        return os.path.join(self.app.config['UPLOAD_FOLDER'], uploaded_file['file_name'])
 
     def run(self):
         """run the AdminUI App"""

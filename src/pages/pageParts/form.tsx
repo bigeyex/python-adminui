@@ -11,7 +11,7 @@ import {
     notification,
   } from 'antd';
 
-import React, { Component, SyntheticEvent } from 'react';
+import React, { Component, SyntheticEvent, useState } from 'react';
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
@@ -198,8 +198,10 @@ export const SubmitButtonPart = ({ spec }:ElementProps) => (
 
 export const UploadPart = ({ spec, dispatch, passDown }:ElementProps) => 
 {
+    const [fileList, setFileList] = useState([]);
+
     const props = {
-        name: 'file',
+        name: spec.name,
         action: '/api/upload',
         onChange(info:any) {
           if (info.file.status === 'done') {
@@ -207,12 +209,23 @@ export const UploadPart = ({ spec, dispatch, passDown }:ElementProps) =>
                 message: 'Uploaded successfully',
                 description: `Uploaded ${info.file.name} successfully.`
             })
-            console.log(spec);
+            const responseFile = { 
+                display_name: info.file.name, 
+                file_name: info.file.response, 
+                size: info.file.size,
+                type: info.file.type
+            };
+            const responseFileList = info.fileList.map((file:any) => ({
+                display_name: file.name, 
+                file_name: file.response, 
+                size: file.size,
+                type: file.type
+            }));
             dispatch({
                 type: 'page/submitAction',
                 payload: {
                     cb_uuid: spec.on_data,
-                    args: [ info.file, info.fileList ]
+                    args: [ responseFile, responseFileList ]
                 }
             })
           } else if (info.file.status === 'error') {
@@ -221,9 +234,16 @@ export const UploadPart = ({ spec, dispatch, passDown }:ElementProps) =>
                 description: `Failed to upload ${info.file.name}`
             })
           }
+          const fileList = info.fileList.map((file:any) => {
+            if(file.response) {
+                file.file_name = file.response;
+            }
+            return file;
+          });
+          setFileList(fileList);
         },
       };
-    const el = <Upload key={spec.uuid} {...props}>
+    const el = <Upload key={spec.uuid} {...props} fileList={fileList}>
         <Button>
             <Icon type="upload"/> Click to Upload
         </Button>

@@ -199,7 +199,6 @@ export const SubmitButtonPart = ({ spec }:ElementProps) => (
 export const UploadPart = ({ spec, dispatch, passDown }:ElementProps) => 
 {
     const [fileList, setFileList] = useState([]);
-
     const props = {
         name: spec.name,
         action: '/api/upload',

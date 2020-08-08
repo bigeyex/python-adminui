@@ -3,7 +3,7 @@ from adminui import *
 app = AdminApp()
 
 def on_submit(form_data):
-    print(form_data['upload'])
+    print(app.uploaded_file_location(form_data['upload']))
 
 def on_upload(file):
     print("=== file name will be: ===")

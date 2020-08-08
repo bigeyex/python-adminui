@@ -34,6 +34,7 @@ Features:
    quickstart
    form
    page_actions
+   upload
    menu
    detail
    parameter

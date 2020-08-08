@@ -1,6 +1,6 @@
 {
-  "name": "ant-design-pro",
-  "version": "1.0.0",
+  "name": "python-adminui",
+  "version": "0.3.7",
   "private": true,
   "description": "An out-of-box UI solution for enterprise applications",
   "scripts": {

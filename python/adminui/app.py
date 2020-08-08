@@ -246,8 +246,18 @@ class AdminApp:
         f.save(os.path.join(self.app.config['UPLOAD_FOLDER'], filename))
         return filename
 
+    def uploaded_file_name(self, uploaded_file):
+        if 'file_name' in uploaded_file:
+            return uploaded_file['file_name']
+        elif 'response' in uploaded_file:
+            return uploaded_file['response']
+        elif 'file' in uploaded_file:
+            return self.uploaded_file_name(uploaded_file['file'])
+        else:
+            return None
+
     def uploaded_file_location(self, uploaded_file):
-        return os.path.join(self.app.config['UPLOAD_FOLDER'], uploaded_file['file_name'])
+        return os.path.join(self.app.config['UPLOAD_FOLDER'], self.uploaded_file_name(uploaded_file))
 
     def run(self):
         """run the AdminUI App"""

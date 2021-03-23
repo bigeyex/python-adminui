@@ -7,7 +7,7 @@ from pathlib import Path
 from flask import Flask, jsonify, request
 from flask.json import JSONEncoder
 from werkzeug.routing import BaseConverter
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 from inspect import signature
 from .page import Page
 from .element import Element

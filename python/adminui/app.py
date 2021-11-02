@@ -259,9 +259,9 @@ class AdminApp:
     def uploaded_file_location(self, uploaded_file):
         return os.path.join(self.app.config['UPLOAD_FOLDER'], self.uploaded_file_name(uploaded_file))
 
-    def run(self):
+    def run(self,*args, **kwargs):
         """run the AdminUI App"""
-        self.prepare().run()
+        self.prepare().run(*args, **kwargs)
 
     def prepare(self):
         """do the prepare work and return the flask app"""

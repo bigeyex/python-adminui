@@ -33,6 +33,7 @@ export interface LineChartStyle {
   height: number;
   columns?: string[];
   line_color?: string;
+  area_color?: string;
   show_area?: boolean;
   show_axis?: boolean;
   show_line?: boolean;
@@ -41,7 +42,7 @@ export interface LineChartStyle {
 
 
 const MiniArea: React.FC<MiniAreaProps> = props => {
-  const {
+  let {
     data = [],
     color = 'rgba(24, 144, 255, 0.2)',
     borderColor = '#1089ff',
@@ -53,6 +54,14 @@ const MiniArea: React.FC<MiniAreaProps> = props => {
     chartStyle,
     padding,
   } = props;
+
+  if (chartStyle.line_color) {
+    borderColor = chartStyle.line_color
+  }
+
+  if (chartStyle.area_color) {
+    color = chartStyle.area_color
+  }
 
 
   const scaleProps = {

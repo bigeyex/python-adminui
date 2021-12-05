@@ -5,7 +5,7 @@ with open("../README.md", "r", encoding='utf-8') as fh:
 
 setuptools.setup(
     name="adminui", # Replace with your own username
-    version="0.3.8",
+    version="0.3.9",
     author="Yu Wang (bigeyex)",
     author_email="bigeyex@gmail.com",
     description="Write professional web interface with Python",
@@ -20,7 +20,8 @@ setuptools.setup(
     ],
     install_requires=[
         'Flask',
-        'PyJWT'
+        'PyJWT',
+        'werkzeug' 
     ],
     include_package_data = True,
     python_requires='>=3.6',

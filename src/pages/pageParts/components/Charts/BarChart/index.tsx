@@ -79,7 +79,7 @@ class Bar extends Component<
   };
 
   render() {
-    const {
+    let {
       chartStyle,
       title,
       forceFit = true,
@@ -87,6 +87,10 @@ class Bar extends Component<
       color = 'rgba(24, 144, 255, 0.85)',
       padding,
     } = this.props;
+
+    if (chartStyle.color) {
+      color = chartStyle.color
+    }
 
     const { autoHideXLabels } = this.state;
 

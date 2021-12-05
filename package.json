@@ -1,6 +1,6 @@
 {
   "name": "python-adminui",
-  "version": "0.3.7",
+  "version": "0.3.9",
   "private": true,
   "description": "An out-of-box UI solution for enterprise applications",
   "scripts": {

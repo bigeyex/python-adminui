@@ -104,6 +104,8 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 0.3.9: fix color issue in charts
+- 0.3.8: fix werkzeug import error (thanks Youkii-Chen, kevincon and louis-shon)
 - 0.3.7: added Upload component
 - 0.3.6: fixed issue #12 where error messages are displayed (only) in Chinese
 - 0.3.5: added prepare function for using with tornado; added slider, switch and multiple select function

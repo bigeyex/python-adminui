@@ -76,6 +76,7 @@ class FormPart extends Component<FormPartProps> {
                             message: spec.required_message || '',
                           },
                         ],
+                        initialValue: spec.value?spec.value:undefined, 
                       })(input)}
                 </FormItem>
             )

@@ -256,7 +256,7 @@ class AdminApp:
             return None
 
     def uploaded_file_location(self, uploaded_file):
-        return os.path.join(self.app.config['UPLOAD_FOLDER'], self.uploaded_file_name(uploaded_file))
+        return os.path.join(self.upload_folder, self.uploaded_file_name(uploaded_file))
 
     def run(self,*args, **kwargs):
         """run the AdminUI App"""
@@ -302,7 +302,14 @@ class AdminApp:
 
     def init_fastapi_app(self):
         from fastapi import FastAPI
-        self.jsonify = lambda x:x
+        import json
+        from fastapi.responses import Response
+        class ElementJSONEncoder(json.JSONEncoder):
+            def default(self, obj):
+                if isinstance(obj, Element):
+                    return obj.as_dict()
+        # custom Element Json encoder is needed to process adminui's json content
+        self.jsonify = lambda x:Response(content=json.dumps(x, cls=ElementJSONEncoder), media_type='application/json')
         async def get_request_json_method(request):
             return await request.json()
         self.get_request_json = get_request_json_method
@@ -312,6 +319,8 @@ class AdminApp:
     def prepare_fastapi_app(self):
         from fastapi import Request
         from fastapi.staticfiles import StaticFiles
+        from fastapi import FastAPI, File, UploadFile
+        import shutil
         from starlette.responses import FileResponse 
         from starlette.exceptions import HTTPException as StarletteHTTPException
 
@@ -324,6 +333,11 @@ class AdminApp:
         @self.app.get('/api/app_settings')
         def get_app_settings():
             return self.serve_settings()
+        @self.app.post("/api/upload")
+        async def post_upload(upload: UploadFile):
+            with open(os.path.join(self.upload_folder, upload.filename), 'wb') as buffer:
+                shutil.copyfileobj(upload.file, buffer)
+            return upload.filename
         @self.app.post('/api/login')
         async def post_login_action(request:Request):
             return await self.handle_login_action(request)

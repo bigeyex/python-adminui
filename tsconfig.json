@@ -21,6 +21,9 @@
       "@/*": ["./src/*"]
     }
   },
+  "includes": [
+    "./src/externals.d.ts"
+  ],
   "exclude": [
     "node_modules",
     "build",

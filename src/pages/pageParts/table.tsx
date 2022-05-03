@@ -72,7 +72,6 @@ class DataTablePart extends Component<ElementProps> {
                             if(i != 0) {
                                 action_el.push(<Divider key={'divider'+i} type="vertical"/>);
                             }
-                            console.log(record);
                             action_el.push(<a key={i} onClick={() => handleRowAction(record, action)}>{action.title}</a>);
                         }
                         return (

@@ -5,9 +5,9 @@ app = AdminApp()
 
 table_columns = [
     {'title': 'Rule Name', 'dataIndex': 'name'},
-    {'title': 'Description', 'dataIndex': 'desc'},
-    {'title': '# of Calls', 'dataIndex': 'callNo'},
-    {'title': 'Status', 'dataIndex': 'status'},
+    {'title': 'Description', 'dataIndex': 'desc', 'searchable': True},
+    {'title': '# of Calls', 'dataIndex': 'callNo', 'sortable': True},
+    {'title': 'Status', 'dataIndex': 'status', 'filterOptions':[0, 1, 2, 3]},
     {'title': 'Updated At', 'dataIndex': 'updatedAt'}
 ]
 

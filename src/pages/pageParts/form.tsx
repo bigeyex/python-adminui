@@ -4,6 +4,7 @@ import {
     Card,
     DatePicker,
     Checkbox,
+    Radio,
     Form,
     Input,
     Select,
@@ -165,6 +166,26 @@ export const CheckboxGroupPart = ({ spec, passDown, dispatch }:ElementProps) => 
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
 elementComponentRegistry['CheckboxGroup'] = CheckboxGroupPart
+
+elementComponentRegistry['RadioGroup'] = ({ spec, passDown, dispatch }:ElementProps) => {
+    let options;
+    if (spec.format == 'vertical') {
+        const radioStyle = {
+            display: 'block',
+            height: '30px',
+            lineHeight: '30px',
+        };
+        options = spec.data.map((option:[any, any]) => <Radio style={radioStyle} value={option[1]} defaultChecked={spec.value==option[1]}>{option[0]}</Radio>);
+    }
+    else if (spec.format == 'button') {
+        options = spec.data.map((option:[any, any]) => <Radio.Button value={option[1]} defaultChecked={spec.value==option[1]}>{option[0]}</Radio.Button>);
+    }
+    else {
+        options = spec.data.map((option:[any, any]) => <Radio value={option[1]} defaultChecked={spec.value==option[1]}>{option[0]}</Radio>);
+    }
+    const el = <Radio.Group onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined} >{options}</Radio.Group>;
+    return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
+}
 
 export const DatePickerPart = ({ spec, passDown, dispatch }:ElementProps) => {
     const { MonthPicker, RangePicker, WeekPicker } = DatePicker;

@@ -26,6 +26,7 @@
   ],
   "exclude": [
     "node_modules",
+    ".git",
     "build",
     "dist",
     "scripts",
@@ -34,6 +35,15 @@
     "jest",
     "src/setupTests.ts",
     "tslint:latest",
-    "tslint-config-prettier"
+    "tslint-config-prettier",
+    ".app-cache",
+    ".npm",
+    ".npm-tmp",
+    "dist",
+    "dist*",
+    "**/dist/*",
+    "**/python/*",
+    "**/docs/*",
+    "**/node_modules/*",
   ]
 }

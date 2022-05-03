@@ -47,8 +47,13 @@ class DataTable(Element):
         title: the title of the table
         columns: a list-of-dictionaries as column definition. e.g.:
             [ {'title': 'Rule Name', 'dataIndex': 'name'}, ...other columns]
-            for each column, title is the column title; dataIndex is its key for
-            the TableResult data dictionary
+            [ {'title': 'Rule Name', 'dataIndex': 'name', 'sortable': True, 'searchable': True, 'filterOptions': ['abc', 'def']}, ...other columns]
+            for each column, 
+                title: the column title
+                dataIndex: its key for the TableResult data dictionary
+                (optional) sortable: (True/False) the column is sortable
+                (optional) searchable: (True/False) the column is searchable
+                (optional) filterOptions: ([strings]) a list of options shown as filters
         data: a TableResult object for the initial data of the table
         row_actions: a list of TableRowAction objects, which means actions shown on each row.
             Leave it blank if you don't need any action

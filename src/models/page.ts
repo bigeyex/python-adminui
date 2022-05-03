@@ -19,6 +19,7 @@ export interface PageElement {
     placeholder?: string;
 
     columns?: any[];
+    format?: any;
     style?: any;
     row_actions?: PageElement[];
     table_actions?: PageElement[];

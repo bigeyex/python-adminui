@@ -67,7 +67,7 @@ current page and page size. So the table knows how many page buttons it should
 display to the user::
 
     DataTable("Example Table", columns=table_columns, 
-                data=TableResult(table_data, 1000))
+                data=TableResult(table_data, 1000), on_data=on_page)
 
 .. autoclass:: adminui.TableResult
    :members:
@@ -79,8 +79,6 @@ knows what data to load when the user turns a page::
         records = (... load records somewhere from the database, 
             with args['current_page'] and args['page_size'])
         return TableResult(mock_table_data(5), 1000, args['current_page'])
-    DataTable("Example Table", columns=table_columns, 
-                data=TableResult(table_data, 1000), on_data=on_page)
 
 Now you have a table serving multi-paged data.
 
@@ -107,6 +105,42 @@ If the user clicks one of them, the passed function ``on_edit`` will be called::
 
     def on_edit(record):
         ...do something with the table record
+
+
+Sortable and Filterable
+**************************************
+
+.. image:: images/table/simple_table_sorter.jpg
+
+To make table column sortable, set ``sorter=True`` to the column definition::
+
+    table_columns = [
+        {'title': '# of Calls', 'dataIndex': 'callNo', 'sorter': True},
+        ...
+    ]
+
+Then, when the user click on the header of the column, ``on_data`` callback will 
+receive an additional ``sorter`` argument like::
+
+    sorter: "callNo_descend"
+
+Separated by underscore, the first part is the ``dataIndex`` field, 
+the second part is descend or ascend according the current sorting status.
+
+.. image:: images/table/simple_table_filter.jpg
+
+To make a table column filterable, set filters on the column definition like::
+
+    {'title': 'Status', 'dataIndex': 'status', 'filters': [{'text': 2, 'value': 2}, {'text': 3, 'value': 3}]},
+
+Then the column will be filterable. When the user filters some columns, ``on_data``
+will receive arguments like::
+
+    filters: {status: "3,2"}
+
+where the key will be the filtered column's data index, and the value will be the filtered values, 
+separated by commas.
+
 
 
 A complete example of table is listed here

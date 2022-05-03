@@ -116,7 +116,9 @@ class DataTablePart extends Component<ElementProps> {
                 uuid: spec.uuid,
                 args: [ {
                     current_page: params.currentPage,
-                    page_size: params.pageSize
+                    page_size: params.pageSize,
+                    sorter: params.sorter,
+                    filters: filters
                 } ]
             }
         });

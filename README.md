@@ -13,7 +13,7 @@ This library is good for: data projects, tools and scripts, small IT systems and
 Hacker or Hackathon projects. Basically if you need an interface for your system and you don't 
 care much about customizing the style or performance for large traffic, consider this package.
 
-This project is based on Flask and Ant Design Pro.
+This project is based on Flask/FastApi and Ant Design Pro.
 
 ![Screen Shot](./screenshot.png)
 
@@ -26,6 +26,7 @@ This project is based on Flask and Ant Design Pro.
 - Create decent looking menus
 - Data tables with pagination
 - Adaptive to small screens and mobile devices
+- Support both Flask and FastApi
 
 # Installation and quick start
 
@@ -70,6 +71,22 @@ python example_form.py
 
 Then visit http://127.0.0.1:5000/ to see the result.
 
+## Use FastApi instead of Flask
+
+Set `use_fastapi=True` when creating the `app`; and `prepare()` instead of `run()` to expose the app to uvicorn. See python/example_fastapi.py for details
+
+```
+# instead of app = AdminApp(), use
+app = AdminApp(use_fastapi=True)
+
+# ... other stuff you do with adminui app
+
+# in the end of the main file, use
+fastapi_app = app.prepare()
+
+# in command line, run:
+# uvicorn example_fastapi:fastapi_app
+```
 
 # Documentation
 
@@ -104,6 +121,8 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 1.1.0: add Radio buttons and filter/sortable feature of DataTables
+- 1.0.0: add FastApi support
 - 0.3.9: fix color issue in charts
 - 0.3.8: fix werkzeug import error (thanks Youkii-Chen, kevincon and louis-shon)
 - 0.3.7: added Upload component

@@ -4,6 +4,7 @@ import {
     Card,
     DatePicker,
     Checkbox,
+    Radio,
     Form,
     Input,
     Select,
@@ -17,7 +18,8 @@ import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
 
 import { PageElement } from '@/models/page';
-import renderElements, { ElementProps } from './element';
+import renderElements from './element';
+import { ElementProps, elementComponentRegistry } from '@/models/page';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -96,7 +98,10 @@ class FormPart extends Component<FormPartProps> {
     }
 }
 
-export default Form.create<FormPartProps>()(FormPart);
+const FormPartWrapper = Form.create<FormPartProps>()(FormPart);
+export default FormPartWrapper
+elementComponentRegistry['Form'] = ({spec, dispatch, passDown}) => <FormPartWrapper key={spec.uuid} spec={spec} dispatch={dispatch} passDown={passDown}/>
+
 
 const handleFormItemChange = (spec:PageElement, dispatch:Dispatch<any>, passDown:any) => {
     return (value:any) => {
@@ -134,6 +139,7 @@ export const TextFieldPart = ({ spec, dispatch, passDown }:ElementProps) => {
     const el = <Input placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormInputChange(spec, dispatch, passDown) : undefined}/>;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
+elementComponentRegistry['TextField'] = TextFieldPart
 
 export const TextAreaPart = ({ spec, dispatch, passDown }:ElementProps) => {
     const el = <TextArea
@@ -144,6 +150,7 @@ export const TextAreaPart = ({ spec, dispatch, passDown }:ElementProps) => {
     />;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
+elementComponentRegistry['TextArea'] = TextAreaPart
 
 export const SelectBoxPart = ({ spec, passDown, dispatch }:ElementProps) => {
     const el = <Select placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}
@@ -152,10 +159,32 @@ export const SelectBoxPart = ({ spec, passDown, dispatch }:ElementProps) => {
     </Select>;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
+elementComponentRegistry['SelectBox'] = SelectBoxPart
 
 export const CheckboxGroupPart = ({ spec, passDown, dispatch }:ElementProps) => {
     const el = <Checkbox.Group  onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}
         options={spec.data.map((d:[string, string]) => ({'label': d[0], 'value': d[1]}))} />;
+    return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
+}
+elementComponentRegistry['CheckboxGroup'] = CheckboxGroupPart
+
+elementComponentRegistry['RadioGroup'] = ({ spec, passDown, dispatch }:ElementProps) => {
+    let options;
+    if (spec.format == 'vertical') {
+        const radioStyle = {
+            display: 'block',
+            height: '30px',
+            lineHeight: '30px',
+        };
+        options = spec.data.map((option:[any, any]) => <Radio style={radioStyle} value={option[1]} defaultChecked={spec.value==option[1]}>{option[0]}</Radio>);
+    }
+    else if (spec.format == 'button') {
+        options = spec.data.map((option:[any, any]) => <Radio.Button value={option[1]} defaultChecked={spec.value==option[1]}>{option[0]}</Radio.Button>);
+    }
+    else {
+        options = spec.data.map((option:[any, any]) => <Radio value={option[1]} defaultChecked={spec.value==option[1]}>{option[0]}</Radio>);
+    }
+    const el = <Radio.Group onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined} >{options}</Radio.Group>;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
 
@@ -177,6 +206,7 @@ export const DatePickerPart = ({ spec, passDown, dispatch }:ElementProps) => {
     }
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
+elementComponentRegistry['DatePicker'] = DatePickerPart
 
 export const FormActionsPart = ({ spec, dispatch, passDown }:ElementProps) => 
 {
@@ -190,12 +220,14 @@ export const FormActionsPart = ({ spec, dispatch, passDown }:ElementProps) =>
         { renderElements(spec.content || [], dispatch, passDown) }
     </FormItem>
 }
+elementComponentRegistry['FormActions'] = FormActionsPart
 
 export const SubmitButtonPart = ({ spec }:ElementProps) => (
     <Button key={spec.uuid} type="primary" htmlType="submit">
         {spec.title}
     </Button>
 )
+elementComponentRegistry['SubmitButton'] = SubmitButtonPart
 
 export const UploadPart = ({ spec, dispatch, passDown }:ElementProps) => 
 {
@@ -250,3 +282,6 @@ export const UploadPart = ({ spec, dispatch, passDown }:ElementProps) =>
     </Upload>
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
+
+elementComponentRegistry['Upload'] = ({spec, dispatch, passDown}) => <UploadPart key={spec.uuid} spec={spec} dispatch={dispatch} passDown={passDown} />
+

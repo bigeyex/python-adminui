@@ -89,6 +89,22 @@ Checkboxes
 .. autoclass:: adminui.CheckboxGroup
    :members:
 
+Radios
+----------
+
+.. image:: images/form/radios.jpg
+
+.. code-block:: python
+
+    RadioGroup('Radio - Default', data=['One', 'Two'], on_change=on_change),
+    RadioGroup('Radio - Vertical', data=[['One', 1], ['Two', 2]], on_change=on_change, format='vertical'),
+    RadioGroup('Radio - Button', data=[['One', 1], ['Two', 2]], on_change=on_change, format='button'),
+
+.. autoclass:: adminui.RadioGroup
+   :members:
+
+
+
 DatePicker
 ----------
 

@@ -90,6 +90,25 @@ class Checkbox(Element):
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
         super().__init__('Checkbox', title=title, name=name, value=value, on_change=on_change_uuid, id=id)
 
+class RadioGroup(Element):
+    """Create a group of radio buttons
+    
+    Args:
+        title: the title of the field
+        name: the key of the dictionary data passed to the callback when the form is submitted
+        value: the default value of the selected radio
+        data: the title and value of individual checkboxes. in format of a list of str or a list of [title, value]
+            e.g. ['one', 'two', 'three'] or [['one', 1], ['two', 2]], both accepted
+        format: default | button; how the radio box is displayed and arranged
+    """
+    def __init__(self, title, name=None, data=[], value=None, format='default', on_change=None, id=None):
+        if name is None:
+            name = title.lower()
+        uniform_data = [x if type(x) is list else [x, x] for x in data]
+        on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
+        super().__init__('RadioGroup', title=title, name=name, data=uniform_data, value=value, format=format, on_change=on_change_uuid, id=id)
+
+
 class Switch(Element):
     def __init__(self, value=None, on_change=None, id=None):
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)

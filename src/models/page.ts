@@ -1,5 +1,5 @@
 import { Effect } from 'dva';
-import { Reducer } from 'redux';
+import { Dispatch, Reducer } from 'redux';
 import { notification } from 'antd';
 import { queryPageLayout, postPageAction } from '@/services/page';
 
@@ -19,6 +19,7 @@ export interface PageElement {
     placeholder?: string;
 
     columns?: any[];
+    format?: any;
     style?: any;
     row_actions?: PageElement[];
     table_actions?: PageElement[];
@@ -227,4 +228,13 @@ const PageModel: PageModelType = {
     }
 }
 
+export interface ElementProps {
+    spec: PageElement;
+    dispatch: Dispatch<any>;
+    passDown: any;         // pass down attributes down the tree. e.g. getFieldDecorator function of the form 
+                              // if the form controls are nested in containers
+}
+
+type ElementComponentCreator = ({ spec, dispatch, passDown }:ElementProps)=>any;
+export let elementComponentRegistry: {[type:string]: ElementComponentCreator} = {};
 export default PageModel;

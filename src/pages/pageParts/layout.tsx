@@ -1,7 +1,8 @@
 import { Card, Col, Row, Statistic, Tooltip, Icon } from "antd";
 import ChartCard from "./components/ChartCard"
 import React, { Fragment } from "react";
-import renderElements, { ElementProps } from './element';
+import renderElements from './element';
+import { ElementProps, elementComponentRegistry } from '@/models/page';
 import Trend from './components/Trend'
 
 import styles from './layout.less';
@@ -11,6 +12,7 @@ export const CardPart = ({ spec, dispatch, passDown }:ElementProps) => (
         {renderElements(spec.content || [], dispatch, passDown)}
     </Card>
 );
+elementComponentRegistry['Card'] = CardPart
 
 export const ChartCardPart = ({ spec, dispatch, passDown }:ElementProps) => (
     <ChartCard bordered={false} title={spec.title} action={
@@ -21,6 +23,7 @@ export const ChartCardPart = ({ spec, dispatch, passDown }:ElementProps) => (
         {renderElements(spec.content || [], dispatch, passDown)}
     </ChartCard>
 );
+elementComponentRegistry['ChartCard'] = ChartCardPart
 
 export const RowPart = ({ spec, dispatch, passDown }:ElementProps) => {
     const content = spec.content || [];
@@ -44,6 +47,7 @@ export const RowPart = ({ spec, dispatch, passDown }:ElementProps) => {
     }
     return <Row gutter={24} type="flex">{ columns }</Row>
 }
+elementComponentRegistry['Row'] = RowPart
 
 export const StatisticPart = ({ spec }:ElementProps) => {
     if(spec.inline) {
@@ -63,3 +67,4 @@ export const StatisticPart = ({ spec }:ElementProps) => {
         return <Statistic title={spec.title} value={spec.value}/>
     }
 };
+elementComponentRegistry['Statistic'] = StatisticPart

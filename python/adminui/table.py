@@ -47,15 +47,19 @@ class DataTable(Element):
         title: the title of the table
         columns: a list-of-dictionaries as column definition. e.g.:
             [ {'title': 'Rule Name', 'dataIndex': 'name'}, ...other columns]
-            for each column, title is the column title; dataIndex is its key for
-            the TableResult data dictionary
+            [ {'title': 'Rule Name', 'dataIndex': 'name', 'sorter': True, 'filterOptions': ['abc', 'def']}, ...other columns]
+            for each column, 
+                title: the column title
+                dataIndex: its key for the TableResult data dictionary
+                (optional) sorter: (True/False) the column is sortable
+                (optional) filterOptions: ([strings]) a list of options shown as filters
         data: a TableResult object for the initial data of the table
         row_actions: a list of TableRowAction objects, which means actions shown on each row.
             Leave it blank if you don't need any action
         table_actions: a list of page elements shown on top of the table. Controls such as
             "New Item" buttons could be listed here.
         on_data: a callback function that returns a TableResult object if the user turns a page.
-            an argument will be passed as {'current_page':..., 'page_size':...}
+            an argument will be passed as {'current_page':..., 'page_size':..., 'sorter': {sorted_column_data_index}_{ascend|decsend}}
             Leave it None if you're sure there is only one page of data.
     """
     def __init__(self, title="", columns=[], data=[], row_actions=[],

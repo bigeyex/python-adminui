@@ -69,3 +69,36 @@ Finally, run the app using::
 
     app.run()
 
+Use FastAPI instead of Flask
+**************************************
+
+Set ``use_fastapi=True`` when creating the ``app``; and ``prepare()`` instead of ``run`` to expose the app to uvicorn.  
+
+The basic example will be:
+
+.. code-block:: python
+
+    from adminui import *
+
+    app = AdminApp(use_fastapi=True)
+
+    def on_submit(form_data):
+        print(form_data)
+
+    @app.page('/', 'Form')
+    def form_page():
+        return [
+            Form(on_submit = on_submit, content = [
+                TextField('Title', required_message="The title is required!"),
+                TextArea('Description'),
+                FormActions(content = [
+                    SubmitButton('Submit')
+                ])
+            ])
+        ]
+
+    fastapi_app = app.prepare()
+
+Then run from command line::
+
+    uvicorn example_fastapi:fastapi_app

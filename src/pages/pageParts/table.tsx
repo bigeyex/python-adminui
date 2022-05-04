@@ -2,7 +2,8 @@
 import React, { Component, Fragment } from 'react';
 import styles from './table.less';
 import StandardTable from '@/components/StandardTable';
-import renderElements, { ElementProps } from './element';
+import renderElements from './element';
+import { ElementProps, elementComponentRegistry } from '@/models/page';
 import { Divider } from 'antd';
 import { PageElement } from '@/models/page';
 import { TableListPagination, TableListItem, TableListParams } from '@/components/StandardTable/data';
@@ -71,7 +72,6 @@ class DataTablePart extends Component<ElementProps> {
                             if(i != 0) {
                                 action_el.push(<Divider key={'divider'+i} type="vertical"/>);
                             }
-                            console.log(record);
                             action_el.push(<a key={i} onClick={() => handleRowAction(record, action)}>{action.title}</a>);
                         }
                         return (
@@ -116,7 +116,9 @@ class DataTablePart extends Component<ElementProps> {
                 uuid: spec.uuid,
                 args: [ {
                     current_page: params.currentPage,
-                    page_size: params.pageSize
+                    page_size: params.pageSize,
+                    sorter: params.sorter,
+                    filters: filters
                 } ]
             }
         });
@@ -160,4 +162,5 @@ class DataTablePart extends Component<ElementProps> {
     }
 }
 
+elementComponentRegistry['DataTable'] = ({spec, dispatch, passDown}) => <DataTablePart key={spec.uuid} spec={spec} dispatch={dispatch} passDown={passDown}/>
 export default DataTablePart;

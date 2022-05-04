@@ -78,6 +78,7 @@ class FormPart extends Component<FormPartProps> {
                             message: spec.required_message || '',
                           },
                         ],
+                        initialValue: spec.value?spec.value:undefined, 
                       })(input)}
                 </FormItem>
             )
@@ -281,4 +282,6 @@ export const UploadPart = ({ spec, dispatch, passDown }:ElementProps) =>
     </Upload>
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
+
 elementComponentRegistry['Upload'] = ({spec, dispatch, passDown}) => <UploadPart key={spec.uuid} spec={spec} dispatch={dispatch} passDown={passDown} />
+

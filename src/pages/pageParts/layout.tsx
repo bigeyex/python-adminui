@@ -8,7 +8,7 @@ import Trend from './components/Trend'
 import styles from './layout.less';
 
 export const CardPart = ({ spec, dispatch, passDown }:ElementProps) => (
-    <Card bordered={false}>
+    <Card key={spec.uuid} bordered={false}>
         {renderElements(spec.content || [], dispatch, passDown)}
     </Card>
 );

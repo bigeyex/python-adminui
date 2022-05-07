@@ -1,5 +1,6 @@
 from .element import Element
 from .app import AdminApp
+from .app import callbackRegistry
 import jwt
 
 class CombinedAction(Element):
@@ -30,6 +31,21 @@ class Notification(Element):
     def __init__(self, title='', text=None):
         super().__init__('Notification', title=title, text=text)
 
+class ShowModalForm(Element):
+    """Display a modal form for the user
+    
+    Args:
+        content (Element[], optional): an array of Element objects as content of the form. Defaults to None.
+        on_submit (func, optional): a callback function called when the user submits the form. Defaults to None.
+    """
+    def __init__(self, title='', content=None, on_submit=None, title_inline=True, id=None):
+        on_submit_uuid = callbackRegistry.uuid_for_callback(on_submit)
+        super().__init__('ShowModalForm', title=title, content=content, style={'titleInline': title_inline}, on_submit=on_submit_uuid, id=id)
+
+class CloseModalForm(Element):
+    def __init__(self):
+        super().__init__('CloseModalForm')
+
 class UpdateElement(Element):
     def __init__(self, id='', **kwargs):
         super().__init__('UpdateElement', id=id, **kwargs)
@@ -37,3 +53,4 @@ class UpdateElement(Element):
 class ReplaceElement(Element):
     def __init__(self, id='', element=None):
         super().__init__('ReplaceElement', id=id, element=element)
+

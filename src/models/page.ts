@@ -23,6 +23,7 @@ export interface PageElement {
     style?: any;
     row_actions?: PageElement[];
     table_actions?: PageElement[];
+    actions?: PageElement[];
     footer?: PageElement[];
     link_to?: string | null;
     max?: number; min?: number;
@@ -36,6 +37,7 @@ export interface PageElement {
     tooltip?: string;
     inline?: boolean;
     show_trend?: boolean;
+    visible?: boolean;
 
     on_submit?: string;
     on_click?: string;
@@ -45,8 +47,12 @@ export interface PageElement {
 }
 
 export interface PageModelState {
-    pageLayout: {
+    pageLayout?: {
         content: PageElement[];
+    },
+    modalForm?: {
+        form: PageElement | null;
+        modalVisible: boolean
     }
 }
 
@@ -62,6 +68,8 @@ export interface PageModelType {
         savePageLayout: Reducer<PageModelState>;
         updateElementData: Reducer<PageModelState>;
         updateElement: Reducer<PageModelState>;
+        showModalForm: Reducer<PageModelState>;
+        closeModalForm: Reducer<PageModelState>;
     }
 }
 
@@ -69,7 +77,8 @@ const PageModel: PageModelType = {
     namespace: 'page',
 
     state: {
-        pageLayout: { content: [] }
+        pageLayout: { content: [] },
+        modalForm: { form: null, modalVisible: false }
     },
 
     effects: {
@@ -129,6 +138,18 @@ const PageModel: PageModelType = {
                             }
                         });
                         break;
+                    case 'ShowModalForm':
+                        yield put({
+                            type: 'showModalForm',
+                            payload: response
+                        });
+                        break;
+                    case 'CloseModalForm':
+                        yield put({
+                            type: 'closeModalForm',
+                            payload: response
+                        });
+                        break;
                 }
             }
             const response = yield call(postPageAction, payload);
@@ -177,15 +198,12 @@ const PageModel: PageModelType = {
             return {
                 ...state, 
                 pageLayout: {
-                    content: switchElement(state?.pageLayout.content || [], 
+                    content: switchElement(state?.pageLayout?.content || [], 
                         action.payload.uuid, action.payload.newData)
                 } 
             };
         },
 
-
-        // replace page element by id.
-        // this is not used... yet.
         updateElement(state, action) {
             const switchElement = (els:PageElement[], id:string, 
                 newElement:PageElement): PageElement[] => {
@@ -220,10 +238,24 @@ const PageModel: PageModelType = {
             return {
                 ...state, 
                 pageLayout: {
-                    content: switchElement(state?.pageLayout.content || [], 
+                    content: switchElement(state?.pageLayout?.content || [], 
                         action.payload.id, action.payload.element)
                 } 
             };
+        },
+
+        showModalForm(state, action) { 
+            return {
+                ...state,
+                modalForm: { form: action.payload, modalVisible: true }
+            }
+        },
+
+        closeModalForm(state) { 
+            return {
+                ...state,
+                modalForm: { form: state!.modalForm!.form, modalVisible: false }
+            }
         }
     }
 }

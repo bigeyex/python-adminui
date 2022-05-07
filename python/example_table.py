@@ -34,6 +34,16 @@ def on_page(query):
     print(query)
     return TableResult(mock_table_data(5), 1000, query['current_page'])
 
+def on_modal_form_submit(form_data):
+    print(form_data)
+    return CloseModalForm()
+
+def on_new_button():
+    return ShowModalForm('New Item', [
+        TextField('Title', required_message='Title is required!'),
+        TextArea('Description'),
+    ], on_submit=on_modal_form_submit)
+
 @app.page('/', 'Table')
 def table_page():
     return [
@@ -44,7 +54,7 @@ def table_page():
                     TableRowAction('edit', 'Edit', on_click=on_edit),
                 ],
                 table_actions=[
-                    Button('New', style='primary'),
+                    Button('New', style='primary', on_click=on_new_button),
                 ])
         ])
     ]

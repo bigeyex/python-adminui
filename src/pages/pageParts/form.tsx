@@ -9,6 +9,7 @@ import {
     Input,
     Select,
     Upload,
+    Modal,
     notification,
   } from 'antd';
 
@@ -44,6 +45,13 @@ class FormPart extends Component<FormPartProps> {
                 }
             });
             }
+        });
+    };
+
+    handleModalCancel = () => {
+        const { dispatch } = this.props;
+        dispatch({
+            type: 'page/closeModalForm',
         });
     };
 
@@ -84,17 +92,51 @@ class FormPart extends Component<FormPartProps> {
             )
         }
 
+        const wrapModalInput = (spec:PageElement, input:JSX.Element) => {
+            return (
+                <FormItem key={spec.uuid} label={spec.title} labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
+                    {getFieldDecorator(spec.name || "", {
+                        rules: [
+                          {
+                            required: spec.required_message ? true:false,
+                            message: spec.required_message || '',
+                          },
+                        ],
+                        initialValue: spec.value?spec.value:undefined, 
+                      })(input)}
+                </FormItem>
+            )
+        }
+
         const getFieldValues = () => {
             return form.getFieldsValue();
         }
 
-        return (
-            <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
-                <Card bordered={false}>
-                { renderElements(spec.content || [], dispatch, {...passDown, wrapInput, getFieldValues, titleInline:spec.style.titleInline}) }
-                </Card>
-            </Form>
-        )
+        if (spec.type == 'ShowModalForm') { 
+            return (
+                <Modal
+                    key={spec.uuid}
+                    destroyOnClose
+                    title={spec.title}
+                    visible={spec.visible}
+                    onOk={this.handleSubmit}
+                    onCancel={() => this.handleModalCancel()}
+                >
+                    <Form>
+                    { renderElements(spec.content || [], dispatch, {...passDown, wrapInput:wrapModalInput, getFieldValues}) }
+                    </Form>
+                </Modal>
+            );
+        }
+        else {
+            return (
+                <Form onSubmit={this.handleSubmit} key={spec.uuid} hideRequiredMark style={{ marginTop: 8 }}>
+                    <Card bordered={false}>
+                    { renderElements(spec.content || [], dispatch, {...passDown, wrapInput, getFieldValues, titleInline:spec.style.titleInline}) }
+                    </Card>
+                </Form>
+            )
+        }
     }
 }
 
@@ -136,13 +178,13 @@ const handleFormInputChange = (spec:PageElement, dispatch:Dispatch<any>, passDow
 
 
 export const TextFieldPart = ({ spec, dispatch, passDown }:ElementProps) => {
-    const el = <Input placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormInputChange(spec, dispatch, passDown) : undefined}/>;
+    const el = <Input key={spec.uuid} placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormInputChange(spec, dispatch, passDown) : undefined}/>;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
 elementComponentRegistry['TextField'] = TextFieldPart
 
 export const TextAreaPart = ({ spec, dispatch, passDown }:ElementProps) => {
-    const el = <TextArea
+    const el = <TextArea key={spec.uuid}
         style={{ minHeight: 32 }}
         placeholder={spec.placeholder || ''}
         rows={4}
@@ -153,7 +195,7 @@ export const TextAreaPart = ({ spec, dispatch, passDown }:ElementProps) => {
 elementComponentRegistry['TextArea'] = TextAreaPart
 
 export const SelectBoxPart = ({ spec, passDown, dispatch }:ElementProps) => {
-    const el = <Select placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}
+    const el = <Select key={spec.uuid} placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}
                     mode={spec.tags ? "tags" : spec.multiple ? "multiple" : undefined}>
         { spec.data.map((o:[string, string]) => <Select.Option key={o[1]} value={o[1]}>{o[0]}</Select.Option>) }
     </Select>;
@@ -162,7 +204,7 @@ export const SelectBoxPart = ({ spec, passDown, dispatch }:ElementProps) => {
 elementComponentRegistry['SelectBox'] = SelectBoxPart
 
 export const CheckboxGroupPart = ({ spec, passDown, dispatch }:ElementProps) => {
-    const el = <Checkbox.Group  onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}
+    const el = <Checkbox.Group key={spec.uuid} onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined}
         options={spec.data.map((d:[string, string]) => ({'label': d[0], 'value': d[1]}))} />;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
@@ -184,7 +226,7 @@ elementComponentRegistry['RadioGroup'] = ({ spec, passDown, dispatch }:ElementPr
     else {
         options = spec.data.map((option:[any, any]) => <Radio value={option[1]} defaultChecked={spec.value==option[1]}>{option[0]}</Radio>);
     }
-    const el = <Radio.Group onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined} >{options}</Radio.Group>;
+    const el = <Radio.Group key={spec.uuid} onChange={spec.on_change ? handleFormItemChange(spec, dispatch, passDown) : undefined} >{options}</Radio.Group>;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
 

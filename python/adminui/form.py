@@ -151,6 +151,16 @@ class SubmitButton(Element):
     def __init__(self, title="Submit", id=None):
         super().__init__('SubmitButton', title=title)
 
+class CancelButton(Element):
+    """Create a cancel button for the form. Better inside FormActions
+        Usually used inside a dialog
+    
+    Args:
+        title: the text that appears on the button
+    """
+    def __init__(self, title="Submit", id=None):
+        super().__init__('SubmitButton', title=title)
+
 class Button(Element):
     """Create a general button on the page
     

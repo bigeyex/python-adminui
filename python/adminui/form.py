@@ -1,3 +1,4 @@
+from cgitb import reset
 from .element import Element
 from .app import callbackRegistry
 
@@ -11,6 +12,15 @@ class Form(Element):
     def __init__(self, content=None, on_submit=None, title_inline=True, id=None):
         on_submit_uuid = callbackRegistry.uuid_for_callback(on_submit)
         super().__init__('Form', content=content, style={'titleInline': title_inline}, on_submit=on_submit_uuid, id=id)
+
+class FilterForm(Element):
+    """Create a filter form for a DataTable
+    
+    Args:
+        content (Element[], optional): an array of Element objects as content of the form. Defaults to None.
+    """
+    def __init__(self, content=None, submit_text='Query', reset_text='Reset', id=None):
+        super().__init__('FilterForm', content=content, style={'submitText': submit_text, 'resetText': reset_text}, id=id)
 
 class TextField(Element):
     """Create a text field in the form. 

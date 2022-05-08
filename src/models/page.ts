@@ -23,6 +23,7 @@ export interface PageElement {
     style?: any;
     row_actions?: PageElement[];
     table_actions?: PageElement[];
+    filter_form?: PageElement;
     actions?: PageElement[];
     footer?: PageElement[];
     link_to?: string | null;

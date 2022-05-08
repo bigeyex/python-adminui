@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import styles from './table.less';
 import StandardTable from '@/components/StandardTable';
 import renderElements from './element';
+import { DataTableFilterForm } from './form';
 import { ElementProps, elementComponentRegistry } from '@/models/page';
 import { Divider } from 'antd';
 import { PageElement } from '@/models/page';
@@ -14,6 +15,10 @@ interface TableListState {
     selectedRows: TableListItem[];
     formValues: { [key: string]: string };
     stepFormValues: Partial<TableListItem>;
+    pageSize: number;
+    currentPage: number;
+    filters: object;
+    sorter?: string;
 }
 
 interface TableDataType {
@@ -27,6 +32,7 @@ const getValue = (obj: { [x: string]: string[] }) =>
     .map(key => obj[key])
     .join(',');
 
+const DefaultDataTablePageSize = 10
 
 class DataTablePart extends Component<ElementProps> {
     state: TableListState = {
@@ -34,6 +40,10 @@ class DataTablePart extends Component<ElementProps> {
         selectedRows: [],
         formValues: {},
         stepFormValues: {},
+        pageSize: DefaultDataTablePageSize,
+        currentPage: 1, 
+        filters: {},
+        sorter: undefined
     };
 
     constructor(props:ElementProps) {
@@ -85,13 +95,34 @@ class DataTablePart extends Component<ElementProps> {
         }
     }
 
+    refreshTableData = () => {
+        const { dispatch, spec } = this.props;
+        const { formValues, pageSize, currentPage, filters, sorter } = this.state;
+        dispatch({
+            type: 'page/requestDataUpdate',
+            payload: {
+                cb_uuid: spec.on_data,
+                uuid: spec.uuid,
+                args: [ {
+                    current_page: currentPage,
+                    page_size: pageSize,
+                    sorter: sorter,
+                    filters: filters,
+                    formValues: formValues
+                } ]
+            }
+        });
+    }
+
+    handleFilterFormValueChange = (newValues: any) => {
+        this.setState({ formValues: newValues });
+    }
+
     handleStandardTableChange = (
         pagination: Partial<TableListPagination>,
         filtersArg: Record<keyof TableListItem, string[]>,
         sorter: SorterResult<TableListItem>,
     ) => {
-        const { dispatch, spec } = this.props;
-        const { formValues } = this.state;
 
         const filters = Object.keys(filtersArg).reduce((obj, key) => {
             const newObj = { ...obj };
@@ -99,29 +130,14 @@ class DataTablePart extends Component<ElementProps> {
             return newObj;
         }, {});
 
-        const params: Partial<TableListParams> = {
-            currentPage: pagination.current,
+        this.setState({
             pageSize: pagination.pageSize,
-            ...formValues,
-            ...filters,
-        };
-        if (sorter.field) {
-            params.sorter = `${sorter.field}_${sorter.order}`;
-        }
+            currentPage: pagination.current, 
+            filters: filters,
+            sorter: sorter.field ? `${sorter.field}_${sorter.order}` : undefined
+        })
 
-        dispatch({
-            type: 'page/requestDataUpdate',
-            payload: {
-                cb_uuid: spec.on_data,
-                uuid: spec.uuid,
-                args: [ {
-                    current_page: params.currentPage,
-                    page_size: params.pageSize,
-                    sorter: params.sorter,
-                    filters: filters
-                } ]
-            }
-        });
+        this.refreshTableData();
     };
 
     render() {
@@ -137,7 +153,24 @@ class DataTablePart extends Component<ElementProps> {
                     </div>
                 )
             }
-            else{
+            else {
+                return null;
+            }
+        }
+
+        const renderFilterForm = () => {
+            if(spec.filter_form) {
+                return (
+                    <DataTableFilterForm spec={spec.filter_form} dispatch={dispatch} passDown={{
+                        onFilterFormSubmit: (e: React.FormEvent) => {
+                            e.preventDefault();
+                            this.refreshTableData();
+                        },
+                        onFilterFormValueChange: this.handleFilterFormValueChange
+                    }}/>
+                )
+            }
+            else {
                 return null;
             }
         }
@@ -145,7 +178,7 @@ class DataTablePart extends Component<ElementProps> {
         
         return (
             <div className={styles.tableList}>
-                <div className={styles.tableListForm}></div>
+                <div className={styles.tableListForm}>{ renderFilterForm() }</div>
                 <div className={styles.tableListOperator}>
                     { renderTableActions() }
                 </div>

@@ -50,6 +50,12 @@ def table_page():
         Card(content = [
             DataTable("Example Table", columns=table_columns, 
                 data=TableResult(mock_table_data(5), 1000), on_data=on_page,
+                filter_form=FilterForm([
+                    TextField('Rule Name'),
+                    TextField('Description'),
+                    SelectBox('Type', data=['One', 'Two', 'Three'], placeholder="Select One"),
+                    RadioGroup('Radio - Button', data=[['One', 1], ['Two', 2]], format='button'),
+                ], submit_text='Filter', reset_text='Clear'),
                 row_actions=[
                     TableRowAction('edit', 'Edit', on_click=on_edit),
                 ],

@@ -11,6 +11,7 @@ import {
     Upload,
     Modal,
     notification,
+    Row, Col
   } from 'antd';
 
 import React, { Component, SyntheticEvent, useState } from 'react';
@@ -21,6 +22,7 @@ import { FormComponentProps } from 'antd/es/form';
 import { PageElement } from '@/models/page';
 import renderElements from './element';
 import { ElementProps, elementComponentRegistry } from '@/models/page';
+import tableStyles from './table.less';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -54,6 +56,12 @@ class FormPart extends Component<FormPartProps> {
             type: 'page/closeModalForm',
         });
     };
+
+    handleFilterFormReset = () => {
+        const { form, passDown } = this.props;
+        form.resetFields();
+        passDown.onFilterFormSubmit();
+    }
 
     render() {
         const {
@@ -108,6 +116,18 @@ class FormPart extends Component<FormPartProps> {
             )
         }
 
+        const wrapFilterFormInput = (spec:PageElement, input:JSX.Element) => {
+            return (
+                <Col md={8} sm={24}>
+                    <FormItem key={spec.uuid} label={spec.title}>
+                        {getFieldDecorator(spec.name || "", {
+                            initialValue: spec.value?spec.value:undefined, 
+                        })(input)}
+                    </FormItem>
+                </Col>
+            )
+        }
+
         const getFieldValues = () => {
             return form.getFieldsValue();
         }
@@ -128,6 +148,33 @@ class FormPart extends Component<FormPartProps> {
                 </Modal>
             );
         }
+        else if (spec.type == 'FilterForm') {  
+            // filter form used in DataTables. Needs onFilterFormSubmit and onFilterFormValueChange in passDown
+            let rows = [];
+            const finalCol = (
+                <Col md={8} sm={24}>
+                    <span className={tableStyles.submitButtons}>
+                        <Button type="primary" htmlType="submit">
+                            {spec.style.submitText}
+                        </Button>
+                        <Button style={{ marginLeft: 8 }} onClick={this.handleFilterFormReset}>
+                            {spec.style.resetText}
+                        </Button>
+                    </span>
+                </Col>
+            )
+            for(let i=0; i<spec.content!.length; i+=3) {
+                rows.push( 
+                    <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                        {renderElements(spec.content?.slice(i, i+3) || [], dispatch, {...passDown, wrapInput:wrapFilterFormInput, getFieldValues})}
+                        {i+3>spec.content!.length ? finalCol : undefined}
+                    </Row> );
+            }
+            if (spec.content!.length % 3 == 0) {
+                rows.push(<Row gutter={{ md: 8, lg: 24, xl: 48 }}>{finalCol}</Row>);
+            }
+            return ( <Form onSubmit={passDown.onFilterFormSubmit} layout="inline">{rows}</Form> )
+        }
         else {
             return (
                 <Form onSubmit={this.handleSubmit} key={spec.uuid} hideRequiredMark style={{ marginTop: 8 }}>
@@ -144,6 +191,11 @@ const FormPartWrapper = Form.create<FormPartProps>()(FormPart);
 export default FormPartWrapper
 elementComponentRegistry['Form'] = ({spec, dispatch, passDown}) => <FormPartWrapper key={spec.uuid} spec={spec} dispatch={dispatch} passDown={passDown}/>
 
+export const DataTableFilterForm = Form.create<FormPartProps>({
+    onValuesChange: (props, changedValues, allValues) => {
+        props.passDown.onFilterFormValueChange(allValues);
+    }
+})(FormPart);
 
 const handleFormItemChange = (spec:PageElement, dispatch:Dispatch<any>, passDown:any) => {
     return (value:any) => {

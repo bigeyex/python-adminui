@@ -107,7 +107,32 @@ If the user clicks one of them, the passed function ``on_edit`` will be called::
         ...do something with the table record
 
 
-Sortable and Filterable
+Use Filter Forms
+**************************************
+
+.. image:: images/table/simple_table_filter_form.jpg
+
+You may add a filter form, to let users search in your table.  
+Each time the user submits the form or switch pages, values in the form will be passed
+along to the ``on_data`` callback.  
+
+To add filter form, set ``filter_form`` field in DataTable element::
+
+    DataTable("Example Table", columns=...,  data=..., on_data=on_page,
+                filter_form=FilterForm([
+                    TextField('Rule Name'),
+                    TextField('Description'),
+                    SelectBox('Type', data=['One', 'Two', 'Three'], placeholder="Select One"),
+                    RadioGroup('Radio - Button', data=[['One', 1], ['Two', 2]], format='button'),
+                ], submit_text='Filter', reset_text='Clear'),
+                row_actions=[...],
+                table_actions=[...])
+
+Note that you can change the text on submit button and reset button, using
+``submit_text`` and ``reset_text`` field.
+
+
+Sortable and Filterable Columns
 **************************************
 
 .. image:: images/table/simple_table_sorter.jpg

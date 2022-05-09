@@ -121,6 +121,7 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 1.2.1: fixes a bug with page actions in DataTable (#33) and corrected header 1 font size issue (#29)
 - 1.2.0: add filter form to tables; add model dialog (see python/example_form.py for a full example)
 - 1.1.0: add Radio buttons and filter/sortable feature of DataTables
 - 1.0.0: add FastApi support

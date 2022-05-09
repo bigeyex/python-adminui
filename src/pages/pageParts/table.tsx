@@ -135,9 +135,9 @@ class DataTablePart extends Component<ElementProps> {
             currentPage: pagination.current, 
             filters: filters,
             sorter: sorter.field ? `${sorter.field}_${sorter.order}` : undefined
+        }, ()=> {
+            this.refreshTableData();
         })
-
-        this.refreshTableData();
     };
 
     render() {

@@ -30,7 +30,7 @@ elementComponentRegistry['Divider'] = DividerPart
 export const HeaderPart = ({ spec }:ElementProps) => {
     switch(spec.level){
         case 1:
-            return <h1 style={{ marginBottom: 16 }}>{spec.text}</h1>;
+            return <h1 style={{ marginBottom: 16, fontSize: '1.7em' }}>{spec.text}</h1>;
             break;
         case 2:
             return <h2 style={{ marginBottom: 16 }}>{spec.text}</h2>;

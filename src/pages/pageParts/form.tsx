@@ -60,7 +60,7 @@ class FormPart extends Component<FormPartProps> {
     handleFilterFormReset = () => {
         const { form, passDown } = this.props;
         form.resetFields();
-        passDown.onFilterFormSubmit();
+        passDown.onFilterFormValueChange(form.getFieldsValue());
     }
 
     render() {

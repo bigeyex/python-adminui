@@ -34,6 +34,7 @@ export interface DefaultSettings {
   fixSiderbar: boolean;
   menu: { locale: boolean };
   title: string;
+  appLogo: string;
   pwa: boolean;
   // Your custom iconfont Symbol script Url
   // eg：//at.alicdn.com/t/font_1039637_btcrd5co4w.js
@@ -41,6 +42,8 @@ export interface DefaultSettings {
   // Usage: https://github.com/ant-design/ant-design-pro/pull/3517
   iconfontUrl: string;
   colorWeak: boolean;
+  copyrightText: string;
+  footerLinks: object;
 }
 
 export default {
@@ -57,7 +60,9 @@ export default {
     locale: true,
   },
   title: 'Ant Design Pro2',
-  logo: logo,
+  appLogo: logo,
+  copyrightText: 'Awesome App with AdminUI',
+  footerLinks: {'Github': 'https://github.com/bigeyex/python-adminui'},
   pwa: false,
   iconfontUrl: '',
 } as DefaultSettings;

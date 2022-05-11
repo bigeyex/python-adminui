@@ -20,6 +20,7 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
 import { UserModelState } from '@/models/user';
+import { DefaultSettings } from '../../config/defaultSettings';
 import { isAntDesignPro } from '@/utils/utils';
 import { getCurrentUser } from '@/utils/authority'
 import logo from '../assets/logo.svg';
@@ -44,7 +45,7 @@ export interface BasicLayoutProps extends ProLayoutProps {
   route: ProLayoutProps['route'] & {
     authority: string[];
   };
-  settings: Settings;
+  settings: DefaultSettings;
   dispatch: Dispatch;
   user: UserModelState;
 }
@@ -67,56 +68,7 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
     return localItem;
   });
 
-const defaultFooterDom = (
-  <DefaultFooter
-    copyright="2019 python-adminui based on Ant Design"
-    links={[
-      {
-        key: 'Ant Design Pro',
-        title: 'Ant Design Pro',
-        href: 'https://pro.ant.design',
-        blankTarget: true,
-      },
-      {
-        key: 'github',
-        title: <Icon type="github" />,
-        href: 'https://github.com/bigeyex/python-adminui',
-        blankTarget: true,
-      },
-      {
-        key: 'Ant Design',
-        title: 'Ant Design',
-        href: 'https://ant.design',
-        blankTarget: true,
-      },
-    ]}
-  />
-);
 
-const footerRender: BasicLayoutProps['footerRender'] = () => {
-  if (!isAntDesignPro()) {
-    return defaultFooterDom;
-  }
-  return (
-    <>
-      {defaultFooterDom}
-      <div
-        style={{
-          padding: '0px 24px 24px',
-          textAlign: 'center',
-        }}
-      >
-        <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
-          <img
-            src="https://www.netlify.com/img/global/badges/netlify-color-bg.svg"
-            width="82px"
-            alt="netlify logo"
-          />
-        </a>
-      </div>
-    </>
-  );
-};
 
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const { dispatch, children, user, settings, location = { pathname: '/' } } = props;
@@ -124,6 +76,15 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
    * constructor
    */
   const [menuData, setMenuData] = useState([]);
+
+  const footerRender: BasicLayoutProps['footerRender'] = () =>  (
+    <DefaultFooter
+      copyright={settings.copyrightText ? settings.copyrightText : false}
+      links={ Object.entries(settings.footerLinks).map(([title, url]) => 
+        ({key: title, title: title, href: url, blankTarget:true})) }
+    />
+  );
+  
 
 
   useEffect(() => {
@@ -145,8 +106,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         type: 'settings/fetchSettings'
       });
     }
-
   }, []);
+
   /**
    * init variables
    */
@@ -161,7 +122,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
   return (
     <ProLayout
-      logo={logo}
+      logo={settings.appLogo || logo}
       menuHeaderRender={(logoDom, titleDom) => (
         <Link to="/">
           {logoDom}

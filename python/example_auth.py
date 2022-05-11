@@ -2,6 +2,11 @@ from adminui import *
 
 app = AdminApp()
 
+app.app_title = 'AdminUI'
+app.copyright_text = 'App with Login by AdminUI'
+app.app_logo = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
+app.footer_links = {'Github': 'https://github.com/bigeyex/python-adminui', 'Ant Design': 'https://ant.design'}
+
 @app.login()
 def on_login(username, password):
     if username=='alice' and password=='123456':

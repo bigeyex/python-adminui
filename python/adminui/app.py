@@ -104,6 +104,7 @@ class AdminApp:
         self.copyright_text = 'Professional UI with Python'
         self.footer_links = {'Github': 'https://github.com/bigeyex/python-adminui', 'Ant Design': 'https://ant.design'}
         self.app_logo = None
+        self.app_styles = {'nav_theme': 'dark', 'layout': 'sidemenu'}
         if upload_folder is None:
             # the upload folder is not defined. using the main_module_path/upload as the folder
             frame = inspect.stack()[1]
@@ -231,7 +232,8 @@ class AdminApp:
 
     def serve_settings(self):
         """Serve settings like logo and title"""
-        return self.jsonify({'title':self.app_title, 'appLogo':self.app_logo, 'copyrightText':self.copyright_text, 'footerLinks': self.footer_links})
+        return self.jsonify({'title':self.app_title, 'appLogo':self.app_logo, 'copyrightText':self.copyright_text, 'footerLinks': self.footer_links,
+                    'navTheme': self.app_styles['nav_theme'], 'layout': self.app_styles['layout']})
 
     def serve_root(self, path=''):
         """!!! Private method, don't call. Serve the index.html"""

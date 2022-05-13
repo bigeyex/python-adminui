@@ -18,3 +18,10 @@ And you can change the copyright (in the footer) text like::
 Or change the footer links::
 
     app.footer_links = {'Github': 'https://github.com/bigeyex/python-adminui', 'Ant Design': 'https://ant.design'}
+
+
+Change menu style with::
+
+    app.app_styles = {'nav_theme': 'light', 'layout': 'topmenu'}
+
+where nav_theme takes 'dark'(default) or 'light'; layout takes 'sidemenu'(default) or 'topmenu'

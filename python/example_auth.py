@@ -6,6 +6,7 @@ app.app_title = 'AdminUI'
 app.copyright_text = 'App with Login by AdminUI'
 app.app_logo = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
 app.footer_links = {'Github': 'https://github.com/bigeyex/python-adminui', 'Ant Design': 'https://ant.design'}
+app.app_styles = {'nav_theme': 'light', 'layout': 'topmenu'}
 
 @app.login()
 def on_login(username, password):

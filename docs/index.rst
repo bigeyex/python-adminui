@@ -42,6 +42,7 @@ Features:
    chart
    user
    customization
+   static_files
 
 Indices and tables
 ==================

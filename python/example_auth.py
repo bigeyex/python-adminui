@@ -1,4 +1,6 @@
 from adminui import *
+import os
+from pathlib import Path
 
 app = AdminApp()
 
@@ -7,6 +9,7 @@ app.copyright_text = 'App with Login by AdminUI'
 app.app_logo = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
 app.footer_links = {'Github': 'https://github.com/bigeyex/python-adminui', 'Ant Design': 'https://ant.design'}
 app.app_styles = {'nav_theme': 'light', 'layout': 'topmenu'}
+app.static_files = {'/upload': os.path.join(Path(__file__).parent.absolute(), 'upload')}
 
 @app.login()
 def on_login(username, password):

@@ -79,7 +79,6 @@ class LoggedInUser(Element):
             "auth": auth,
             "user_info": user_info
         }, AdminApp.SECRET, algorithm='HS256')
-        print(token)
         super().__init__('LoginAndNavigateTo', status='ok', display_name=display_name, avatar=avatar, redirect_to=redirect_to, token=token)
 
 class LoginFailed(Element):
@@ -105,6 +104,7 @@ class AdminApp:
         self.footer_links = {'Github': 'https://github.com/bigeyex/python-adminui', 'Ant Design': 'https://ant.design'}
         self.app_logo = None
         self.app_styles = {'nav_theme': 'dark', 'layout': 'sidemenu'}
+        self.static_files = {} # format: {'path_name': absolute_file_path}
         if upload_folder is None:
             # the upload folder is not defined. using the main_module_path/upload as the folder
             frame = inspect.stack()[1]
@@ -169,7 +169,7 @@ class AdminApp:
         else:
             return {'display_name': None, 'auth': [], 'user_info': None}
     
-    def serve_page(self, url='', request=None):
+    async def serve_page(self, url='', request=None):
         """!!! Private method, don't call. Serve the page specifications
         
         Args:
@@ -181,14 +181,18 @@ class AdminApp:
         url_parts = url.split('/')
         full_url = '/'+url
         base_url = '/'+url_parts[0]
+        if self.use_fastapi:
+            args = self.get_url_args(request)
+        else:
+            args = self.get_url_args(request)
         if full_url in self.pages:
             if has_permission(self.pages[full_url]):
-                return self.jsonify(self.pages[full_url].as_list())
+                return self.jsonify(self.pages[full_url].as_list(all_params=args))
             else: 
                 return ErrorResponse("No Permission", "Please login first or contact your administrator", "403").as_dict()
         elif base_url in self.pages and len(url_parts)>1:
             if has_permission(self.pages[base_url]):
-                return self.jsonify(self.pages[base_url].as_list(url_parts[1]))
+                return self.jsonify(self.pages[base_url].as_list(url_parts[1], all_params=args))
             else:
                 return ErrorResponse("No Permission", "Please login first or contact your administrator", "403").as_dict()
         else:
@@ -287,6 +291,7 @@ class AdminApp:
                     return obj.as_dict()
         self.jsonify = jsonify
         self.get_request_json = lambda _request: request.get_json()
+        self.get_url_args = lambda _request: request.args.to_dict()
         self.get_header = lambda n, _request:request.headers.get(n)
         self.app = Flask(__name__, static_url_path='/')
         self.app.json_encoder = ElementJSONEncoder
@@ -294,6 +299,9 @@ class AdminApp:
         self.app.config['UPLOAD_FOLDER'] = self.upload_folder
 
     def prepare_flask_app(self):
+        from flask import send_from_directory
+        for path_name, file_path in self.static_files.items():
+            self.app.route(f'{path_name}/<path:path>')(lambda path: send_from_directory(file_path, path))
         self.app.route('/api/page_layout/<path:url>/')(self.serve_page)
         self.app.route('/api/page_layout/')(self.serve_page)
         self.app.route('/api/main_menu')(self.serve_menu)
@@ -318,6 +326,7 @@ class AdminApp:
             return await request.json()
         self.get_request_json = get_request_json_method
         self.get_header = lambda name, request:request.headers[name] if name in request.headers else None
+        self.get_url_args = lambda request: request.query_params._dict
         self.app = FastAPI()
 
     def prepare_fastapi_app(self):
@@ -329,8 +338,8 @@ class AdminApp:
         from starlette.exceptions import HTTPException as StarletteHTTPException
 
         @self.app.get('/api/page_layout/{page_path:path}')
-        def get_page_layout(page_path:str, request:Request):
-            return self.serve_page(page_path, request)
+        async def get_page_layout(page_path:str, request:Request):
+            return await self.serve_page(page_path, request)
         @self.app.get('/api/main_menu')
         def get_main_menu(request:Request):
             return self.serve_menu(request)
@@ -348,6 +357,8 @@ class AdminApp:
         @self.app.post('/api/page_action')
         async def post_page_action(request:Request):
             return await self.handle_page_action(request)
+        for path_name, file_path in self.static_files.items():
+            self.app.mount(path_name, StaticFiles(directory=file_path, html=True), name=path_name)
         self.app.mount("/", StaticFiles(directory=os.path.join(Path(__file__).parent.absolute(), "static"), html=True), name="static")
         @self.app.exception_handler(StarletteHTTPException)     # to catch path like '/user/login', redirect to index.html, frontend will handle path there
         async def custom_http_exception_handler(request, exc):

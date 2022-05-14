@@ -1,6 +1,9 @@
 from adminui import *
+import os
+from pathlib import Path
 
 app = AdminApp(use_fastapi=True)
+app.static_files = {'/upload': os.path.join(Path(__file__).parent.absolute(), 'upload')}
 
 @app.login()
 def on_login(username, password):
@@ -89,9 +92,10 @@ def control_page():
     ]
 
 @app.page('/detail', 'Detail Page')
-def detail_page():
+def detail_page(arg, all_args):
     return [
         Card(content=[
+            Header(str(all_args), 1),
             DetailGroup('Refund Request', content=[
                 DetailItem('Ordre No.', 1100000),
                 DetailItem('Status', "Fetched"),

@@ -14,7 +14,7 @@ export async function queryPageLayout(path:string): Promise<any> {
             'Authorization': currentUser.token
         }
     }
-    return request('/api/page_layout' + path, headerOptions);
+    return request('/api/page_layout' + path + location.search, headerOptions);
 }
 
 export async function postPageAction(param:PageActionParamsType): Promise<any> {

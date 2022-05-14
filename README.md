@@ -121,6 +121,7 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 1.3.0: allow serving additional static folders and multiple parameters
 - 1.2.3: allow changing footer text, footer links and logo
 - 1.2.2: fix #36 #37 #38
 - 1.2.1: fix a bug with page actions in DataTable (#33) and corrected header 1 font size issue (#29)

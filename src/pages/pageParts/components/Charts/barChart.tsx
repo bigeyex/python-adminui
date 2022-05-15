@@ -1,8 +1,9 @@
-import { Axis, Chart, Geom, Tooltip } from 'bizcharts';
+import { Axis, Chart, Geom, Tooltip, Legend } from 'bizcharts';
 import React, { Component } from  "react"
+import { transformChartData } from '@/utils/chart';
 
 import Debounce from 'lodash.debounce';
-import autoHeight from '../autoHeight';
+import autoHeight from './autoHeight';
 
 export interface BarProps {
   title?: React.ReactNode;
@@ -10,6 +11,7 @@ export interface BarProps {
   padding?: [number, number, number, number];
   height?: number;
   data: [];
+  labels?: any;
   forceFit?: boolean;
   autoLabel?: boolean;
   style?: React.CSSProperties;
@@ -84,6 +86,7 @@ class Bar extends Component<
       title,
       forceFit = true,
       data,
+      labels,
       color = 'rgba(24, 144, 255, 0.85)',
       padding,
     } = this.props;
@@ -115,6 +118,8 @@ class Bar extends Component<
       chartStyle.columns = ['x', 'y'];
     }
 
+    const chartData = transformChartData(data, labels);
+
     return (
       <div style={{ 'height': chartStyle.height }} ref={this.handleRoot}>
         <div ref={this.handleRef}>
@@ -123,9 +128,10 @@ class Bar extends Component<
             scale={scale}
             height={chartStyle.height}
             forceFit={forceFit}
-            data={data}
+            data={chartData}
             padding={padding || 'auto'}
           >
+            <Legend/>
             {chartStyle.show_axis ? 
               <Axis
                 name={chartStyle.columns[0]}

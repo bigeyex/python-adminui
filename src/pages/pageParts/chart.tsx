@@ -1,15 +1,20 @@
 import React from "react";
 import { ElementProps, elementComponentRegistry } from '@/models/page';
-import BarChart, { BarChartStyle } from './components/Charts/BarChart'
-import LineChart, { LineChartStyle } from './components/Charts/LineChart'
+import BarChart, { BarChartStyle } from './components/Charts/barChart'
+import LineChart, { LineChartStyle } from './components/Charts/lineChart'
+import PieChart, { PieChartStyle } from './components/Charts/pieChart'
 
 
-export const BarChartPart = ({ spec, dispatch }:ElementProps) => (
-    <BarChart data={spec.data || []} chartStyle={spec.style as BarChartStyle}/>
+elementComponentRegistry['BarChart'] = ({ spec, dispatch }:ElementProps) => (
+    <BarChart data={spec.data || []} labels={spec.labels} chartStyle={spec.style as BarChartStyle}/>
 );
-elementComponentRegistry['BarChart'] = BarChartPart
 
-export const LineChartPart = ({ spec, dispatch }:ElementProps) => (
-    <LineChart data={spec.data || []} chartStyle={spec.style as LineChartStyle}/>
+elementComponentRegistry['LineChart'] = ({ spec, dispatch }:ElementProps) => (
+    <LineChart data={spec.data || []} labels={spec.labels} chartStyle={spec.style as LineChartStyle}/>
 );
-elementComponentRegistry['LineChart'] = LineChartPart
+
+elementComponentRegistry['PieChart'] = ({ spec, dispatch }:ElementProps) => (
+    <PieChart data={spec.data || []} labels={spec.labels} chartStyle={spec.style as PieChartStyle}/>
+);
+
+

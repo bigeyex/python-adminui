@@ -43,6 +43,7 @@ Features:
    user
    customization
    static_files
+   other_components
 
 Indices and tables
 ==================

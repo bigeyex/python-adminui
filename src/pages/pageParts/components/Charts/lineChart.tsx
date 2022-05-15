@@ -1,7 +1,9 @@
-import { Axis, Chart, Geom, Tooltip, AxisProps } from 'bizcharts';
+import { Axis, Chart, Geom, Tooltip, AxisProps, Legend } from 'bizcharts';
 
 import React from 'react';
-import autoHeight from '../autoHeight';
+import autoHeight from './autoHeight';
+import { transformChartData } from '@/utils/chart';
+import { transform } from 'lodash';
 
 export interface MiniAreaProps {
   color?: string;
@@ -25,6 +27,7 @@ export interface MiniAreaProps {
     x: number | string;
     y: number;
   }[];
+  labels?: any;
   chartStyle: LineChartStyle;
   padding?: any;
 }
@@ -44,6 +47,7 @@ export interface LineChartStyle {
 const MiniArea: React.FC<MiniAreaProps> = props => {
   let {
     data = [],
+    labels,
     color = 'rgba(24, 144, 255, 0.2)',
     borderColor = '#1089ff',
     scale = { x: {}, y: {} },
@@ -85,6 +89,8 @@ const MiniArea: React.FC<MiniAreaProps> = props => {
   ];
 
   const chartHeight = chartStyle.height;
+  const chartData = transformChartData(data, labels);
+  const dataHasGroups = chartData.length>0 && ('c' in chartData[0]);
 
   if (!chartStyle.columns || chartStyle.columns.length < 2) {
     chartStyle.columns = ['x', 'y'];
@@ -99,9 +105,10 @@ const MiniArea: React.FC<MiniAreaProps> = props => {
             scale={scaleProps}
             height={chartHeight}
             forceFit
-            data={data}
+            data={chartData}
             padding={padding || 'auto'}
           >
+            <Legend/>
             {chartStyle.show_axis ? 
               <Axis
                 name={chartStyle.columns[0]}
@@ -132,7 +139,7 @@ const MiniArea: React.FC<MiniAreaProps> = props => {
                 type="line"
                 position={chartStyle.columns[0]+"*"+chartStyle.columns[1]}
                 shape={chartStyle.smooth?"smooth":undefined}
-                color={borderColor}
+                color={dataHasGroups ? 'c' : borderColor}
                 size={borderWidth}
                 tooltip={false}
               />

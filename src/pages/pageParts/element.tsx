@@ -7,6 +7,7 @@ import './layout'
 import './table'
 import './detail'
 import './chart'
+import './feedback'
 
 
 

@@ -121,6 +121,7 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 1.4.0: new chart api(old ones still work), supports pie chart and progress bar/circle
 - 1.3.0: allow serving additional static folders and multiple parameters
 - 1.2.3: allow changing footer text, footer links and logo
 - 1.2.2: fix #36 #37 #38

@@ -166,6 +166,12 @@ will receive arguments like::
 where the key will be the filtered column's data index, and the value will be the filtered values, 
 separated by commas.
 
+Change the height of rows
+**************************************
+pass ``size`` to DataTable will allow you to change the row height. 
+You may choose from ``'default' | 'middle' | 'small'``::
+
+    DataTable(..., size='small')
 
 
 A complete example of table is listed here

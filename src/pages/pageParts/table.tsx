@@ -189,6 +189,7 @@ class DataTablePart extends Component<ElementProps> {
                     selectedRows={[]}
                     onSelectRow={()=>{}}
                     onChange={this.handleStandardTableChange}
+                    size={spec.style.size}
                 />
           </div>
         )

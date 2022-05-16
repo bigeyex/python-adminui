@@ -61,10 +61,11 @@ class DataTable(Element):
         on_data: a callback function that returns a TableResult object if the user turns a page.
             an argument will be passed as {'current_page':..., 'page_size':..., 'sorter': {sorted_column_data_index}_{ascend|decsend}}
             Leave it None if you're sure there is only one page of data.
+        size: size of the table (default | middle | small)
     """
     def __init__(self, title="", columns=[], data=[], row_actions=[],
-            table_actions=[], filter_form=None, on_data=None, id=None):
+            table_actions=[], filter_form=None, on_data=None, size='default', id=None):
         on_data_uuid = callbackRegistry.uuid_for_callback(on_data)
         super().__init__('DataTable', title=title, columns=columns, data=data,
-            row_actions=row_actions, table_actions=table_actions, filter_form=filter_form, on_data=on_data_uuid, id=id)
+            row_actions=row_actions, table_actions=table_actions, filter_form=filter_form, style={'size':size}, on_data=on_data_uuid, id=id)
 

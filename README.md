@@ -3,6 +3,8 @@
 [Documentation](https://python-adminui.readthedocs.io/en/latest/index.html)
 [中文文档](https://python-adminui.readthedocs.io/zh_CN/latest/index.html)
 
+**If you need to add component to this library, or have other suggestions, please raise an issue**
+
 Write professional web interface with Python.
 
 If you need a simple web interface and you don't want to mess around with
@@ -121,6 +123,7 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 1.4.1: allow changing Signup link / forget password link. Add `size` attribute to DataTable
 - 1.4.0: new chart api(old ones still work), supports pie chart and progress bar/circle
 - 1.3.0: allow serving additional static folders and multiple parameters
 - 1.2.3: allow changing footer text, footer links and logo
@@ -131,13 +134,3 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 - 1.0.0: add FastApi support
 - 0.3.9: fix color issue in charts
 - 0.3.8: fix werkzeug import error (thanks Youkii-Chen, kevincon and louis-shon)
-- 0.3.7: added Upload component
-- 0.3.6: fixed issue #12 where error messages are displayed (only) in Chinese
-- 0.3.5: added prepare function for using with tornado; added slider, switch and multiple select function
-- 0.3.4: allow redirect to a different page after logged in
-- 0.3.3: added on_change handler for form controls
-- 0.3.2: added (dangerous) RawHTML control
-- 0.3.1: newlines now work in Paragraph; adding color="" attribute in Paragraph; fixed a bug in CombinedAction and now you can use an array instead of CombinedAction
-- 0.3.0: added ReplaceElement and UpdateElement as Page Actions
-- 0.2.1: added SelectBox, CheckboxGroup and DatePicker as form controls; fixed bug in authentication
-- 0.2.0: added authentication system

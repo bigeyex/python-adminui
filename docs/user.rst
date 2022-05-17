@@ -57,3 +57,13 @@ Menus can also be protected, by attaching `auth_needed` attribute. For example::
 
     MenuItem('User Home', '/user_home', icon="dashboard", auth_needed='user')
 
+
+Forget password link and register link
+**************************************
+
+You may change the forget password link, or register link on the login page, like::
+
+    app.register_link={'Sign Up': '/signup'}
+    app.forget_password_link={'Forget Password': '/forget'}
+
+If they are set to ``None``, they won't show up on the screen.

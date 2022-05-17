@@ -11,6 +11,9 @@ app.footer_links = {'Github': 'https://github.com/bigeyex/python-adminui', 'Ant 
 app.app_styles = {'nav_theme': 'light', 'layout': 'topmenu'}
 app.static_files = {'/upload': os.path.join(Path(__file__).parent.absolute(), 'upload')}
 
+app.register_link={'Sign Up': '/signup'}
+app.forget_password_link={'Forget Password': '/forget'}
+
 @app.login()
 def on_login(username, password):
     if username=='alice' and password=='123456':

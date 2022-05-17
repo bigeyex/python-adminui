@@ -102,6 +102,8 @@ class AdminApp:
         self.app_title = 'Admin UI App'
         self.copyright_text = 'Professional UI with Python'
         self.footer_links = {'Github': 'https://github.com/bigeyex/python-adminui', 'Ant Design': 'https://ant.design'}
+        self.register_link = None
+        self.forget_password_link = None
         self.app_logo = None
         self.app_styles = {'nav_theme': 'dark', 'layout': 'sidemenu'}
         self.static_files = {} # format: {'path_name': absolute_file_path}
@@ -237,7 +239,8 @@ class AdminApp:
     def serve_settings(self):
         """Serve settings like logo and title"""
         return self.jsonify({'title':self.app_title, 'appLogo':self.app_logo, 'copyrightText':self.copyright_text, 'footerLinks': self.footer_links,
-                    'navTheme': self.app_styles['nav_theme'], 'layout': self.app_styles['layout']})
+                    'navTheme': self.app_styles['nav_theme'], 'layout': self.app_styles['layout'], 'forgetPasswordLink': self.forget_password_link, 
+                    'registerLink': self.register_link})
 
     def serve_root(self, path=''):
         """!!! Private method, don't call. Serve the index.html"""

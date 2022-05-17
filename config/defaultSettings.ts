@@ -44,6 +44,8 @@ export interface DefaultSettings {
   colorWeak: boolean;
   copyrightText: string;
   footerLinks: object;
+  registerLink: object | false;
+  forgetPasswordLink: object | false;
 }
 
 export default {
@@ -65,4 +67,6 @@ export default {
   footerLinks: {'Github': 'https://github.com/bigeyex/python-adminui'},
   pwa: false,
   iconfontUrl: '',
+  registerLink: false,
+  forgetPasswordLink: false
 } as DefaultSettings;

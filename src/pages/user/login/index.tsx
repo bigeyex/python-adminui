@@ -13,23 +13,22 @@ import styles from './style.less';
 import { LoginParamsType } from '@/services/login';
 import { ConnectState } from '@/models/connect';
 import { getPageQuery } from '@/utils/utils';
+import { DefaultSettings } from 'config/defaultSettings';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginComponents;
 
 interface LoginProps {
   dispatch: Dispatch<AnyAction>;
   userLogin: StateType;
-  submitting: boolean;
+  submitting?: boolean;
+  settings: DefaultSettings;
 }
 interface LoginState {
   type: string;
   autoLogin: boolean;
 }
 
-@connect(({ login, loading }: ConnectState) => ({
-  userLogin: login,
-  submitting: loading.effects['login/login'],
-}))
+
 class Login extends Component<LoginProps, LoginState> {
   loginForm: FormComponentProps['form'] | undefined | null = undefined;
 
@@ -103,7 +102,7 @@ class Login extends Component<LoginProps, LoginState> {
   }
 
   render() {
-    const { userLogin, submitting } = this.props;
+    const { userLogin, submitting, settings } = this.props;
     const { status, type: loginType } = userLogin;
     const { type, autoLogin } = this.state;
     return (
@@ -116,7 +115,7 @@ class Login extends Component<LoginProps, LoginState> {
             this.loginForm = form;
           }}
         >
-          <Tab key="account" tab={formatMessage({ id: 'user-login.login.tab-login-credentials' })}>
+          <Tab key="account" tab={' '}>
             {status === 'error' &&
               loginType === 'account' &&
               !submitting &&
@@ -190,9 +189,11 @@ class Login extends Component<LoginProps, LoginState> {
             <Checkbox checked={autoLogin} onChange={this.changeAutoLogin}>
               <FormattedMessage id="user-login.login.remember-me" />
             </Checkbox>
-            <a style={{ float: 'right' }} href="">
-              <FormattedMessage id="user-login.login.forgot-password" />
-            </a>
+            { settings.forgetPasswordLink ? 
+              <a style={{ float: 'right' }} href={Object.values(settings.forgetPasswordLink)[0]}>
+                {Object.keys(settings.forgetPasswordLink)[0]}
+              </a>
+            : undefined }
           </div>
           <Submit loading={submitting}>
             <FormattedMessage id="user-login.login.login" />
@@ -202,9 +203,11 @@ class Login extends Component<LoginProps, LoginState> {
             <Icon type="alipay-circle" className={styles.icon} theme="outlined" />
             <Icon type="taobao-circle" className={styles.icon} theme="outlined" />
             <Icon type="weibo-circle" className={styles.icon} theme="outlined" /> */}
-            <Link className={styles.register} to="/user/register">
-              <FormattedMessage id="user-login.login.signup" />
-            </Link>
+            { settings.registerLink ? 
+              <Link className={styles.register} to={Object.values(settings.registerLink)[0]}>
+                {Object.keys(settings.registerLink)[0]}
+              </Link>
+            : undefined }
           </div>
         </LoginComponents>
       </div>
@@ -212,4 +215,8 @@ class Login extends Component<LoginProps, LoginState> {
   }
 }
 
-export default Login;
+export default connect(({ login, settings, loading }: ConnectState) => ({
+  userLogin: login,
+  settings,
+  submitting: loading.effects['login/login'],
+}))(Login);

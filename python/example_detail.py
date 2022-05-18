@@ -25,6 +25,7 @@ def detail_page():
                 DetailItem('Remarks', "None")
             ]),
             Divider(),
+            Image('https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png', 'Github', width=300),
             Header('Header 1', 1),
             Header('Header 2', 2),
             Header('Header 3', 3),

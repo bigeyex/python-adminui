@@ -69,6 +69,14 @@ class RawHTML(Element):
     def __init__(self, text='', id=None):
         super().__init__('RawHTML', text=text, id=id)
 
+class Image(Element):
+    """Display an image
+        url: the src of the image
+        title: the alt text of the image
+    """
+    def __init__(self, url='', title='', width=None, id=None):
+        super().__init__('Image', url=url, title=title, style={'width': width}, id=id)
+
 class Row(Element):
     """Display a row with multiple Columns for layout purpose
 

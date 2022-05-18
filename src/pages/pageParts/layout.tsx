@@ -68,3 +68,7 @@ export const StatisticPart = ({ spec }:ElementProps) => {
     }
 };
 elementComponentRegistry['Statistic'] = StatisticPart
+
+elementComponentRegistry['Image'] = ({ spec }:ElementProps) => {
+    return <img src={spec.url} alt={spec.title} style={{width: spec.style.width}} />
+}

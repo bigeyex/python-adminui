@@ -1,4 +1,4 @@
-import { Card, Col, Row, Statistic, Tooltip, Icon } from "antd";
+import { Card, Col, Row, Statistic, Tooltip, Icon, Tabs } from "antd";
 import ChartCard from "./components/ChartCard"
 import React, { Fragment } from "react";
 import renderElements from './element';
@@ -17,6 +17,7 @@ elementComponentRegistry['Card'] = CardPart
 export const ChartCardPart = ({ spec, dispatch, passDown }:ElementProps) => (
     <ChartCard bordered={false} title={spec.title} action={
         spec.tooltip ? (<Tooltip title={spec.tooltip}><Icon type="info-circle-o" /></Tooltip>) : null }
+        key={spec.uuid}
         total={spec.value}
         contentHeight={46}
         footer={renderElements(spec.footer || [], dispatch, passDown)}>
@@ -70,5 +71,20 @@ export const StatisticPart = ({ spec }:ElementProps) => {
 elementComponentRegistry['Statistic'] = StatisticPart
 
 elementComponentRegistry['Image'] = ({ spec }:ElementProps) => {
-    return <img src={spec.url} alt={spec.title} style={{width: spec.style.width}} />
+    return <img src={spec.url} alt={spec.title} style={{width: spec.style.width}} key={spec.uuid} />
+}
+
+elementComponentRegistry['Group'] = ({ spec, dispatch, passDown }:ElementProps) => {
+    return <div key={spec.uuid}>{ renderElements(spec.content || [], dispatch, passDown) }</div>
+}
+
+elementComponentRegistry['Tabs'] = ({ spec, dispatch, passDown }:ElementProps) => {
+    const { TabPane } = Tabs;
+    return <Tabs key={spec.uuid} tabPosition={spec.style.position} type={spec.format} size={spec.size}>
+        { spec.content?.map( (tab) => (
+            <TabPane tab={tab.name} key={tab.uuid}>
+                { renderElements([tab] || [], dispatch, passDown) }
+            </TabPane>
+        ) )}
+    </Tabs>
 }

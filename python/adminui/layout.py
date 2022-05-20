@@ -64,6 +64,20 @@ class Paragraph(Element):
     def __init__(self, text='', id=None, color=None):
         super().__init__('Paragraph', text=text, id=id, color=color)
 
+class Group(Element):
+    """Group a part of elements in a div element"""
+    def __init__(self, content=[], name='', id=None):
+        super().__init__('Group', content=content, name=name, id=id)
+
+class Tabs(Element):
+    """Display a group of tabs. Each content item is a tab
+        position: top | left | bottom | right, where the tab is (decide if it's horizontal or vertical)
+        format: line | card - the style of the tabs
+        size: default | large | small
+    """
+    def __init__(self, content=[], position='top', format='line', size='default', id=None):
+        super().__init__('Tabs', content=content, format=format, style={'position': position}, size=size, id=id)
+
 class RawHTML(Element):
     """Display a (dangerous) HTML to the page"""
     def __init__(self, text='', id=None):

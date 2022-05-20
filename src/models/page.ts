@@ -34,7 +34,7 @@ export interface PageElement {
     url?: string;
     icon?: string;
     level?: number;
-    size?: number;
+    size?: any;
     color?: string;
     tooltip?: string;
     inline?: boolean;

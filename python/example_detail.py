@@ -5,10 +5,15 @@ app = AdminApp()
 def on_submit(form_data):
     print(form_data)
 
+def on_timer_fire(timer_data):
+    print('timer fire')
+    print(timer_data)
+
 @app.page('/', 'Detail Page')
 def detail_page():
     return [
         Card(content=[
+            Timer(on_fire=on_timer_fire, data='hello timer'),
             Header('Header 1', 1),
             DetailGroup('Refund Request', content=[
                 DetailItem('Order No.', 1100000),

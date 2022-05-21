@@ -69,5 +69,27 @@ value of "detail_card" element when the users click the "Change Content" button.
             ]),
         ])
 
+
+Use a timer 
+***********
+
+Use timer, to let your Python function run every some seconds.
+You can also return Page Actions in the timer's ``on_fire`` function::
+
+    @app.page('/', 'Detail Page')
+    def detail_page():
+        return [
+            Timer(on_fire=on_timer_fire, data='hello timer'),
+            ...
+        ]
+
+Timers can be set at any position of the page. To remove a timer, replace it with
+``ReplaceElement`` page action.
+
+
+
+
+
+
 See example_page_actions.py for the complete example.
 https://github.com/bigeyex/python-adminui/blob/master/python/example_page_actions.py

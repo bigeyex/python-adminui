@@ -1,6 +1,6 @@
 import { Card, Col, Row, Statistic, Tooltip, Icon, Tabs } from "antd";
 import ChartCard from "./components/ChartCard"
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import renderElements from './element';
 import { ElementProps, elementComponentRegistry } from '@/models/page';
 import Trend from './components/Trend'
@@ -88,3 +88,20 @@ elementComponentRegistry['Tabs'] = ({ spec, dispatch, passDown }:ElementProps) =
         ) )}
     </Tabs>
 }
+
+function TimerPart({ spec, dispatch }:ElementProps){
+    useEffect( () => {
+        const timer = setInterval(() => {
+            dispatch({
+                type: 'page/submitAction',
+                payload: {
+                    cb_uuid: spec.on_change,
+                    args: [ spec.data ]
+                }
+            });
+        }, 1000 * spec.interval!);
+        return () => { clearInterval(timer) }
+    } )
+    return null;
+}
+elementComponentRegistry['Timer'] =  ({ spec, dispatch, passDown }:ElementProps) => (<TimerPart key={spec.uuid} spec={spec} dispatch={dispatch} passDown={passDown}/>)

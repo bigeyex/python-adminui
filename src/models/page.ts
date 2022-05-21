@@ -39,6 +39,7 @@ export interface PageElement {
     tooltip?: string;
     inline?: boolean;
     show_trend?: boolean;
+    interval?: number;
     visible?: boolean;
 
     on_submit?: string;

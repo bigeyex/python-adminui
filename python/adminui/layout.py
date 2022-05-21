@@ -1,4 +1,5 @@
 from .element import Element
+from .app import callbackRegistry
 
 class Card(Element):
     """A white-boxed container to hold content in sections
@@ -71,6 +72,8 @@ class Group(Element):
 
 class Tabs(Element):
     """Display a group of tabs. Each content item is a tab
+
+    Args:
         position: top | left | bottom | right, where the tab is (decide if it's horizontal or vertical)
         format: line | card - the style of the tabs
         size: default | large | small
@@ -82,6 +85,12 @@ class RawHTML(Element):
     """Display a (dangerous) HTML to the page"""
     def __init__(self, text='', id=None):
         super().__init__('RawHTML', text=text, id=id)
+
+class Timer(Element):
+    """Group a part of elements in a div element"""
+    def __init__(self, interval=3, on_fire=None, data=None, id=None):
+        on_change_uuid = callbackRegistry.uuid_for_callback(on_fire)
+        super().__init__('Timer', on_change=on_change_uuid, interval=interval, data=data, id=id)
 
 class Image(Element):
     """Display an image

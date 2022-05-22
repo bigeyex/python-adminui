@@ -123,6 +123,7 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 1.4.2: Image tag, timer, tabs, and Spin(loading) element
 - 1.4.1: allow changing Signup link / forget password link. Add `size` attribute to DataTable
 - 1.4.0: new chart api(old ones still work), supports pie chart and progress bar/circle
 - 1.3.0: allow serving additional static folders and multiple parameters

@@ -19,6 +19,7 @@ interface TableListState {
     currentPage: number;
     filters: object;
     sorter?: string;
+    loading: boolean;
 }
 
 interface TableDataType {
@@ -43,7 +44,8 @@ class DataTablePart extends Component<ElementProps> {
         pageSize: DefaultDataTablePageSize,
         currentPage: 1, 
         filters: {},
-        sorter: undefined
+        sorter: undefined, 
+        loading: false,
     };
 
     constructor(props:ElementProps) {
@@ -95,6 +97,12 @@ class DataTablePart extends Component<ElementProps> {
         }
     }
 
+    componentDidUpdate(prevProps:ElementProps) {
+        if( this.state.loading && prevProps.spec.data != this.props.spec.data ){
+            this.setState({loading: false});
+        }
+    }
+
     refreshTableData = () => {
         const { dispatch, spec } = this.props;
         const { formValues, pageSize, currentPage, filters, sorter } = this.state;
@@ -112,6 +120,7 @@ class DataTablePart extends Component<ElementProps> {
                 } ]
             }
         });
+        this.setState({'loading': true});
     }
 
     handleFilterFormValueChange = (newValues: any) => {
@@ -190,6 +199,7 @@ class DataTablePart extends Component<ElementProps> {
                     onSelectRow={()=>{}}
                     onChange={this.handleStandardTableChange}
                     size={spec.style.size}
+                    loading={this.state.loading}
                 />
           </div>
         )

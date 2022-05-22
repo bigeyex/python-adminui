@@ -32,6 +32,8 @@ def on_edit(item):
 
 def on_page(query):
     print(query)
+    import time
+    time.sleep(2) # mock data loading time
     return TableResult(mock_table_data(5), 1000, query['current_page'])
 
 def on_modal_form_submit(form_data):

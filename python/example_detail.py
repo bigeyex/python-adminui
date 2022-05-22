@@ -22,13 +22,16 @@ def detail_page():
                 DetailItem('Sub Order', 1135456)
             ]),
             Divider(),
-            DetailGroup('User Info', content=[
-                DetailItem('Name', "Alice"),
-                DetailItem('Phone', "555-123-4567"),
-                DetailItem('Shipping Service', 'Continent Ex'),
-                DetailItem('Address', 'XXX XXXX Dr. XX-XX, XXXXXX NY 12345'),
-                DetailItem('Remarks', "None")
+            Spin('loading', content=[
+                DetailGroup('User Info', content=[
+                    DetailItem('Name', "Alice"),
+                    DetailItem('Phone', "555-123-4567"),
+                    DetailItem('Shipping Service', 'Continent Ex'),
+                    DetailItem('Address', 'XXX XXXX Dr. XX-XX, XXXXXX NY 12345'),
+                    DetailItem('Remarks', "None")
+                ]),
             ]),
+            
             Divider(),
             Tabs([
                 Group(name='Headers', content=[

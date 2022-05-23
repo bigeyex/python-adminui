@@ -21,6 +21,7 @@ export interface BarProps {
 export interface BarChartStyle {
   color?: string;
   height: number;
+  stack?: boolean;
   show_axis?: boolean;
   columns?: string[];
 }
@@ -119,6 +120,7 @@ class Bar extends Component<
     }
 
     const chartData = transformChartData(data, labels);
+    const dataHasGroups = chartData.length>0 && ('c' in chartData[0]);
 
     return (
       <div style={{ 'height': chartStyle.height }} ref={this.handleRoot}>
@@ -144,7 +146,13 @@ class Bar extends Component<
               <Axis name={chartStyle.columns[1]} min={0} />
             : undefined}
             <Tooltip showTitle={false} crosshairs={false} />
-            <Geom type="interval" position={chartStyle.columns[0]+"*"+chartStyle.columns[1]} color={color} tooltip={tooltip} />
+            <Geom type={dataHasGroups && chartStyle.stack ? "intervalStack" : "interval"}
+                  position={chartStyle.columns[0]+"*"+chartStyle.columns[1]} color={dataHasGroups ? 'c' : color} tooltip={tooltip} adjust={[
+              {
+                type: "dodge",
+                marginRatio: 1 / 32
+              }
+            ]} />
           </Chart>
         </div>
       </div>

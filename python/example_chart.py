@@ -14,8 +14,12 @@ def form_page():
                 Column([
                     PieChart(chart_data, chart_labels),
                     BarChart(chart_data, chart_labels),
+                    BarChart({'series1': chart_data, 'series2': chart_data2}, chart_labels),
+                    BarChart({'series1': chart_data, 'series2': chart_data2}, chart_labels, stack=True),
                     LineChart(chart_data, chart_labels, show_area=True),
-                    LineChart({'series1': chart_data, 'series2': chart_data2}, chart_labels),
+                    LineChart({'series1': chart_data, 'series2': chart_data2}, chart_labels, smooth=False),
+                    ScatterPlot(chart_data, chart_data2),
+                    ScatterPlot(chart_data, chart_data2, color=chart_labels, size=chart_data),
                 ], size=3),
                 Column([
                     Progress(30),

@@ -12,11 +12,11 @@ class BarChart(Element):
         show_axis: True for displaying the x and y axis, labels and markers
         height: the height of the chart
     """
-    def __init__(self, data=[], labels=None, show_axis=True, height=300, color=None, columns=['x', 'y'], id=None):
+    def __init__(self, data=[], labels=None, show_axis=True, height=300, color=None, columns=['x', 'y'], stack=False, id=None):
         if labels is None:  # only for compatability with old data format. Will be removed at 2.0.0
             labels = [d[columns[0]] for d in data]
             data = [d[columns[1]] for d in data]
-        super().__init__('BarChart', data=data, labels=labels, style={'show_axis': show_axis, 'height': height, 'color': color, 'columns':columns}, id=id)
+        super().__init__('BarChart', data=data, labels=labels, style={'show_axis': show_axis, 'height': height, 'color': color, 'columns':columns, 'stack': stack}, id=id)
 
 class LineChart(Element):
     """Create a line chart
@@ -52,5 +52,20 @@ class PieChart(Element):
             e.g. ['a', 'b', 'c', 'd']
         height: the height of the chart
     """
-    def __init__(self, data=[], labels=None, height=300, color=None, columns=['x', 'y'], id=None):
-        super().__init__('PieChart', data=data, labels=labels, style={'height': height, 'color': color, 'columns':columns}, id=id)
+    def __init__(self, data=[], labels=None, height=300, color=None, id=None):
+        super().__init__('PieChart', data=data, labels=labels, style={'height': height, 'color': color}, id=id)
+
+class ScatterPlot(Element):
+    """Create a bar chart
+    
+    Args:
+        x: data in the x axis e.g. an array like [2, 3, 4, 5]
+        y: data in the y axis
+        color: a) color of the points; b) a series of data shown as the color e.g. [1, 2, 1, 2]
+        size: a) (int) size of data points; b) a series of data as the size e.g. [1, 2, 3, 1, 2, 3]
+        labels: labels of the x, y axis
+        height: the height of the chart
+        opacity: the opacity of the data points
+    """
+    def __init__(self, x=[], y=[], labels={'x': 'x', 'y': 'y', 'color': 'color', 'size': 'size'}, height=300, color=None, size=3, opacity=0.65, id=None):
+        super().__init__('ScatterPlot', data={'x': x, 'y': y}, labels=labels, style={'height': height, 'color': color, 'size': size, 'opacity':opacity}, id=id)

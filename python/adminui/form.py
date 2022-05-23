@@ -32,12 +32,12 @@ class TextField(Element):
             when the field is not filled at form submission.
         placeholder: the text message shown when the field is not filled.
     """
-    def __init__(self, title, name=None, required_message=None, value=None, placeholder=None, on_change=None, id=None):
+    def __init__(self, title, name=None, required_message=None, password=False, value=None, placeholder=None, on_change=None, id=None):
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
         if name is None:
             name = title.lower()
         super().__init__('TextField', title=title, name=name, required_message=required_message,
-                            value=value, placeholder=placeholder, on_change=on_change_uuid, id=id)
+                            value=value, placeholder=placeholder, style={'password': password}, on_change=on_change_uuid, id=id)
 
 class TextArea(Element):
     """Create a text area object

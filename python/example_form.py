@@ -14,6 +14,7 @@ def form_page():
     return [
         Form(on_submit = on_submit, content = [
             TextField('Title', required_message='Title is required!', on_change=on_change),
+            TextField('Password', password=True, on_change=on_change),
             TextArea('Description', on_change=on_change),
             SelectBox('Type', data=['One', 'Two', 'Three'], placeholder="Select One", on_change=on_change),
             CheckboxGroup('Checks', data=['One', 'Two'], on_change=on_change),

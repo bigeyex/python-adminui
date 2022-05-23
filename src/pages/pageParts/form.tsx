@@ -230,7 +230,9 @@ const handleFormInputChange = (spec:PageElement, dispatch:Dispatch<any>, passDow
 
 
 export const TextFieldPart = ({ spec, dispatch, passDown }:ElementProps) => {
-    const el = <Input key={spec.uuid} placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormInputChange(spec, dispatch, passDown) : undefined}/>;
+    const el = spec.style.password ?
+        <Input.Password key={spec.uuid} placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormInputChange(spec, dispatch, passDown) : undefined}/> :
+        <Input key={spec.uuid} placeholder={spec.placeholder || ''} onChange={spec.on_change ? handleFormInputChange(spec, dispatch, passDown) : undefined}/>;
     return passDown.wrapInput ? passDown.wrapInput(spec, el) : el;
 }
 elementComponentRegistry['TextField'] = TextFieldPart

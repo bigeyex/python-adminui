@@ -44,6 +44,10 @@ TextField
 
     TextField('Title', required_message='Title is required!')
 
+Set ``password=True`` to setup a password field::
+
+    TextField('Enter Password', password=True)
+
 .. autoclass:: adminui.TextField
    :members:
 

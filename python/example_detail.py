@@ -9,6 +9,18 @@ def on_timer_fire(timer_data):
     print('timer fire')
     print(timer_data)
 
+@app.page('/form', 'form')
+def form_page():
+    return [
+        Form(on_submit = on_submit, content = [
+            TextField('Title'),
+            TextArea('Description'),
+            FormActions(content = [
+                SubmitButton('Submit')
+            ])
+        ])
+    ]
+
 @app.page('/', 'Detail Page')
 def detail_page():
     return [
@@ -21,7 +33,11 @@ def detail_page():
                 DetailItem('Shipping No.', 1234567),
                 DetailItem('Sub Order', 1135456)
             ]),
+            Button('A Link'),
             Divider(),
+
+            Spin(),
+
             Spin('loading', content=[
                 DetailGroup('User Info', content=[
                     DetailItem('Name', "Alice"),

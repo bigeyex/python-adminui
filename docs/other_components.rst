@@ -49,3 +49,50 @@ You may set the tab appearance with ``position``, ``format``, and ``size``, see
 
 .. autoclass:: adminui.Tabs
    :members:
+
+
+Spin
+********
+
+.. image:: images/other/spin.jpg
+
+Creates a spinning wheel::
+
+    Spin()
+
+.. image:: images/other/spin-region.jpg
+
+You can also setup a region masked under a spinning wheel.
+When the loading is done, remove it with Page Actions::
+
+    Spin('loading', content=[
+        ... content under the mask...
+    ]),
+
+.. autoclass:: adminui.Spin
+   :members:
+
+
+Empty Status
+************
+
+.. image:: images/other/empty.jpg
+
+Display the empty status::
+
+    Empty()
+
+.. autoclass:: adminui.Empty
+   :members:
+
+Result
+************
+
+.. image:: images/other/result.jpg
+
+Display the result of an operation::
+
+    Result('The program runs successfully')
+
+.. autoclass:: adminui.Result
+   :members:

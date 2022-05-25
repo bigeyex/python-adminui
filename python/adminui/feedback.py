@@ -22,3 +22,27 @@ class Spin(Element):
     """
     def __init__(self, title='', content=[], size='default', id=None):
         super().__init__('Spin', title=title, content=content, size=size, id=id)
+
+class Empty(Element):
+    """Display an Empty status
+    
+    Args:
+        title: the description text shown on the empty indicator
+        content: (optional), put additional buttons or elements below the icon
+        simple_style: set True to deploy a simple style of empty box
+    """
+    def __init__(self, title=None, content=[], simple_style=False, id=None):
+        super().__init__('Empty', title=title, content=content, style={'simple': simple_style}, id=id)
+
+class Result(Element):
+    """Display the result (success, failure, 403, 404...) of an action
+    
+    Args:
+        title: the title of the result feedback
+        sub_title: the sub-title of the result section
+        status: 'success' | 'error' | 'info' | 'warning'| '404' | '403' | '500'
+        content: put additional buttons or elements inside a result box
+        extra: extra action buttons on the result section
+    """
+    def __init__(self, title=None, status='success', sub_title=None, content=[], extra=[], id=None):
+        super().__init__('Result', title=title, status=status, subTitle=sub_title, content=content, extra=extra, id=id)

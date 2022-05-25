@@ -11,6 +11,7 @@ export interface PageElement {
     name?: string;
     uuid: string;
     title?: string;
+    subTitle?: string;
     content?: PageElement[];
     data?: PageElementDataType;
     value?: any;
@@ -19,6 +20,7 @@ export interface PageElement {
     placeholder?: string;
 
     columns?: any[];
+    extra: any[];
     labels?: any;
     format?: any;
     style?: any;
@@ -41,6 +43,7 @@ export interface PageElement {
     show_trend?: boolean;
     interval?: number;
     visible?: boolean;
+    status?: string;
 
     on_submit?: string;
     on_click?: string;

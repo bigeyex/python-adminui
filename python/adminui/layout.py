@@ -9,7 +9,7 @@ class Card(Element):
         content: list of page elements inside the container
     """
     def __init__(self, title=None, content=None, id=None):
-        super().__init__('Card', title=None, content=content, id=id)
+        super().__init__('Card', title=title, content=content, id=id)
 
 class ChartCard(Element):
     """A card container with values, tooltips and a footer. Mostly used in dashboards
@@ -64,6 +64,11 @@ class Paragraph(Element):
     """Display a paragraph of text"""
     def __init__(self, text='', id=None, color=None):
         super().__init__('Paragraph', text=text, id=id, color=color)
+
+class Span(Element):
+    """Display a span of text"""
+    def __init__(self, text='', id=None, color=None):
+        super().__init__('Span', text=text, id=id, color=color)
 
 class Group(Element):
     """Group a part of elements in a div element"""

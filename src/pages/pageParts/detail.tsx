@@ -51,6 +51,12 @@ export const ParagraphPart = ({ spec }:ElementProps) => {
 }
 elementComponentRegistry['Paragraph'] = ParagraphPart
 
+
+elementComponentRegistry['Span'] = ({ spec }:ElementProps) => {
+    const style = spec.color ? { color: spec.color } : undefined;
+    return <span style={style} key={spec.uuid}>{nl2br(spec.text || '')}</span>
+}
+
 export const RawHTMLPart = ({ spec }:ElementProps) => {
     return <div dangerouslySetInnerHTML={{__html:spec.text || ''}} key={spec.uuid}></div>
 }

@@ -180,9 +180,9 @@ class Button(Element):
         icon: the icon in front of the button title. For string values see https://ant.design/components/icon/
         on_click: a custom function will be called when the button is clicked 
     """
-    def __init__(self, title="Go", style=None, icon=None, on_click=None, id=None):
+    def __init__(self, title="Go", style=None, icon=None, on_click=None, link_to=None, id=None):
         on_click_uuid = callbackRegistry.uuid_for_callback(on_click)
-        super().__init__('Button', title=title, style=style, icon=icon, on_click=on_click_uuid, id=id)
+        super().__init__('Button', title=title, style=style, icon=icon, link_to=link_to, on_click=on_click_uuid, id=id)
 
 class Link(Element):
     """Create a hyperlink on the page

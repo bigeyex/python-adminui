@@ -9,6 +9,7 @@ type ButtonType = "link" | "default" | "ghost" | "primary" | "dashed" | "danger"
 
 export const ButtonPart = ({ spec, dispatch }:ElementProps) => (
     <Button key={spec.uuid} icon={ spec.icon } type={ spec.style as ButtonType }
+        href={spec.link_to ? spec.link_to : undefined}
         onClick={(e)=>{ if('on_click' in spec) dispatch({
                 type: 'page/submitAction',
                 payload: {
@@ -21,7 +22,8 @@ export const ButtonPart = ({ spec, dispatch }:ElementProps) => (
 elementComponentRegistry['Button'] = ButtonPart
 
 export const LinkPart = ({ spec, dispatch }:ElementProps) => (
-    <a onClick={(e)=>{ if('on_click' in spec) dispatch({
+    <a  href={spec.link_to ? spec.link_to : undefined}
+        onClick={(e)=>{ if('on_click' in spec) dispatch({
                 type: 'page/submitAction',
                 payload: {
                     action: 'on_click',

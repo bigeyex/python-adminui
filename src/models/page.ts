@@ -123,7 +123,8 @@ const PageModel: PageModelType = {
                         window.location.href=response.url || '/';
                         break;
                     case 'Notification':
-                        notification.open({ message: response.title, description: response.text });
+                        if (response.subtype == 'default') response.subtype = 'open';
+                        notification[response.subtype!]({ message: response.title, description: response.text });
                         break;
                     case 'UpdateElement':
                         yield put({

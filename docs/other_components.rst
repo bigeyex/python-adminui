@@ -1,6 +1,24 @@
 Other Components
 ============================
 
+Icons
+********
+
+You can add one of the Ant Design icons using ``Icon``::
+
+    Icon('sync')
+
+A full list can be seen at:
+https://3x.ant.design/components/icon-cn/
+
+only outline style icons are supported.
+
+You may set the color and size of the icon.
+
+.. autoclass:: adminui.Icon
+   :members:
+
+
 Progress
 ********
 

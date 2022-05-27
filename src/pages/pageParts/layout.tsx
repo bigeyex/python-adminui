@@ -6,6 +6,7 @@ import { ElementProps, elementComponentRegistry } from '@/models/page';
 import Trend from './components/Trend'
 
 import styles from './layout.less';
+import { postPageAction } from "@/services/page";
 
 export const CardPart = ({ spec, dispatch, passDown }:ElementProps) => (
     <Card key={spec.uuid} bordered={false}>
@@ -72,6 +73,13 @@ elementComponentRegistry['Statistic'] = StatisticPart
 
 elementComponentRegistry['Image'] = ({ spec }:ElementProps) => {
     return <img src={spec.url} alt={spec.title} style={{width: spec.style.width}} key={spec.uuid} />
+}
+
+
+elementComponentRegistry['Icon'] = ({ spec }:ElementProps) => {
+    console.log(spec);
+    return <Icon type={spec.name} style={{fontSize: spec.size, color: spec.style.color}} spin={spec.style.spin}
+                rotate={spec.style.rotate} twoToneColor={spec.style.color} key={spec.uuid}/>
 }
 
 elementComponentRegistry['Group'] = ({ spec, dispatch, passDown }:ElementProps) => {

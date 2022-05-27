@@ -27,9 +27,10 @@ class Notification(Element):
     Args:
         title: the title of the notification
         text: the text body of the notification
+        type: default | success | info | warning | error: type of the notification box
     """
-    def __init__(self, title='', text=None):
-        super().__init__('Notification', title=title, text=text)
+    def __init__(self, title='', text=None, type='default'):
+        super().__init__('Notification', title=title, subtype=type, text=text)
 
 class ShowModalForm(Element):
     """Display a modal form for the user

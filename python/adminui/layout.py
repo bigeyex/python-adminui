@@ -75,6 +75,20 @@ class Group(Element):
     def __init__(self, content=[], name='', id=None):
         super().__init__('Group', content=content, name=name, id=id)
 
+class Icon(Element):
+    """Display an Ant Design Icon
+    
+    Args:
+        name: name of the icon, see https://ant.design/components/icon/ for a detailed list
+        color: color of the icon
+        size: (font) size of the icon
+        rotate: (bool)rotation angle of the icon
+        spin: (bool)whether the icon is spinning
+    
+    """
+    def __init__(self, name='', color='rgba(0, 0, 0, 0.8)', size=16, rotate=False, spin=False, id=None):
+        super().__init__('Icon', name=name, size=size, style={'color': color, 'rotate': rotate, 'spin': spin}, id=id)
+
 class Tabs(Element):
     """Display a group of tabs. Each content item is a tab
 

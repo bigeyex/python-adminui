@@ -105,6 +105,7 @@ class AdminApp:
         self.register_link = None
         self.forget_password_link = None
         self.app_logo = None
+        self.app_favicon = None
         self.app_styles = {'nav_theme': 'dark', 'layout': 'sidemenu'}
         self.static_files = {} # format: {'path_name': absolute_file_path}
         if upload_folder is None:
@@ -245,6 +246,13 @@ class AdminApp:
     def serve_root(self, path=''):
         """!!! Private method, don't call. Serve the index.html"""
         return self.app.send_static_file('index.html')
+
+    def serve_favicon(self, path=''):
+        from flask import send_from_directory
+        if self.app_favicon is not None:
+            return send_from_directory(os.path.dirname(self.app_favicon), os.path.basename(self.app_favicon))
+        else: 
+            return self.app.send_static_file('favicon.png')
     
     def serve_upload_flask(self):
         """!!! Private method, don't call. Serve the upload endpoint"""
@@ -303,6 +311,7 @@ class AdminApp:
 
     def prepare_flask_app(self):
         from flask import send_from_directory
+        self.app.route('/favicon.png')(self.serve_favicon)
         for path_name, file_path in self.static_files.items():
             self.app.route(f'{path_name}/<path:path>')(lambda path: send_from_directory(file_path, path))
         self.app.route('/api/page_layout/<path:url>/')(self.serve_page)
@@ -340,6 +349,12 @@ class AdminApp:
         from starlette.responses import FileResponse 
         from starlette.exceptions import HTTPException as StarletteHTTPException
 
+        @self.app.get('/favicon.png')
+        async def get_favicon():
+            if self.app_favicon is not None:
+                return FileResponse(self.app_favicon)
+            else:
+                return FileResponse(os.path.join(Path(__file__).parent.absolute(), "static", "favicon.png"))
         @self.app.get('/api/page_layout/{page_path:path}')
         async def get_page_layout(page_path:str, request:Request):
             return await self.serve_page(page_path, request)
@@ -365,6 +380,5 @@ class AdminApp:
         self.app.mount("/", StaticFiles(directory=os.path.join(Path(__file__).parent.absolute(), "static"), html=True), name="static")
         @self.app.exception_handler(StarletteHTTPException)     # to catch path like '/user/login', redirect to index.html, frontend will handle path there
         async def custom_http_exception_handler(request, exc):
-            print(exc)
             return FileResponse(os.path.join(Path(__file__).parent.absolute(), "static", "index.html"))
             

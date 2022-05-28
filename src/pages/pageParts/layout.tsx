@@ -77,7 +77,6 @@ elementComponentRegistry['Image'] = ({ spec }:ElementProps) => {
 
 
 elementComponentRegistry['Icon'] = ({ spec }:ElementProps) => {
-    console.log(spec);
     return <Icon type={spec.name} style={{fontSize: spec.size, color: spec.style.color}} spin={spec.style.spin}
                 rotate={spec.style.rotate} twoToneColor={spec.style.color} key={spec.uuid}/>
 }

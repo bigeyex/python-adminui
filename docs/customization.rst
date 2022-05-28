@@ -25,3 +25,10 @@ Change menu style with::
     app.app_styles = {'nav_theme': 'light', 'layout': 'topmenu'}
 
 where nav_theme takes 'dark'(default) or 'light'; layout takes 'sidemenu'(default) or 'topmenu'
+
+Favicons
+**************************************
+
+You may set another favicon other than the default one::
+
+    app.app_favicon = os.path.join(Path(__file__).parent.absolute(), 'new-favicon.png')

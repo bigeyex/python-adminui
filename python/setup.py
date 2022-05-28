@@ -5,7 +5,7 @@ with open("./README_PIP.md", "r", encoding='utf-8') as fh:
 
 setuptools.setup(
     name="adminui", # Replace with your own username
-    version="1.4.4",
+    version="1.4.5",
     author="Yu Wang (bigeyex)",
     author_email="bigeyex@gmail.com",
     description="Write professional web interface with Python",

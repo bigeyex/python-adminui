@@ -10,6 +10,10 @@ export const DetailGroupPart = ({ spec, dispatch, passDown }:ElementProps) => (
             style={{
               marginBottom: 32,
             }}
+            bordered={spec.style.bordered}
+            column={spec.style.column}
+            size={spec.size}
+            layout={spec.style.layout}
             key={spec.uuid}
           >
         {renderElements(spec.content || [], dispatch, passDown)}

@@ -31,9 +31,13 @@ class DetailGroup(Element):
     Args:
         title: the title of the detail group
         content: a list of DetailItem
+        bordered: show a bordered description list, see https://3x.ant.design/components/descriptions/
+        size: default | middle | small - the size of the table when in bordered mode
+        column: number of columns shown in the list
+        layout: horizontal | vertical s
     """
-    def __init__(self, title='', content=None, id=None):
-        super().__init__('DetailGroup', title=title, content=content, id=id)
+    def __init__(self, title='', content=None, bordered=False, column=3, size=False, layout='horizontal', id=None):
+        super().__init__('DetailGroup', title=title, content=content, size=size, style={'bordered': bordered, 'column': column, 'layout': layout}, id=id)
 
 class DetailItem(Element):
     """A little piece of text with a title and a value, used to display a field in a record

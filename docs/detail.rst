@@ -30,6 +30,13 @@ It looks like this:
 
 .. image:: images/detail_screenshot.png
 
+
+.. autoclass:: adminui.DetailGroup
+   :members:
+
+.. autoclass:: adminui.DetailItem
+   :members:
+
 If you are working with a dashboard, ``Row``, ``Column``, ``Statistic`` may come in handy.
 ``ChartCard`` can make a neat little block to hold your numbers and charts. See example::
 
@@ -80,12 +87,6 @@ Here's the list of layout-related classes:
    :members:
 
 .. autoclass:: adminui.Paragraph
-   :members:
-
-.. autoclass:: adminui.DetailGroup
-   :members:
-
-.. autoclass:: adminui.DetailItem
    :members:
 
 .. autoclass:: adminui.Row

@@ -32,7 +32,7 @@ def detail_page():
                 DetailItem('Status', "Fetched"),
                 DetailItem('Shipping No.', 1234567),
                 DetailItem('Sub Order', 1135456)
-            ]),
+            ], bordered=True),
             Button('A Link'),
             Divider(),
 

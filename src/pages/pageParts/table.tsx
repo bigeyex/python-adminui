@@ -5,7 +5,7 @@ import StandardTable from '@/components/StandardTable';
 import renderElements from './element';
 import { DataTableFilterForm } from './form';
 import { ElementProps, elementComponentRegistry } from '@/models/page';
-import { Divider } from 'antd';
+import { Divider, Icon } from 'antd';
 import { PageElement } from '@/models/page';
 import { TableListPagination, TableListItem, TableListParams } from '@/components/StandardTable/data';
 import { SorterResult, PaginationConfig } from 'antd/lib/table';
@@ -84,7 +84,8 @@ class DataTablePart extends Component<ElementProps> {
                             if(i != 0) {
                                 action_el.push(<Divider key={'divider'+i} type="vertical"/>);
                             }
-                            action_el.push(<a key={i} onClick={() => handleRowAction(record, action)}>{action.title}</a>);
+                            action_el.push(<a key={i} onClick={() => handleRowAction(record, action)}>
+                                    {action.title}{action.style.icon ? <Icon type={action.style.icon}></Icon> : undefined}</a>);
                         }
                         return (
                             <Fragment>

@@ -190,9 +190,9 @@ class Link(Element):
     Args:
         title: the text of the link
     """
-    def __init__(self, title="Action", on_click=None, link_to=None, id=None):
+    def __init__(self, title="", content=[], on_click=None, link_to=None, id=None):
         on_click_uuid = callbackRegistry.uuid_for_callback(on_click)
-        super().__init__('Link', title=title, link_to=link_to, on_click=on_click_uuid, id=id)
+        super().__init__('Link', title=title, content=content, link_to=link_to, on_click=on_click_uuid, id=id)
 
 class Upload(Element):
     """Create a upload field/upload box for user to upload a box

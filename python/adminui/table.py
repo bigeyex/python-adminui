@@ -36,9 +36,9 @@ class TableRowAction(Element):
         on_click: the callback function called when the user clicked the link.
             the data row will be passed as the argument of the function
     """
-    def __init__(self, id, title, on_click):
+    def __init__(self, id, title='', on_click=None, icon=None):
         on_click_uuid = callbackRegistry.uuid_for_callback(on_click)
-        super().__init__('TableRowAction', title=title, id=id, on_click=on_click_uuid)
+        super().__init__('TableRowAction', title=title, id=id, on_click=on_click_uuid, style={'icon': icon})
 
 class DataTable(Element):
     """Insert a data table to the page

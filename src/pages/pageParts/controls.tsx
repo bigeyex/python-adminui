@@ -3,6 +3,7 @@ import React from "react";
 import { ElementProps, elementComponentRegistry } from '@/models/page';
 import { PageElement } from "@/models/page";
 import { Dispatch } from 'redux';
+import renderElements from "./element";
 
 type ButtonType = "link" | "default" | "ghost" | "primary" | "dashed" | "danger" | undefined;
 
@@ -21,7 +22,7 @@ export const ButtonPart = ({ spec, dispatch }:ElementProps) => (
 );
 elementComponentRegistry['Button'] = ButtonPart
 
-export const LinkPart = ({ spec, dispatch }:ElementProps) => (
+export const LinkPart = ({ spec, dispatch, passDown }:ElementProps) => (
     <a  href={spec.link_to ? spec.link_to : undefined}
         onClick={(e)=>{ if('on_click' in spec) dispatch({
                 type: 'page/submitAction',
@@ -30,7 +31,7 @@ export const LinkPart = ({ spec, dispatch }:ElementProps) => (
                     cb_uuid: spec.on_click
                 }
             }); }}>
-        { spec.title }</a>
+        { spec.title } { renderElements(spec.content || [], dispatch, passDown)  }</a>
 );
 elementComponentRegistry['Link'] = LinkPart
 

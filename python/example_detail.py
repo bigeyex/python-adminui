@@ -33,7 +33,8 @@ def detail_page():
                 DetailItem('Shipping No.', 1234567),
                 DetailItem('Sub Order', 1135456)
             ], bordered=True),
-            Button('A Link'),
+            Button('A Button'),
+            Link('A Link'),
             Divider(),
 
             Spin(),

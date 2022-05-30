@@ -59,7 +59,7 @@ def table_page():
                     RadioGroup('Radio - Button', data=[['One', 1], ['Two', 2]], format='button'),
                 ], submit_text='Filter', reset_text='Clear'),
                 row_actions=[
-                    TableRowAction('edit', 'Edit', on_click=on_edit),
+                    TableRowAction('edit', icon='edit', on_click=on_edit),
                 ],
                 table_actions=[
                     Button('New', style='primary', on_click=on_new_button),

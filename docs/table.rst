@@ -95,6 +95,7 @@ In this case, fill the ``row_actions`` argument with a list of ``TableRowAction`
                     data=TableResult(table_data)
                     row_actions=[
                         TableRowAction('edit', 'Edit', on_click=on_edit),
+                        TableRowAction('edit', icon='edit', on_click=on_edit), # use icons
                     ])
 
 .. autoclass:: adminui.TableRowAction

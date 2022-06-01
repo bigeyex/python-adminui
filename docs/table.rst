@@ -53,6 +53,17 @@ each column is a dictionary, with ``title`` and ``dataIndex``.
 
 ``TableResult`` will also be used in case of pagination.
 
+Render a column as a link
+**************************************
+
+If you want a column in the table shown as a link,
+set the column definition as::
+    
+    {'title': 'Rule Name', 'dataIndex': 'name', 'linkTo': 'link'},
+
+Then the column's ``title`` will be shown as a link, linking to data field
+with key ``link``
+
 Pagination
 **************************************
 

@@ -4,7 +4,7 @@ from adminui import *
 app = AdminApp()
 
 table_columns = [
-    {'title': 'Rule Name', 'dataIndex': 'name'},
+    {'title': 'Rule Name', 'dataIndex': 'name', 'linkTo': 'link'},
     {'title': 'Description', 'dataIndex': 'desc'},
     {'title': '# of Calls', 'dataIndex': 'callNo', 'sorter': True},
     {'title': 'Status', 'dataIndex': 'status', 'filters': [{'text': 2, 'value': 2}, {'text': 3, 'value': 3}]},
@@ -18,6 +18,7 @@ def mock_table_data(num_records):
             'name':"Alpha", 
             'callNo':randrange(1000), 
             'status':randrange(4), 
+            'link':'/record/'+str(i),
             'updatedAt': '2019-12-'+str(randrange(30)) ,
             'desc':'Description of Operation', 
             '_actions': ['edit']

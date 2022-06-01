@@ -65,6 +65,22 @@ class DataTablePart extends Component<ElementProps> {
         }
 
         if(spec.columns) {
+            // transform columns
+            spec.columns = spec.columns.map((column) => {
+                if (column.linkTo) {
+                    return {
+                        title: column.title,
+                        dataIndex: column.dataIndex,
+                        render: (text:string, record:any) => {
+                            return <a href={record[column.linkTo]}>{text}</a>
+                        }
+                    }
+                }
+                else {
+                    return column;
+                }
+            })
+            // render row actions
             if(spec.row_actions && spec.row_actions.length > 0) {
                 let row_actions = {}
                 spec.row_actions.forEach(action => {
@@ -94,7 +110,7 @@ class DataTablePart extends Component<ElementProps> {
                         );
                     }
                 })
-            }  
+            } // if has row actions  
         }
     }
 

@@ -102,7 +102,7 @@ class FormPart extends Component<FormPartProps> {
 
         const wrapModalInput = (spec:PageElement, input:JSX.Element) => {
             return (
-                <FormItem key={spec.uuid} label={spec.title} labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
+                <FormItem key={spec.uuid} label={spec.title}>
                     {getFieldDecorator(spec.name || "", {
                         rules: [
                           {
@@ -142,7 +142,7 @@ class FormPart extends Component<FormPartProps> {
                     onOk={this.handleSubmit}
                     onCancel={() => this.handleModalCancel()}
                 >
-                    <Form>
+                    <Form layout='vertical'>
                     { renderElements(spec.content || [], dispatch, {...passDown, wrapInput:wrapModalInput, getFieldValues}) }
                     </Form>
                 </Modal>

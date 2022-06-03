@@ -53,6 +53,8 @@ class DataTable(Element):
                 dataIndex: its key for the TableResult data dictionary
                 (optional) sorter: (True/False) the column is sortable
                 (optional) filterOptions: ([strings]) a list of options shown as filters
+                (optional) linkTo: display the data as a link to another field of the dataIndex specified
+                (optional) status: dataIndex of another column, shown as the status badge fo the data. The value of the other column must be one from success | processing | default | error | warning
         data: a TableResult object for the initial data of the table
         row_actions: a list of TableRowAction objects, which means actions shown on each row.
             Leave it blank if you don't need any action

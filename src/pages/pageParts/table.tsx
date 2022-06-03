@@ -5,7 +5,7 @@ import StandardTable from '@/components/StandardTable';
 import renderElements from './element';
 import { DataTableFilterForm } from './form';
 import { ElementProps, elementComponentRegistry } from '@/models/page';
-import { Divider, Icon } from 'antd';
+import { Divider, Icon, Badge } from 'antd';
 import { PageElement } from '@/models/page';
 import { TableListPagination, TableListItem, TableListParams } from '@/components/StandardTable/data';
 import { SorterResult, PaginationConfig } from 'antd/lib/table';
@@ -75,8 +75,16 @@ class DataTablePart extends Component<ElementProps> {
                             return <a href={record[column.linkTo]}>{text}</a>
                         }
                     }
-                }
-                else {
+                } else if (column.status) {
+                    return {
+                        title: column.title,
+                        dataIndex: column.dataIndex,
+                        render: (text:string, record:any) => {
+                            return <Badge status={record[column.status]} text={text} />;
+                        }
+                    }
+
+                } else {
                     return column;
                 }
             })

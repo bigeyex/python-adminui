@@ -56,6 +56,8 @@ each column is a dictionary, with ``title`` and ``dataIndex``.
 Render a column as a link
 **************************************
 
+.. image:: images/table/link_and_badge.jpg
+
 If you want a column in the table shown as a link,
 set the column definition as::
     
@@ -63,6 +65,18 @@ set the column definition as::
 
 Then the column's ``title`` will be shown as a link, linking to data field
 with key ``link``
+
+Render a column as a badge
+**************************************
+
+To render badges on columns, define the column as::
+
+    {'title': 'Rule Name', 'dataIndex': 'name', 'status': 'badgeStatus'},
+
+Whereas ``badgeStatus`` in the example is the dataIndex of another column,
+whose value takes from ``success | processing | default | error | warning``, 
+which will be the appearance of the badge.
+
 
 Pagination
 **************************************

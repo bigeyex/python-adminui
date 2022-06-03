@@ -1,4 +1,4 @@
-from random import randrange
+from random import randrange, choice
 from adminui import *
 
 app = AdminApp()
@@ -7,7 +7,7 @@ table_columns = [
     {'title': 'Rule Name', 'dataIndex': 'name', 'linkTo': 'link'},
     {'title': 'Description', 'dataIndex': 'desc'},
     {'title': '# of Calls', 'dataIndex': 'callNo', 'sorter': True},
-    {'title': 'Status', 'dataIndex': 'status', 'filters': [{'text': 2, 'value': 2}, {'text': 3, 'value': 3}]},
+    {'title': 'Status', 'dataIndex': 'status', 'filters': [{'text': 2, 'value': 2}, {'text': 3, 'value': 3}], 'status':'statusBadge'},
     {'title': 'Updated At', 'dataIndex': 'updatedAt'}
 ]
 
@@ -17,7 +17,8 @@ def mock_table_data(num_records):
             'id':i, 
             'name':"Alpha", 
             'callNo':randrange(1000), 
-            'status':randrange(4), 
+            'status': choice(['Offline', 'Running', 'Online']),
+            'statusBadge': choice(['default', 'processing', 'success']),
             'link':'/record/'+str(i),
             'updatedAt': '2019-12-'+str(randrange(30)) ,
             'desc':'Description of Operation', 

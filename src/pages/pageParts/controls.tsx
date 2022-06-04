@@ -49,12 +49,12 @@ const handleChange = (spec:PageElement, dispatch:Dispatch<any>) => {
 
 
 export const CheckboxPart = ({ spec, passDown, dispatch }:ElementProps) => {
-    return <Checkbox name={spec.name} onChange={spec.on_change ? handleChange(spec, dispatch) : undefined}>{spec.title}</Checkbox>
+    return <Checkbox name={spec.name} onChange={spec.on_change ? handleChange(spec, dispatch) : undefined} disabled={spec.disabled}>{spec.title}</Checkbox>
 }
 elementComponentRegistry['Checkbox'] = CheckboxPart
 
 export const SwitchPart = ({ spec, passDown, dispatch }:ElementProps) => {
-    return <Switch onChange={spec.on_change ? handleChange(spec, dispatch) : undefined} defaultChecked={spec.value as any as boolean}/>
+    return <Switch onChange={spec.on_change ? handleChange(spec, dispatch) : undefined} defaultChecked={spec.value as any as boolean} disabled={spec.disabled}/>
 }
 elementComponentRegistry['Switch'] = SwitchPart
 

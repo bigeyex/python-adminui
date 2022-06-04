@@ -1,4 +1,5 @@
 from cgitb import reset
+from faulthandler import disable
 from .element import Element
 from .app import callbackRegistry
 
@@ -31,12 +32,14 @@ class TextField(Element):
         required_message: if other than None, the field will be required and an message will be shown
             when the field is not filled at form submission.
         placeholder: the text message shown when the field is not filled.
+        password: set to True if it's a password box
+        disabled: set to True to make the control disabled
     """
-    def __init__(self, title, name=None, required_message=None, password=False, value=None, placeholder=None, on_change=None, id=None):
+    def __init__(self, title, name=None, required_message=None, password=False, disabled=False, value=None, placeholder=None, on_change=None, id=None):
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
         if name is None:
             name = title.lower()
-        super().__init__('TextField', title=title, name=name, required_message=required_message,
+        super().__init__('TextField', title=title, name=name, required_message=required_message, disabled=disabled,
                             value=value, placeholder=placeholder, style={'password': password}, on_change=on_change_uuid, id=id)
 
 class TextArea(Element):
@@ -48,12 +51,13 @@ class TextArea(Element):
         required_message: if other than None, the field will be required and an message will be shown
             when the field is not filled at form submission.
         placeholder: the text message shown when the field is not filled.
+        disabled: set to True to make the control disabled
     """
-    def __init__(self, title, name=None, required_message=None, value=None, placeholder=None, on_change=None, id=None):
+    def __init__(self, title, name=None, required_message=None, value=None, placeholder=None, disabled=False, on_change=None, id=None):
         if name is None:
             name = title.lower()
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
-        super().__init__('TextArea', title=title, name=name, required_message=required_message, 
+        super().__init__('TextArea', title=title, name=name, required_message=required_message, disabled=disabled, 
                             value=value, placeholder=placeholder, on_change=on_change_uuid, id=id)
 
 class SelectBox(Element):
@@ -67,13 +71,14 @@ class SelectBox(Element):
         data: the options in the select box. in format of a list of str or a list of [title, value] list
             e.g. ['one', 'two', 'three'] or [['one', 1], ['two', 2]], both accepted
         placeholder: the text message shown when the field is not filled.
+        disabled: set to True to make the control disabled
     """
-    def __init__(self, title, name=None, value=None, data=[], placeholder=None, on_change=None, required_message=None, multiple=False, tags=False, id=None):
+    def __init__(self, title, name=None, value=None, data=[], placeholder=None, on_change=None, required_message=None, multiple=False, disabled=False, tags=False, id=None):
         if name is None:
             name = title.lower()
         uniform_data = [x if type(x) is list else [x, x] for x in data]
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
-        super().__init__('SelectBox', title=title, name=name, required_message=required_message, multiple=multiple, tags=tags,
+        super().__init__('SelectBox', title=title, name=name, required_message=required_message, multiple=multiple, tags=tags, disabled=disabled,
                             data=uniform_data, value=value, placeholder=placeholder, on_change=on_change_uuid, id=id)
 
 class CheckboxGroup(Element):
@@ -84,21 +89,22 @@ class CheckboxGroup(Element):
         name: the key of the dictionary data passed to the callback when the form is submitted
         data: the title and value of individual checkboxes. in format of a list of str or a list of [title, value]
             e.g. ['one', 'two', 'three'] or [['one', 1], ['two', 2]], both accepted
+            disabled: set to True to make the control disabled
     """
-    def __init__(self, title, name=None, data=[], value=None, id=None, on_change=None):
+    def __init__(self, title, name=None, data=[], value=None, disabled=False, id=None, on_change=None):
         if name is None:
             name = title.lower()
         uniform_data = [x if type(x) is list else [x, x] for x in data]
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
-        super().__init__('CheckboxGroup', title=title, name=name, data=uniform_data, value=value, 
+        super().__init__('CheckboxGroup', title=title, name=name, data=uniform_data, value=value, disabled=disabled, 
                                 on_change=on_change_uuid, id=id)
 
 class Checkbox(Element):
-    def __init__(self, title, name=None, value=None, on_change=None, id=None):
+    def __init__(self, title, name=None, value=None, disabled=False, on_change=None, id=None):
         if name is None:
             name = title.lower()
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
-        super().__init__('Checkbox', title=title, name=name, value=value, on_change=on_change_uuid, id=id)
+        super().__init__('Checkbox', title=title, name=name, value=value, disabled=disabled, on_change=on_change_uuid, id=id)
 
 class RadioGroup(Element):
     """Create a group of radio buttons
@@ -110,19 +116,20 @@ class RadioGroup(Element):
         data: the title and value of individual checkboxes. in format of a list of str or a list of [title, value]
             e.g. ['one', 'two', 'three'] or [['one', 1], ['two', 2]], both accepted
         format: default | button; how the radio box is displayed and arranged
+        disabled: set to True to make the control disabled
     """
-    def __init__(self, title, name=None, data=[], value=None, format='default', on_change=None, id=None):
+    def __init__(self, title, name=None, data=[], value=None, format='default', disabled=False, on_change=None, id=None):
         if name is None:
             name = title.lower()
         uniform_data = [x if type(x) is list else [x, x] for x in data]
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
-        super().__init__('RadioGroup', title=title, name=name, data=uniform_data, value=value, format=format, on_change=on_change_uuid, id=id)
+        super().__init__('RadioGroup', title=title, name=name, data=uniform_data, value=value, disabled=disabled, format=format, on_change=on_change_uuid, id=id)
 
 
 class Switch(Element):
-    def __init__(self, value=None, on_change=None, id=None):
+    def __init__(self, value=None, on_change=None, disabled=False, id=None):
         on_change_uuid = callbackRegistry.uuid_for_callback(on_change)
-        super().__init__('Switch', value=value, on_change=on_change_uuid, id=id)
+        super().__init__('Switch', value=value, on_change=on_change_uuid, disabled=disabled, id=id)
 
 class Slider(Element):
     def __init__(self, min=0, max=100, value=None, range=False, on_change=None, id=None):

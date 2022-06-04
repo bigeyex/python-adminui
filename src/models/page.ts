@@ -43,6 +43,7 @@ export interface PageElement {
     show_trend?: boolean;
     interval?: number;
     visible?: boolean;
+    disabled?: boolean;
     status?: string;
 
     on_submit?: string;

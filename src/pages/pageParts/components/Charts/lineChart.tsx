@@ -3,7 +3,6 @@ import { Axis, Chart, Geom, Tooltip, AxisProps, Legend } from 'bizcharts';
 import React from 'react';
 import autoHeight from './autoHeight';
 import { transformChartData } from '@/utils/chart';
-import { transform } from 'lodash';
 
 export interface MiniAreaProps {
   color?: string;
@@ -32,17 +31,19 @@ export interface MiniAreaProps {
   padding?: any;
 }
 
+type AreaColor = [];
+type LineColor = [];
+
 export interface LineChartStyle {
   height: number;
   columns?: string[];
-  line_color?: string;
-  area_color?: string;
+  line_color?: LineColor;
+  area_color?: AreaColor;
   show_area?: boolean;
   show_axis?: boolean;
   show_line?: boolean;
   smooth?: boolean;
 }
-
 
 const MiniArea: React.FC<MiniAreaProps> = props => {
   let {
@@ -60,13 +61,12 @@ const MiniArea: React.FC<MiniAreaProps> = props => {
   } = props;
 
   if (chartStyle.line_color) {
-    borderColor = chartStyle.line_color
+    borderColor = chartStyle.line_color;
   }
 
   if (chartStyle.area_color) {
-    color = chartStyle.area_color
+    color = chartStyle.area_color;
   }
-
 
   const scaleProps = {
     x: {
@@ -90,14 +90,14 @@ const MiniArea: React.FC<MiniAreaProps> = props => {
 
   const chartHeight = chartStyle.height;
   const chartData = transformChartData(data, labels);
-  const dataHasGroups = chartData.length>0 && ('c' in chartData[0]);
+  const dataHasGroups = chartData.length > 0 && 'c' in chartData[0];
 
   if (!chartStyle.columns || chartStyle.columns.length < 2) {
     chartStyle.columns = ['x', 'y'];
   }
 
   return (
-    <div style={{ 'height': chartStyle.height }}>
+    <div style={{ height: chartStyle.height }}>
       <div>
         {chartStyle.height > 0 && (
           <Chart
@@ -108,42 +108,36 @@ const MiniArea: React.FC<MiniAreaProps> = props => {
             data={chartData}
             padding={padding || 'auto'}
           >
-            <Legend/>
-            {chartStyle.show_axis ? 
-              <Axis
-                name={chartStyle.columns[0]}
-                {...xAxis}
-              />
-            : undefined}
-            {chartStyle.show_axis ? 
-              <Axis
-                name={chartStyle.columns[1]}
-                {...yAxis}
-              />
-            : undefined}
+            <Legend />
+            {chartStyle.show_axis ? <Axis name={chartStyle.columns[0]} {...xAxis} /> : undefined}
+            {chartStyle.show_axis ? <Axis name={chartStyle.columns[1]} {...yAxis} /> : undefined}
             <Tooltip showTitle={false} crosshairs={false} />
-            {chartStyle.show_area ? 
+            {chartStyle.show_area ? (
               <Geom
                 type="area"
-                position={chartStyle.columns[0]+"*"+chartStyle.columns[1]}
-                color={color}
+                position={chartStyle.columns[0] + '*' + chartStyle.columns[1]}
+                color={dataHasGroups ? ['c', chartStyle.area_color] : color}
                 tooltip={tooltip}
-                shape={chartStyle.smooth?"smooth":undefined}
+                shape={chartStyle.smooth ? 'smooth' : undefined}
                 style={{
                   fillOpacity: 1,
                 }}
               />
-            : undefined}
-            {chartStyle.show_line ? 
+            ) : (
+              undefined
+            )}
+            {chartStyle.show_line ? (
               <Geom
                 type="line"
-                position={chartStyle.columns[0]+"*"+chartStyle.columns[1]}
-                shape={chartStyle.smooth?"smooth":undefined}
-                color={dataHasGroups ? 'c' : borderColor}
+                position={chartStyle.columns[0] + '*' + chartStyle.columns[1]}
+                shape={chartStyle.smooth ? 'smooth' : undefined}
+                color={dataHasGroups ? ['c', chartStyle.line_color] : borderColor}
                 size={borderWidth}
                 tooltip={false}
               />
-            : undefined}
+            ) : (
+              undefined
+            )}
           </Chart>
         )}
       </div>

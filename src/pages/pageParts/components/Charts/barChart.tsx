@@ -1,5 +1,5 @@
 import { Axis, Chart, Geom, Tooltip, Legend } from 'bizcharts';
-import React, { Component } from  "react"
+import React, { Component } from 'react';
 import { transformChartData } from '@/utils/chart';
 
 import Debounce from 'lodash.debounce';
@@ -18,8 +18,10 @@ export interface BarProps {
   chartStyle: BarChartStyle;
 }
 
+type Color = [];
+
 export interface BarChartStyle {
-  color?: string;
+  color?: Color;
   height: number;
   stack?: boolean;
   show_axis?: boolean;
@@ -93,7 +95,7 @@ class Bar extends Component<
     } = this.props;
 
     if (chartStyle.color) {
-      color = chartStyle.color
+      color = chartStyle.color;
     }
 
     const { autoHideXLabels } = this.state;
@@ -120,10 +122,10 @@ class Bar extends Component<
     }
 
     const chartData = transformChartData(data, labels);
-    const dataHasGroups = chartData.length>0 && ('c' in chartData[0]);
+    const dataHasGroups = chartData.length > 0 && 'c' in chartData[0];
 
     return (
-      <div style={{ 'height': chartStyle.height }} ref={this.handleRoot}>
+      <div style={{ height: chartStyle.height }} ref={this.handleRoot}>
         <div ref={this.handleRef}>
           {title && <h4 style={{ marginBottom: 20 }}>{title}</h4>}
           <Chart
@@ -133,26 +135,31 @@ class Bar extends Component<
             data={chartData}
             padding={padding || 'auto'}
           >
-            <Legend/>
-            {chartStyle.show_axis ? 
+            <Legend />
+            {chartStyle.show_axis ? (
               <Axis
                 name={chartStyle.columns[0]}
                 title={false}
                 label={autoHideXLabels ? undefined : {}}
                 tickLine={autoHideXLabels ? undefined : {}}
               />
-            : undefined}
-            {chartStyle.show_axis ? 
-              <Axis name={chartStyle.columns[1]} min={0} />
-            : undefined}
+            ) : (
+              undefined
+            )}
+            {chartStyle.show_axis ? <Axis name={chartStyle.columns[1]} min={0} /> : undefined}
             <Tooltip showTitle={false} crosshairs={false} />
-            <Geom type={dataHasGroups && chartStyle.stack ? "intervalStack" : "interval"}
-                  position={chartStyle.columns[0]+"*"+chartStyle.columns[1]} color={dataHasGroups ? 'c' : color} tooltip={tooltip} adjust={[
-              {
-                type: "dodge",
-                marginRatio: 1 / 32
-              }
-            ]} />
+            <Geom
+              type={dataHasGroups && chartStyle.stack ? 'intervalStack' : 'interval'}
+              position={chartStyle.columns[0] + '*' + chartStyle.columns[1]}
+              color={dataHasGroups ? ['c', chartStyle.color] : color}
+              tooltip={tooltip}
+              adjust={[
+                {
+                  type: 'dodge',
+                  marginRatio: 1 / 32,
+                },
+              ]}
+            />
           </Chart>
         </div>
       </div>

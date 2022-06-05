@@ -82,7 +82,15 @@ elementComponentRegistry['Icon'] = ({ spec }:ElementProps) => {
 }
 
 elementComponentRegistry['Group'] = ({ spec, dispatch, passDown }:ElementProps) => {
-    return <div key={spec.uuid}><Fragment>{ renderElements(spec.content || [], dispatch, passDown) }</Fragment></div>
+    /*  the span with 0 opacity is a trick. 
+        because some charts won't show up if it's alone in a tab, so I need to add some hidden element
+        to make it appear. It could be an issue in antd pro or bizchart, may remove it in the future
+        if the root cause is found.
+    */
+    return <div key={spec.uuid}>
+        { renderElements(spec.content || [], dispatch, passDown) }
+        { spec.content!.length == 1 ? <span style={{opacity: 0}}>-</span> : undefined }
+    </div>
 }
 
 elementComponentRegistry['Tabs'] = ({ spec, dispatch, passDown }:ElementProps) => {

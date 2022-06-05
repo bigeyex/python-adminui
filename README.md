@@ -123,6 +123,7 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 1.4.8: customer colors in charts (thanks harry3689's pr #56), fixes #52 and #51
 - 1.4.7: fixes placeholder text on login, labels in ModelForms; added badge for tables
 - 1.4.6: render links in table columns
 - 1.4.5: icon, Notification types, custom favicon

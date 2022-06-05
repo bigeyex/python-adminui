@@ -82,7 +82,7 @@ elementComponentRegistry['Icon'] = ({ spec }:ElementProps) => {
 }
 
 elementComponentRegistry['Group'] = ({ spec, dispatch, passDown }:ElementProps) => {
-    return <div key={spec.uuid}>{ renderElements(spec.content || [], dispatch, passDown) }</div>
+    return <div key={spec.uuid}><Fragment>{ renderElements(spec.content || [], dispatch, passDown) }</Fragment></div>
 }
 
 elementComponentRegistry['Tabs'] = ({ spec, dispatch, passDown }:ElementProps) => {

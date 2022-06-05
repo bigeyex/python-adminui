@@ -69,16 +69,14 @@ class DataTablePart extends Component<ElementProps> {
             spec.columns = spec.columns.map((column) => {
                 if (column.linkTo) {
                     return {
-                        title: column.title,
-                        dataIndex: column.dataIndex,
+                        ...column,
                         render: (text:string, record:any) => {
                             return <a href={record[column.linkTo]}>{text}</a>
                         }
                     }
                 } else if (column.status) {
                     return {
-                        title: column.title,
-                        dataIndex: column.dataIndex,
+                        ...column,
                         render: (text:string, record:any) => {
                             return <Badge status={record[column.status]} text={text} />;
                         }

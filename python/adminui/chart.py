@@ -7,10 +7,11 @@ class BarChart(Element):
         data: the data shown on the chart. It can be: 
             a) an array like [2, 3, 4, 5]
             b) a dict of series, like { 'series1': [2, 3, 4, 5], 'series2': [6, 7, 8, 9] }
-        lables: labels corresponding to the data. Must be to the same length of the data
+        labels: labels corresponding to the data. Must be to the same length of the data
             e.g. ['a', 'b', 'c', 'd']
         show_axis: True for displaying the x and y axis, labels and markers
         height: the height of the chart
+        color: color as a string if data is a list else an array of colors
     """
     def __init__(self, data=[], labels=None, show_axis=True, height=300, color=None, columns=['x', 'y'], stack=False, id=None):
         if labels is None:  # only for compatability with old data format. Will be removed at 2.0.0
@@ -25,13 +26,15 @@ class LineChart(Element):
         data: the data shown on the chart. It can be: 
             a) an array like [2, 3, 4, 5]
             b) a dict of series, like { 'series1': [2, 3, 4, 5], 'series2': [6, 7, 8, 9] }
-        lables: labels corresponding to the data. Must be to the same length of the data
+        labels: labels corresponding to the data. Must be to the same length of the data
             e.g. ['a', 'b', 'c', 'd']
         show_axis: True for displaying the x and y axis, labels and markers
         show_line: False for hiding the line, if you wish to make a pure-area chart
         show_area: True then the area below the line will be filled
         smooth: True then the line will be smoothed out
         height: the height of the chart
+        line_color: line color as a string if data is a list else an array of colors
+        area_color: area color as a string if data is a list else an array of colors
     """
     def __init__(self, data=[], labels=None, show_axis=True, show_line=True, show_area=False, smooth=True, height=300, 
                         line_color=None, area_color=None, columns=['x', 'y'], id=None):

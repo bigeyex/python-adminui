@@ -44,6 +44,7 @@ Features:
    customization
    static_files
    other_components
+   organize_app
 
 Indices and tables
 ==================

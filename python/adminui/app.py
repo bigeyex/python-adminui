@@ -97,7 +97,10 @@ class ErrorResponse(Element):
 
 class AdminApp:
     SECRET = "admin ui super &*#*$ secret"
-    """Create an AdminUI App"""
+    _shared_app = None
+    def shared_app():
+        return AdminApp._shared_app
+
     def __init__(self, upload_folder=None, use_fastapi=False):
         self.app_title = 'Admin UI App'
         self.copyright_text = 'Professional UI with Python'
@@ -124,6 +127,9 @@ class AdminApp:
             self.init_fastapi_app()
         else:
             self.init_flask_app()
+
+    def set_as_shared_app(self):
+        AdminApp._shared_app = self
 
     def page(self, url, name, auth_needed=None):
         """Decorator: register a AdminUI Page

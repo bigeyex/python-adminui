@@ -1,6 +1,6 @@
 import { ElementProps, elementComponentRegistry } from '@/models/page';
 import React from  "react"
-import { Progress, Spin, Empty, Result } from 'antd';
+import { Progress, Spin, Empty, Result, Popconfirm } from 'antd';
 import renderElements from './element';
 import { ResultStatusType } from 'antd/lib/result';
 
@@ -29,4 +29,22 @@ elementComponentRegistry['Result'] = ({spec, dispatch, passDown}) => (
             >
         { renderElements(spec.content!, dispatch, passDown) }
     </Result>
+)
+
+elementComponentRegistry['Popconfirm'] = ({spec, dispatch, passDown}) => (
+    <Popconfirm 
+        title={spec.title} 
+        onConfirm={(e)=>{ if('on_submit' in spec) dispatch({
+            type: 'page/submitAction',
+            payload: {
+                action: 'on_submit',
+                cb_uuid: spec.on_submit,
+                args: [ spec.data ]
+            }
+        }); }}
+        okText={spec.style.ok_text}
+        cancelText={spec.style.cancel_text}
+    >
+        { renderElements(spec.content!, dispatch, passDown) }
+    </Popconfirm>
 )

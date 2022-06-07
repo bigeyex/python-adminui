@@ -1,4 +1,5 @@
 from .element import Element
+from .app import callbackRegistry
 
 class Progress(Element):
     """A little piece of text with a title and a value, used to display a field in a record
@@ -46,3 +47,13 @@ class Result(Element):
     """
     def __init__(self, title=None, status='success', sub_title=None, content=[], extra=[], id=None):
         super().__init__('Result', title=title, status=status, subTitle=sub_title, content=content, extra=extra, id=id)
+
+class Popconfirm(Element):
+    """Before the user perform an action, ask him/her to confirm twice.
+    
+    Args:
+
+    """
+    def __init__(self, title=None, content=[], on_submit=None, ok_text='Yes', cancel_text='No', data=None, id=None):
+        on_submit_uuid = callbackRegistry.uuid_for_callback(on_submit)
+        super().__init__('Popconfirm', title=title, content=content, on_submit=on_submit_uuid, style={ok_text: ok_text, cancel_text:cancel_text}, data=data, id=id)

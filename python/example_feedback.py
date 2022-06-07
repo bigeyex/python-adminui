@@ -16,7 +16,9 @@ def form_page():
     return [
         Card(content=[
             Empty(content=[
-                Button('Reload', style='primary')
+                Popconfirm('Are you sure to reload?', on_submit=on_submit, ok_text='Reload', cancel_text='Cancel', data='button 1', content=[
+                    Button('Reload', style='primary')
+                ]),
             ]),
             Empty('hello empty', simple_style=True),
             Group([

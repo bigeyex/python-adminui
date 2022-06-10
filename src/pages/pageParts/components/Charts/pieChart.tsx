@@ -12,9 +12,21 @@ export interface PieChartProps {
     height?: number;
 }
 
+const styles ={
+    mainTitle:{
+      fontSize:20,
+      color:"black",
+      margin: "auto",
+      "padding-left": 52,
+      "padding-bottom": 20,
+      "box-sizing": "border-box"
+    }
+}    
+    
 export interface PieChartStyle {
     height: number;
     columns?: string[];
+    title: string;
   }
   
 
@@ -34,6 +46,11 @@ const PieChart: React.FC<PieChartProps> = props => {
           forceFit
           height={chartStyle.height}
         >
+        <h3 className='main-title' style={styles.mainTitle}>
+          <center>
+            {chartStyle.title}
+          </center>
+        </h3>
           <Coord type="theta"/>
           <Tooltip showTitle={false} />
           <Geom

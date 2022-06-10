@@ -51,12 +51,13 @@ class PieChart(Element):
     Args:
         data: the data shown on the chart. 
             e.g. an array like [2, 3, 4, 5]
-        lables: labels corresponding to the data. Must be to the same length of the data
+        labels: labels corresponding to the data. Must be to the same length of the data
             e.g. ['a', 'b', 'c', 'd']
         height: the height of the chart
+        title: the title of the chart
     """
-    def __init__(self, data=[], labels=None, height=300, color=None, id=None):
-        super().__init__('PieChart', data=data, labels=labels, style={'height': height, 'color': color}, id=id)
+    def __init__(self, data=[], labels=None, height=300, color=None, title=None, id=None):
+        super().__init__('PieChart', data=data, labels=labels, style={'height': height, 'color': color, 'title': title}, id=id)
 
 class ScatterPlot(Element):
     """Create a bar chart

@@ -1,6 +1,6 @@
 import { ElementProps, elementComponentRegistry } from '@/models/page';
 import React from  "react"
-import { Progress, Spin, Empty, Result, Popconfirm } from 'antd';
+import { Progress, Spin, Empty, Result, Popconfirm, Tooltip } from 'antd';
 import renderElements from './element';
 import { ResultStatusType } from 'antd/lib/result';
 
@@ -47,4 +47,13 @@ elementComponentRegistry['Popconfirm'] = ({spec, dispatch, passDown}) => (
     >
         { renderElements(spec.content!, dispatch, passDown) }
     </Popconfirm>
+)
+
+elementComponentRegistry['Tooltip'] = ({spec, dispatch, passDown}) => (
+    <Tooltip 
+        title={spec.title} 
+        placement={spec.style.placement}
+    >
+        { renderElements(spec.content!, dispatch, passDown) }
+    </Tooltip>
 )

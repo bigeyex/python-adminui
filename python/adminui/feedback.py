@@ -52,8 +52,24 @@ class Popconfirm(Element):
     """Before the user perform an action, ask him/her to confirm twice.
     
     Args:
-
+        title: the text shown on the pop confirm box
+        content: the enclosed content, which shows the Popconfirm when clicked
+        on_submit: (func) callback after user clicked 'ok'
+        ok_text: text shown on the OK button
+        cancel_text: text shown on the Cancel button
+        data: data which will passed as the parameter to the callback
     """
     def __init__(self, title=None, content=[], on_submit=None, ok_text='Yes', cancel_text='No', data=None, id=None):
         on_submit_uuid = callbackRegistry.uuid_for_callback(on_submit)
         super().__init__('Popconfirm', title=title, content=content, on_submit=on_submit_uuid, style={ok_text: ok_text, cancel_text:cancel_text}, data=data, id=id)
+
+class Tooltip(Element):
+    """Show a tooltip when the user moves the mouse upon its content
+    
+    Args:
+        title: the text shown on the tooltip
+        content: the content, which will show the tooltip when the mouse is on it
+        placement: one of top | left | right | bottom | topLeft | topRight | bottomLeft | bottomRight | leftTop | leftBottom | rightTop | rightBottom
+    """
+    def __init__(self, title=None, content=[], placement='top', id=None):
+        super().__init__('Tooltip', title=title, content=content, style={'placement': placement}, id=id)

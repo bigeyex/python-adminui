@@ -123,6 +123,7 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 1.5.0: Tooltip and pie chart title (pr #57 by harry3689)
 - 1.4.9: [shared app](https://python-adminui.readthedocs.io/en/latest/organize_app.html) for project structuring; adding Popconfirm
 - 1.4.8: customer colors in charts (thanks harry3689's pr #56), fixes #52 and #51
 - 1.4.7: fixes placeholder text on login, labels in ModelForms; added badge for tables

@@ -22,7 +22,9 @@ def form_page():
             ]),
             Empty('hello empty', simple_style=True),
             Group([
-                Icon('sync', spin=True),
+                Tooltip('Data is syncing', [
+                    Icon('sync', spin=True),
+                ]),
             ]),
             Result('The program runs successfully', sub_title='Subtitle is successful too', 
                 content=[Paragraph('I have to say it is a success')], extra=[Button('Go Again', style='primary')]

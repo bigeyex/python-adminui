@@ -114,3 +114,37 @@ Display the result of an operation::
 
 .. autoclass:: adminui.Result
    :members:
+
+Popconfirm
+************
+
+.. image:: images/other/popconfirm.jpg
+    
+Let the user confirm before performing an action::
+
+    Popconfirm('Are you sure to do something?', on_submit=on_submit, content=[
+        ... put adminui elements here, which will trigger the confirm box when clicked ...
+    ], data=CUSTOM_DATA)
+
+note that ``CUSTOM_DATA`` may be passed to the ``on_submit`` callback, when the user choose YES
+in the confirm box.
+
+You may customize the OK and Cancel button of the pop confirm box by setting ``ok_text`` and 
+``cancel_text`` of the element
+
+.. autoclass:: adminui.Popconfirm
+   :members:
+
+Tooltip
+************
+
+.. image:: images/other/tooltip.jpg
+
+Display a tooltip when the mouse is hovering some elements::
+
+    Tooltip('Text on the tooltip', [
+        ... content which will trigger the tooltip when hovered ...
+    ])
+
+.. autoclass:: adminui.Tooltip
+   :members:

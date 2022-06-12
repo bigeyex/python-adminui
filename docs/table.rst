@@ -199,6 +199,14 @@ You may choose from ``'default' | 'middle' | 'small'``::
 
     DataTable(..., size='small')
 
+Scroll X for the table
+**************************************
+
+setting the ``scroll_x`` and ``scroll_y`` attributes for ``DataTable``, 
+will let scroll bar show up when the table is too long. Useful 
+for tables with many columns or rows::
+
+    DataTable(..., scroll_x=1000)
 
 A complete example of table is listed here
 https://github.com/bigeyex/python-adminui/blob/master/python/example_table.py

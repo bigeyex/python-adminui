@@ -207,6 +207,11 @@ class DataTablePart extends Component<ElementProps> {
             }
         }
 
+        let scroll:{x?:any, y?:any} = {}
+        if (spec.style.scrollX) {
+            scroll.x = spec.style.scrollX;
+            scroll.y = spec.style.scrollY;
+        }
         
         return (
             <div className={styles.tableList}>
@@ -223,6 +228,7 @@ class DataTablePart extends Component<ElementProps> {
                     onChange={this.handleStandardTableChange}
                     size={spec.style.size}
                     loading={this.state.loading}
+                    scroll={scroll}
                 />
           </div>
         )

@@ -123,6 +123,7 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 
 # Release log for early preview
 
+- 1.5.1: Scroll x/y for DataTable, reset some css within RawHTML
 - 1.5.0: Tooltip and pie chart title (pr #57 by harry3689)
 - 1.4.9: [shared app](https://python-adminui.readthedocs.io/en/latest/organize_app.html) for project structuring; adding Popconfirm
 - 1.4.8: customer colors in charts (thanks harry3689's pr #56), fixes #52 and #51
@@ -136,9 +137,3 @@ The Python backend is located in `/python/adminui`. It is Flask based. There are
 - 1.4.0: new chart api(old ones still work), supports pie chart and progress bar/circle
 - 1.3.0: allow serving additional static folders and multiple parameters
 - 1.2.3: allow changing footer text, footer links and logo
-- 1.2.2: fix #36 #37 #38
-- 1.2.1: fix a bug with page actions in DataTable (#33) and corrected header 1 font size issue (#29)
-- 1.2.0: add filter form to tables; add model dialog (see python/example_form.py for a full example)
-- 1.1.0: add Radio buttons and filter/sortable feature of DataTables
-- 1.0.0: add FastApi support
-- 0.3.9: fix color issue in charts

@@ -66,8 +66,8 @@ class DataTable(Element):
         size: size of the table (default | middle | small)
     """
     def __init__(self, title="", columns=[], data=[], row_actions=[],
-            table_actions=[], filter_form=None, on_data=None, size='default', id=None):
+            table_actions=[], filter_form=None, on_data=None, size='default', scroll_x=None, scroll_y=None, id=None):
         on_data_uuid = callbackRegistry.uuid_for_callback(on_data)
         super().__init__('DataTable', title=title, columns=columns, data=data,
-            row_actions=row_actions, table_actions=table_actions, filter_form=filter_form, style={'size':size}, on_data=on_data_uuid, id=id)
+            row_actions=row_actions, table_actions=table_actions, filter_form=filter_form, style={'size':size, 'scrollX': scroll_x, 'scrollY': scroll_y}, on_data=on_data_uuid, id=id)
 

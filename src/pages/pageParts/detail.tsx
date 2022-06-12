@@ -62,6 +62,6 @@ elementComponentRegistry['Span'] = ({ spec }:ElementProps) => {
 }
 
 export const RawHTMLPart = ({ spec }:ElementProps) => {
-    return <div dangerouslySetInnerHTML={{__html:spec.text || ''}} key={spec.uuid}></div>
+    return <div dangerouslySetInnerHTML={{__html:spec.text || ''}} key={spec.uuid} className="raw-html"></div>
 }
 elementComponentRegistry['RawHTML'] = RawHTMLPart

@@ -39,13 +39,20 @@ class FormPart extends Component<FormPartProps> {
         e.preventDefault();
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-            dispatch({
-                type: 'page/submitAction',
-                payload: {
-                    cb_uuid: spec.on_submit,
-                    args: [ values ]
+                // preprocessing submited data
+                for (let k of Object.keys(values)) {
+                    // if non of the files in a Upload component has done uploading, pass 'undefined' to the Uplaod Field
+                    if (values[k] && values[k].file && (!values[k].fileList.some((file:any) => file.status=='done'))) {
+                        delete values[k];
+                    }
                 }
-            });
+                dispatch({
+                    type: 'page/submitAction',
+                    payload: {
+                        cb_uuid: spec.on_submit,
+                        args: [ values ]
+                    }
+                });
             }
         });
     };

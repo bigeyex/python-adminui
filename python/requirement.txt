@@ -1,3 +1,4 @@
 python-multipart==0.0.5
 PyJWT==2.3.0
 aioflask==0.4.0
+asgiref==3.5.2

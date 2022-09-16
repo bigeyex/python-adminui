@@ -20,11 +20,11 @@ def form_page():
 app.set_menu(
     [
         MenuItem('Home', '/', icon="dashboard", children=[
-            MenuItem('New Item', '/new', icon="plus"),
-            MenuItem('Search for Item', '/search', icon="search"),
-            MenuItem('Admin', '/admin', icon="setting")
+            MenuItem('New Item', '/new/', icon="plus"),
+            MenuItem('Search for Item', '/search/', icon="search"),
+            MenuItem('Admin', '/admin/', icon="setting")
         ]),
-        MenuItem('About', '/about', icon="info-circle")
+        MenuItem('About', '/about/', icon="info-circle")
     ]
 )
 

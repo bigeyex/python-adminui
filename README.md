@@ -121,8 +121,9 @@ The front-end is based on the amazing [Ant Design Pro](https://pro.ant.design/do
 
 The Python backend is located in `/python/adminui`. It is Flask based. There are some examples in the `/python` folder.
 
-# Release log for early preview
+# Release log 
 
+- 1.5.2: Merge PR #72 and fixed asynio problem in Windows
 - 1.5.1: Scroll x/y for DataTable, reset some css within RawHTML
 - 1.5.0: Tooltip and pie chart title (pr #57 by harry3689)
 - 1.4.9: [shared app](https://python-adminui.readthedocs.io/en/latest/organize_app.html) for project structuring; adding Popconfirm

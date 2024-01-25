@@ -9,6 +9,12 @@ from inspect import signature
 from .page import Page
 from .element import Element
 
+import platform
+import asyncio
+
+if platform.system() == 'Windows':
+   asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
 class CallbackRegistryType:
     uuid_callback_map = {}
     callback_uuid_map = {}

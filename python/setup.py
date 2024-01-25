@@ -29,7 +29,7 @@ setuptools.setup(
         'h11==0.13.0',
         'importlib-metadata==4.12.0',
         'itsdangerous==2.1.2',
-        'Jinja2==3.1.2',
+        'Jinja2==3.1.3',
         'MarkupSafe==2.1.1',
         'PyJWT==2.3.0',
         'python-multipart==0.0.5',

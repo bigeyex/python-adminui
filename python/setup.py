@@ -35,7 +35,7 @@ setuptools.setup(
         'python-multipart==0.0.5',
         'six==1.16.0',
         'uvicorn==0.18.0',
-        'Werkzeug==2.1.2',
+        'Werkzeug==2.3.8',
         'zipp==3.8.1'
     ],
     include_package_data = True,

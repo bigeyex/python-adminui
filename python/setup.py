@@ -32,7 +32,7 @@ setuptools.setup(
         'Jinja2==3.1.2',
         'MarkupSafe==2.1.1',
         'PyJWT==2.3.0',
-        'python-multipart==0.0.5',
+        'python-multipart==0.0.7',
         'six==1.16.0',
         'uvicorn==0.18.0',
         'Werkzeug==2.1.2',
